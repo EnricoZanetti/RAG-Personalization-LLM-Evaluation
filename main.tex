@@ -1,140 +1,183 @@
-\documentclass[12pt]{article}
+\section{WISE: a Case Study}
 
-% Packages
-\usepackage{hyperref}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage[utf8]{inputenc}
-\usepackage{natbib}
-\usepackage{lipsum} % for generating filler text
-
-\title{RAG-based Personalization and LLMs Evaluation for AI Chatbots}
-\author{Enrico Zanetti}
-\date{%
-    University of Trento\\[2ex]%
-    \today
-}
-
-\begin{document}
-
-\maketitle
-
-\begin{abstract}
-This thesis analyzes the evolving landscape of chatbot personalization and evaluation, focusing on the main technology: Large Language Models (LLMs). The study begins with an introductory overview of the existing fields of application of chatbots, within the realms of healthcare, education, customer support, finance, and business, and presents an overview of chatbot personalization. It delves into the Transformer architecture’s core elements and examines LLM training processes, including pre-training and fine-tuning, as well as innovative prompt-based learning methods. The study highlights the enhancement of information retrieval through the Retrieval Augmented Generation (RAG) Framework and presents state-of-the-art models like GPT-4 and Claude 3 comparing their performance, limitations and challenges.
-\newline
-Moreover, the study addresses the transition from rule-based to LLM-based chatbots and the critical role of system evaluation, introducing a case study on WISE, a proprietary chatbot of HPA based on LLM that leverages RAG technology to retrieve documents information. As part of my internship project, a LLM Evaluator implemented for WISE is introduced, illustrating the workflow, metrics, methodologies, and proposed future enhancements. Additionally, the thesis delves into the ethical and regulatory framework in AI. Finally, key findings are summarized and are presented suggesting directions for future research in chatbot technology.
-\end{abstract}
-
-\section*{Disclaimer}
-\textit{The current index, title, and list of references are temporary and subject to modification; they introduce the general topic and main scope of the research. This document will be updated with respect to the changes during the work.}
-
-\tableofcontents
-\newpage
-
-\section{Introduction}
 \subsection{Introduction}
 
-\subsection{Related Work}
-Review of related work focusing on LLM-based chatbots in healthcare, education, customer-support, finance, business.
+In this chapter, we analyze a case study focusing on WISE, a proprietary chatbot developed by HPA (High Performance Analytics). WISE leverages the Retrieval-Augmented Generation (RAG) framework to enhance its information retrieval capabilities, providing a sophisticated and efficient solution for various applications.
 
-\subsection{Chatbot personalization}
-Evolution of chatbot personalization. Previous methods: Example-Based Dialogue Management (EBDM) and ML-based approaches for personality prediction.
+High Performance Analytics (HPA) is a spin-off from the University of Verona and the AI Competence Center (AICC) of Terranova. Since its inception in 2017, HPA has been dedicated to designing and developing bespoke Artificial Intelligence solutions for small and medium-sized enterprises (SMEs) as well as large corporations. The company prides itself on the motto "Math to Innovate," which underscores the profound mathematical expertise accumulated from over two decades of academic research.
 
-\section{Methodology}
-\subsection{Large Language Models (LLMs)}
-Introduction and brief history of LLMs.
+With six years of experience in the industry, HPA boasts a highly qualified team of experts and has developed proprietary techniques that set it apart in the field of AI. Over the years, the company has successfully completed more than 30 projects, showcasing its capability and commitment to delivering high-quality AI solutions.
 
-\subsection{The Transformer architecture}
-Description of the Transformer architecture including its core elements: tokenization, positional encoding, self-attention mechanism, Multi-head attention, feed-forward Neural Networks, Add and norm step, Residual connection (add), Layer normalization (norm), Encoder and decoder stacks, Final linear and softmax layer.
+HPA specializes in various application fields, including but not limited to:
 
-\subsection{Model Size}
-Importance of model size and review of parameter size of AI Neural Networks over the past decades.
+\begin{itemize}
+    \item \textbf{Predictive analysis:} Utilizing advanced algorithms to forecast future events and trends based on historical data. WISE analyzes past data to predict future outcomes, helping businesses make informed decisions. This capability is crucial for demand forecasting, risk assessment, and strategic planning across various industries.
 
-\subsection{Training Process}
-Explanation of the training process, divided into three key parts: Pre-training, Fine-tuning, and Prompt-based Learning.
+    \item \textbf{Anomaly detection:} Identifying unusual patterns that do not conform to expected behavior within datasets. WISE can monitor data in real-time to detect anomalies, such as fraud detection in finance, fault detection in manufacturing, and network security breaches. By quickly identifying these irregularities, WISE helps mitigate risks and prevent potential issues.
 
-\subsubsection{Pre-training}
-Pre-training methods in transformer-based LLMs.
+    \item \textbf{Image recognition:} Developing systems that can accurately interpret and process visual data. WISE's image recognition capabilities enable it to analyze and understand visual content, making it useful for tasks such as quality inspection in manufacturing, medical imaging analysis in healthcare, and automated surveillance in security systems.
 
-\subsubsection{Next-token and Multi-token prediction}
-Note: start reading @gloeckle2024better \newline
-Overview of next-token prediction and a novel methodology to train LLMs: multi-token prediction, an improvement over next-token prediction in training language models for generative or reasoning tasks. 
+    \item \textbf{Generative AI and NLP:} Creating AI models that can generate human-like text and perform natural language processing tasks. WISE can understand and generate natural language, making it valuable for applications such as automated customer support, content creation, and language translation. Its generative AI models can produce coherent and contextually appropriate text, enhancing communication and content generation processes.
 
-\subsection{Fine-tuning}
-Scope and techniques.
+    \item \textbf{Combinatorial optimization:} Solving complex optimization problems that involve finding the best combination of elements from a large set. WISE excels in optimizing complex problems, such as scheduling, resource allocation, and supply chain optimization. By efficiently finding the optimal solutions, WISE helps organizations reduce costs, improve efficiency, and achieve better outcomes.
+\end{itemize}
 
-\subsubsection{LoRA: Low-Rank Adaptation}
-The Low-Rank Adaptation (LoRA) technique reduces the number of trainable parameters by using a matrix rank decomposition.
+HPA's innovative solutions are applied across a diverse range of industries, including:
 
-\subsubsection{Prompt-based Learning}
-Zero-Shot and Few-Shot Learning, Chain-of-Thought Reasoning
+\subsection{Industry Applications of WISE}
 
-\subsection{Augmented LLMs}
-Review of recent literature on incorporating external knowledge into task-oriented dialogue systems.
+WISE has been successfully implemented across various industries, providing valuable support in multiple domains. The following are some of the key industries where WISE has made a significant impact:
 
-\subsubsection{Retrieval Augmented Generation Framework}
-Description of the retriever, generator, training, and decoding.
+\begin{itemize}
+    \item \textbf{Energy and Utility:} Enhancing efficiency and reliability in energy production and distribution. WISE assists in managing and analyzing large volumes of data related to energy consumption, production metrics, and distribution networks. By providing real-time insights and predictive analytics, WISE helps utility companies optimize their operations, reduce wastage, and improve overall system reliability.
 
-\subsection{Evaluating Large Language Model (LLM) systems}
-Assessing applications powered by Large Language Models (LLMs) holds pivotal importance in our technological landscape. These evaluations not only gauge performance but also address the myriad of challenges we endeavor to overcome (bias, overfitting, hallucination, attribution, staleness, revisions, accuracy on retrieving information).
+    \item \textbf{Transport and Logistics:} Optimizing operations and logistics to improve service delivery and reduce costs. In the transport and logistics sector, WISE supports route optimization, fleet management, and supply chain coordination. By analyzing traffic patterns, shipment data, and logistical parameters, WISE helps companies streamline their operations, ensuring timely deliveries and reducing operational costs.
 
-\subsubsection{Illustrations and Approaches}
+    \item \textbf{Manufacturing:} Implementing AI-driven solutions to streamline manufacturing processes and improve product quality. WISE aids in predictive maintenance, quality control, and process optimization within manufacturing plants. By continuously monitoring machinery and production lines, WISE can predict potential failures, suggest maintenance schedules, and ensure that products meet quality standards, thereby enhancing productivity and reducing downtime.
 
-From the innovative OpenAI Evals platform to pioneering concepts like LLM-as-a-Judge, the spectrum of evaluation techniques continues to evolve. Additionally, emerging methodologies such as adversarial testing and bias analysis contribute to a comprehensive understanding of LLM capabilities and limitations.
+    \item \textbf{Security:} Developing advanced security systems to protect assets and data. WISE is employed in creating sophisticated security protocols, monitoring systems, and threat detection mechanisms. By analyzing patterns and anomalies in security data, WISE can identify potential threats, enhance surveillance capabilities, and ensure the protection of physical and digital assets.
 
-\subsection{State-of-the-art Models}
-Selection of state-of-the-art LLMs (GPT-4o, Claude 3.5, Gemini Pro, Mistral, Meta Llama 3,...) to compare their differences in performance, architecture, accessibility and cost for developing question-answering chatbot systems.
-
-\subsubsection{Challenges and limitations}
-Discussion on cost, carbon footprint and energy consumption and privacy concerns.
-
-\subsubsection{Beyond Transformers: the Mamba LLM Architecture}
-Discover the power of Mamba LLM, a transformative architecture from leading universities, redefining sequence processing in AI.
-
-\section{Experiments}
-\subsection{WISE: a Case Study}
-\subsubsection{Introduction}
+    \item \textbf{Payments:} Enhancing transaction security and efficiency in the financial sector. In the payments industry, WISE is used to detect fraudulent activities, streamline transaction processes, and ensure compliance with regulatory standards. By analyzing transaction data and user behavior, WISE provides robust security measures, reduces the risk of fraud, and improves the overall efficiency of financial transactions.
+\end{itemize}
 
 
-Overview of WISE, implementation, architecture, practical applications, position in the market.
+In the following sections, we will delve deeper into the WISE chatbot, exploring its design, implementation, and the benefits it brings to the organization and its clients.
 
-\subsubsection{Architecture}
+\subsection{Introducing WISE: Transforming Document Management}
+
+For decades, the process of searching and consulting documents and manuals in companies has followed the same paradigm. This traditional method involves identifying keywords, clicking on each link, opening documents, and finally selecting and gathering the information of interest. This workflow is not only long and repetitive but also highly inefficient, consuming valuable time and resources.
+
+WISE revolutionizes document management by leveraging Generative Artificial Intelligence. Through the use of large language models (LLMs) integrated within a proprietary workflow, WISE enables users to perform complex natural language searches across multiple sources and entire databases. 
+
+When a question is posed, WISE efficiently queries the relevant documents and data, extracts the pertinent information, and provides a response within seconds. The answers are delivered in a text and conversational format, mimicking the interaction one would have with an expert colleague. 
+
+WISE stands out as a Virtual Assistant that is always available, secure, reliable, and knowledgeable, significantly simplifying and accelerating the document management process.
+
+\subsection{WISE Functionality and Data Access}
+
+WISE operates through a series of systematic steps that ensure efficient and accurate information retrieval. The following steps outline the core functionality of WISE:
+
+\begin{enumerate}
+    \item The company uploads documents that form the knowledge base (manuals, regulations, circulars, etc.) into WISE.
+    \item The user asks a question in natural language as if conversing with a colleague.
+    \item WISE provides the best possible answer within seconds, citing available sources. If the user requests more details, WISE remembers the conversation and contextualizes the new request.
+    \item WISE can be easily integrated into the company website and can connect to databases and enterprise systems (ERP, CRM) via APIs and custom connectors.
+\end{enumerate}
+
+\subsection{Comprehensive Access to Documents and Data}
+
+Only 35\% of the data within a company is available to management. Dashboards and reports are often outdated, and analysts struggle to meet user requests. WISE provides a single point of access to the entire corporate knowledge base, ensuring accurate and up-to-date answers.
+
+\begin{itemize}
+    \item \textbf{Multilingual by design:} WISE supports multiple languages, making it accessible to a global workforce. This capability ensures that users from different linguistic backgrounds can interact with the system effortlessly. By handling foreign language conversations transparently, WISE facilitates seamless communication and data retrieval across multinational corporations.
+    
+    \item \textbf{Supports structured and unstructured databases:} WISE can handle various types of data formats, providing flexibility and comprehensive search capabilities. Whether the data is organized in structured formats such as SQL databases or in unstructured forms like text documents and emails, WISE can efficiently process and retrieve relevant information. This versatility makes it an indispensable tool for organizations with diverse data storage systems.
+    
+    \item \textbf{Two-factor authentication (2FA) or corporate single sign-on (SSO):} Ensures secure access to the system. Two-factor authentication adds an extra layer of security by requiring users to provide two forms of identification before accessing the system. Corporate single sign-on allows employees to log in with their existing corporate credentials, simplifying the authentication process while maintaining high security standards.
+    
+    \item \textbf{Supports images and videos:} Users can query multimedia content, enhancing the scope of information retrieval. This feature allows WISE to process and understand visual data, making it possible to search and retrieve information from images, diagrams, and video content. It is particularly useful in industries such as manufacturing and security, where visual data is critical.
+    
+    \item \textbf{Response rating:} Users can rate the responses provided by WISE, facilitating continuous improvement. This feedback mechanism helps in refining the AI models and improving the accuracy and relevance of the information provided. It ensures that WISE evolves based on user interactions and feedback, leading to enhanced performance over time.
+    
+    \item \textbf{Support for spreadsheets (XLS):} WISE can interpret and retrieve information from spreadsheet files. This capability is crucial for organizations that rely on spreadsheets for data management and reporting. WISE can read, process, and extract relevant information from complex Excel files, providing users with quick and accurate data access.
+    
+    \item \textbf{Automatic summaries, comparison, and inconsistency checks between documents:} WISE can generate concise summaries, compare documents, and identify inconsistencies. This feature saves users significant time by automatically creating summaries of long documents, highlighting key points, and identifying discrepancies between different documents. It enhances the user's ability to quickly understand and utilize the information.
+    
+    \item \textbf{Automatic text generation (manuals, contracts, articles) from databases:} WISE can create various textual documents based on the data it accesses. This includes generating user manuals, contracts, articles, and other documentation, ensuring that all generated content is consistent with the latest data and company standards. It streamlines the documentation process, reducing the workload on human employees.
+    
+    \item \textbf{Uses triggers and actions for process automation:} Enhances workflow automation by responding to specific triggers with predefined actions. For example, WISE can automatically send notifications, update records, or initiate workflows based on user queries or changes in the data. This automation capability improves operational efficiency and reduces the potential for human error.
+    
+    \item \textbf{Integration with enterprise systems (CRM, ERP):} WISE seamlessly integrates with other enterprise systems, enhancing its utility and reach. By connecting with Customer Relationship Management (CRM) and Enterprise Resource Planning (ERP) systems, WISE can access and leverage data across various business functions. This integration ensures that users have a comprehensive view of the organization's data and processes, facilitating informed decision-making.
+\end{itemize}
+
+\section{WISE Functionality and Data Access}
+
+\subsection{How WISE Works}
+
+WISE operates through a series of systematic steps that ensure efficient and accurate information retrieval. The following steps outline the core functionality of WISE:
+
+\begin{enumerate}
+    \item The company uploads documents that form the knowledge base (manuals, regulations, circulars, etc.) into WISE.
+    \item The user asks a question in natural language as if conversing with a colleague.
+    \item WISE provides the best possible answer within seconds, citing available sources. If the user requests more details, WISE remembers the conversation and contextualizes the new request.
+    \item WISE can be easily integrated into the company website and can connect to databases and enterprise systems (ERP, CRM) via APIs and custom connectors.
+\end{enumerate}
+
+\subsection{Comprehensive Access to Documents and Data}
+
+Only 35\% of the data within a company is available to management. Dashboards and reports are often outdated, and analysts struggle to meet user requests. WISE provides a single point of access to the entire corporate knowledge base, ensuring accurate and up-to-date answers.
+
+\begin{itemize}
+    \item \textbf{Multilingual by design:} WISE supports multiple languages, making it accessible to a global workforce.
+    \item \textbf{Supports structured and unstructured databases:} WISE can handle various types of data formats, providing flexibility and comprehensive search capabilities.
+    \item \textbf{Two-factor authentication (2FA) or corporate single sign-on (SSO):} Ensures secure access to the system.
+    \item \textbf{Supports images and videos:} Users can query multimedia content, enhancing the scope of information retrieval.
+    \item \textbf{Response rating:} Users can rate the responses provided by WISE, facilitating continuous improvement.
+    \item \textbf{Support for spreadsheets (XLS):} WISE can interpret and retrieve information from spreadsheet files.
+    \item \textbf{Automatic summaries, comparison, and inconsistency checks between documents:} WISE can generate concise summaries, compare documents, and identify inconsistencies.
+    \item \textbf{Automatic text generation (manuals, contracts, articles) from databases:} WISE can create various textual documents based on the data it accesses.
+    \item \textbf{Uses triggers and actions for process automation:} Enhances workflow automation by responding to specific triggers with predefined actions.
+    \item \textbf{Integration with enterprise systems (CRM, ERP):} WISE seamlessly integrates with other enterprise systems, enhancing its utility and reach.
+\end{itemize}
+
+\subsection{Advanced User Interface}
+
+WISE offers multiple interaction modes to cater to various user preferences and needs:
+
+\begin{itemize}
+    \item \textbf{Classic conversational interface (chat):} Allows users to interact with WISE through a text-based chat interface.
+    \item \textbf{Voice interface (speech-to-text):} Enables users to communicate with WISE using their voice, which is converted to text for processing.
+    \item \textbf{Avatar (text-to-speech):} Provides an engaging and interactive experience by converting text responses into speech, represented by an avatar.
+\end{itemize}
+
+\subsection{Advantages of WISE}
+
+WISE offers several key advantages that make it an invaluable tool for businesses:
+
+\begin{itemize}
+    \item \textbf{Multilingual by Design:} Thanks to the power and versatility of the AI models used, WISE handles foreign language conversations transparently.
+    \item \textbf{No Hallucinations:} Only deterministic, accurate, and consistent answers. WISE bases its knowledge solely on official company-provided documents.
+    \item \textbf{Always Up-to-Date:} With automatic procedures for document updating and formatting, WISE always accesses the latest version of documents.
+    \item \textbf{Data and Access Security:} Data is encrypted. Access to documents is managed through security policies at group and user levels, potentially integrable with corporate SSO.
+    \item \textbf{Efficiency and Scalability 24/7:} WISE handles thousands of requests in seconds and is always available. The pay-per-use model ensures maximum flexibility and scalability.
+    \item \textbf{Rapid Implementation:} The cloud architecture, based on APIs and agnostic regarding the LLM used, guarantees reduced implementation times.
+\end{itemize}
+
+\subsection{Industry References}
+
+WISE has been successfully implemented across various industries, providing valuable support in multiple domains:
+
+\begin{itemize}
+    \item \textbf{Insurance:} Support for telephone operators in customer assistance.
+    \item \textbf{Banks:} Support for financial advisors in proposing optimal investment plans. Support for branch operators in customer assistance.
+    \item \textbf{Energy:} Support for customers in requesting information on consumption data reported on invoices. Support for energy managers in consulting consumption data.
+    \item \textbf{Manufacturing:} Support for maintenance operators in accessing technical product manuals.
+\end{itemize}
+
+
+\subsection{Architecture}
 Description of the architecture, including the components involved in its operation, such as the LLM model, retrieval mechanism, natural language understanding (NLU), natural language generation (NLG), and any other relevant modules.
 
-\subsubsection{Implementation}
+\subsection{Implementation}
 Discussion of the technical implementation of WISE, including the technologies and frameworks used, data preprocessing steps, model training procedures, and integration with external systems or databases.
 
-\subsubsection{Case Studies}
+\subsection{Case Studies}
 Real-world examples demonstrating the chatbot’s utility and effectiveness in solving users’ problems.
 
-\subsubsection{Future Enhancements}
+\subsection{Future Enhancements}
 Discussion of potential areas for improvement or future development of the chatbot, including new features, optimizations, or expansions into additional domains or languages.
 
-\subsection{HPA LLM Evaluator}
+\section{HPA LLM Evaluator}
 Presentation of my internship project: the LLM Evaluator for WISE. Workflow, metrics and methodologies, limitations and future improvements.
 
-\subsubsection{Metrics and Methodologies}
+\subsection{Metrics and Methodologies}
 Description of metrics and methodologies used within the LLM Evaluator: Similarity Score, RAGAS, Reasoning (via prompt engineering), Subjectivity.
 
-\subsubsection{Tests and results}
+\subsection{Tests and results}
 Overview of personalized prompts used for the evaluator and the experiments with different metrics. Visualization of the results.
 
-\subsubsection{Limitations}
+\subsection{Limitations}
 Discussion on limitations of the LLM evaluator.
 
-\subsubsection{Future Work}
+\subsection{Future Work}
 Further improvements and exploration.
-
-\section{Ethics and Regulations}
-Ethical and societal considerations in AI development, challenges in regulating AI, global and continental collaboration on AI regulation: focus on the AI Act.
-
-\section{Conclusion}
-The thesis concludes by summarizing the key findings.
-
-\newpage
-
-\nocite{*}
-\bibliographystyle{plain}
-\bibliography{mybibliography}
-
-\end{document}
