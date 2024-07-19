@@ -1,0 +1,69 @@
+% generali
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[svgnames]{xcolor}
+\usepackage{comment}
+\usepackage{setspace}
+\usepackage{appendix}
+\usepackage{lipsum}     %testo di prova (si può cancellare una volta iniziato a scrivere)
+
+%\usepackage[9-15]{pagesel}
+% attenzione: la filigrana in prima pagina ha opacità massima con questa opzione attivata
+% non mettendo la prima pagina comunque appare draft in background
+
+%matematica
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{physics}
+\usepackage{braket}
+
+% prima pagina
+\usepackage{frontespizio}
+\usepackage{tikz}
+\usepackage[pages=some]{background}
+
+% linea sopra le pagine
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RO]{\rightmark}
+\fancyfoot[LE,RO]{\thepage}
+
+
+% bibliografia
+\usepackage{natbib}
+
+% abstract
+\newenvironment{abstract}%
+    {\cleardoublepage%
+        \thispagestyle{empty}%
+        \null \vfill\begin{center}%
+            \bfseries \abstractname \end{center}}%
+        {\vfill\null}
+
+% indice analitico
+\usepackage{imakeidx}
+\makeindex
+
+% simboli e notazioni 
+\usepackage{nomencl}
+\makenomenclature
+
+%da caricare come ultimo pacchetto per evitare problemi
+\usepackage{glossaries}
+\makeglossaries
+\newglossaryentry{set}{name={set},description={a collection of objects}}
+\newglossaryentry{due}{name={second},description={second example}}
+\newglossaryentry{emptyset}{name={\ensuremath{\emptyset}},description={the empty set}}
+\longnewglossaryentry{fishage}{name={Fish Age}}{
+    A common name for the Devonian geologic period spanning from the end of the Silurian Period to the beginning of the Carboniferous Period.
+    
+    This age was known for its remarkable variety of fish species.
+}
+\newglossaryentry{elite}{name={{é}lite},description={select group or class}}
+
