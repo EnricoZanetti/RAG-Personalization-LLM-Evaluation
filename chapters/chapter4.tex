@@ -45,9 +45,6 @@ WISE operates through a series of systematic steps that ensure efficient and acc
     \label{fig:wise-chat-ux}
 \end{figure}
 
-
-\subsection{Comprehensive Access to Documents and Data}
-
 Only 35\% of the data within a company is available to management. Dashboards and reports are often outdated, and analysts struggle to meet user requests. WISE addresses these challenges by providing a single point of access to the entire corporate knowledge base, ensuring accurate and up-to-date answers. The following features highlight the comprehensive capabilities of WISE:
 
 \begin{itemize}
@@ -71,8 +68,6 @@ Only 35\% of the data within a company is available to management. Dashboards an
     
     \item \textbf{Integration with enterprise systems (CRM, ERP):} WISE seamlessly integrates with other enterprise systems, enhancing its utility and reach. By connecting with Customer Relationship Management (CRM) and Enterprise Resource Planning (ERP) systems, WISE can access and leverage data across various business functions. This integration ensures that users have a comprehensive view of the organization's data and processes, facilitating informed decision-making.
 \end{itemize}
-
-\subsection{Advanced User Interface}
 
 WISE offers multiple interaction modes to cater to various user preferences and needs:
 
@@ -101,7 +96,7 @@ WISE offers several key advantages that make it an invaluable tool for businesse
 \end{itemize}
 
 
-\section{Industry Applications}
+\subsection{Industry Applications}
 
 WISE and its underlying technologies, including NLP and Generative AI, have a wide range of applications across various industries. The following sections highlight some of the key areas where WISE provides significant benefits:
 
@@ -118,7 +113,7 @@ WISE and its underlying technologies, including NLP and Generative AI, have a wi
 
 In summary, WISE offers versatile solutions across multiple industries, improving operational efficiency, customer satisfaction, and regulatory compliance. \cite{hpa2024}
 
-\section{WISE Technology Stack}
+\subsection{WISE Technology Stack}
 
 The WISE technology stack integrates various components to provide a robust and efficient system for document management and information retrieval. Figure \ref{fig:wise-stack} illustrates the key elements of the WISE stack.
 
@@ -129,9 +124,7 @@ The WISE technology stack integrates various components to provide a robust and 
     \label{fig:wise-stack}
 \end{figure}
 
-\subsection{Overview of the Technology Stack}
-
-The WISE technology stack is designed to be flexible, scalable, and efficient, leveraging the power of large language models and robust backend infrastructure. The key components include:
+Designed to be flexible, scalable, and efficient, the WISE technology stack leverages the power of LLMs and robust backend infrastructure. The key components include:
 
 \begin{itemize}
     \item \textbf{Large Language Model Integration:} WISE integrates with large language models (LLMs) such as GPT-3.5-turbo and GPT-4-turbo via Azure API, and Bard and PaLM2 via GCP API. This allows WISE to utilize advanced AI capabilities for natural language understanding and generation. The system is agnostic to the specific LLM used, providing flexibility in choosing the most appropriate model for different tasks.
@@ -151,8 +144,53 @@ The WISE technology stack is designed to be flexible, scalable, and efficient, l
 This comprehensive technology stack enables WISE to deliver high-performance document management and information retrieval services, ensuring scalability, security, and flexibility to meet the diverse needs of various industries. \cite{hpa2024}
 
 
-\section{HPA LLM Evaluator}
-Presentation of my internship project: the LLM Evaluator for WISE. Workflow, metrics and methodologies, limitations and future improvements.
+\section{HPA LLM-Evaluator}
+
+The HPA LLM-Evaluator is an evaluation system designed and developed during my internship at HPA in the spring of 2024 to evaluate the performance of chatbot-based applications leveraging Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) technology. The primary objective was to create a comprehensive framework for evaluating WISE, with the goal of improving its capabilities and accuracy in information retrieval and response generation. This project involved several steps, including initial setup, literature review, implementation of evaluation metrics, and extensive testing.
+
+\subsection{Methodology and Implementation}
+
+The LLM Evaluator was built using the “LLM-as-a-Judge” methodology \cite{zheng2024judging}, an innovative approach in AI research that employs LLMs to evaluate the performance of another AI. This technique involves the use of LLMs to examine the responses of the AI assistant against human-generated responses. The original prompt used by Zheng et al. (2024) for reference-guided comparison was adapted as shown in Figure \ref{fig:llme-prompt}. The adapted prompt instructs the LLM to act as an impartial judge, compare the AI's response with a reference answer, provide reasoning and corrections, rate the response, and suggest improvements if necessary, ensuring that WISE responses adhere to high standards of information retrieval and interaction quality
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/llme/llme-prompt.png}
+    \caption{The evaluation prompt used in the LLM Evaluator, adapted from the methodology presented by Zheng et al. (2024)}
+    \label{fig:llme-prompt}
+\end{figure}
+
+GPT-4, recognized as the most advanced LLM available at the time, was chosen for this evaluation role. Its superior understanding and generative capabilities made it extremely effective in simulating human-like evaluative judgments and producing nuanced feedback. This comprehensive evaluation strategy, combining direct comparison with generative reasoning and statistical analysis, ensures a robust and thorough evaluation of the chatbot's capabilities.
+
+Following a thorough literature review, the architecture of the evaluation system was designed to incorporate a versatile range of metrics to comprehensively assess different dimensions of model performance. The key evaluation metrics used in the system were integrated from the Retrieval Augmented Generation Assessment (RAGAS) framework \cite{es2023ragas}:
+
+\begin{itemize}
+    \item \textbf{Answer Correctness:} Evaluates the accuracy of the assistant's responses against the reference answers.
+    \item \textbf{Faithfulness:} Assesses whether the information provided by the assistant is factually correct and aligns with the source content.
+    \item \textbf{Context Recall:} Measures the extent to which the assistant's response includes relevant information from the provided context.
+    \item \textbf{Context Precision:} Evaluates the proportion of relevant information in the assistant's response relative to the context.
+    \item \textbf{Harmfulness:} Assesses whether the response contains any harmful content.
+    \item \textbf{Maliciousness:} Evaluates the potential for the assistant's response to be used in a malicious manner.
+    \item \textbf{Coherence:} Measures the logical flow and understandability of the response.
+    \item \textbf{Conciseness:} Evaluates the brevity and directness of the response, ensuring it is free from unnecessary information.
+\end{itemize}
+
+Additionally, the Similarity Score metric was implemented to compute similarity scores between reference texts and predictions using embeddings from OpenAI's models. This method quantifies textual similarity through cosine similarity scores, providing a quantitative measure of how closely the generated text matches the reference material. It is a crucial tool for validating the semantic accuracy of generated texts. Integrating this score was essential to provide a quantitative evaluation metric, complementing the other LLM-based metrics.
+
+\subsection{Testing and Visualization}
+
+Each module, from basic metrics to more complex evaluation algorithms, has undergone extensive testing. Advanced features such as context management and probability-based metrics were incorporated to address nuanced aspects of model performance, including contextual relevance and predicted text probability distributions.
+
+The results have been visualized in a user-friendly manner, implementing graphical representations of performance metrics using bar charts and tables. Output formats have been refined to ensure clarity and accessibility. Comprehensive documentation was created to explain the use of each component of the system, facilitating future development and understanding.
+
+\textbf{**inserisci LLME visualization**}
+
+\subsection{Creation of a Python Package}
+
+The project culminated in the creation of a proprietary Python package that encapsulates the LLM evaluation pipeline. This package automates the evaluation process, ensuring accessibility and ease of use for future evaluations. It enables the HPA to consistently apply rigorous standards to the evaluation of the AI Assistant, WISE and other AI-based solutions, improving the scalability of AI deployment strategies.
+
+\subsection{Final Assessment and Satisfaction}
+
+HPA's LLM-Evaluator provides a comprehensive and robust framework for evaluating chatbot performance, leveraging advanced methodologies and metrics to ensure high standards of information retrieval and interaction quality. Incorporating sophisticated evaluation techniques and an easy-to-use visualization, the system enhances HPA's ability to evaluate and improve its AI-based solutions, ensuring continuous development and deployment of high-quality AI applications.
 
 \subsection{Metrics and Methodologies}
 Description of metrics and methodologies used within the LLM Evaluator: Similarity Score, RAGAS, Reasoning (via prompt engineering), Subjectivity.
