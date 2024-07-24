@@ -150,7 +150,7 @@ The HPA LLM-Evaluator is an evaluation system designed and developed during my i
 
 \subsection{Methodology and Implementation}
 
-The LLM Evaluator was built using the “LLM-as-a-Judge” methodology \cite{zheng2024judging}, an innovative approach in AI research that employs LLMs to evaluate the performance of another AI. This technique involves the use of LLMs to examine the responses of the AI assistant against human-generated responses. The original prompt used by Zheng et al. (2024) for reference-guided comparison was adapted as shown in Figure \ref{fig:llme-prompt}. The adapted prompt instructs the LLM to act as an impartial judge, compare the AI's response with a reference answer, provide reasoning and corrections, rate the response, and suggest improvements if necessary, ensuring that WISE responses adhere to high standards of information retrieval and interaction quality
+The LLM Evaluator was built using the “LLM-as-a-Judge” methodology \cite{zheng2024judging}, an innovative approach in AI research that employs LLMs to evaluate the performance of another AI. This technique involves the use of LLMs to examine the responses of the AI assistant against human-generated responses. The original prompt used by Zheng et al. (2024) for reference-guided comparison was adapted as shown in Figure \ref{fig:llme-prompt}. The adapted prompt instructs the LLM to act as an impartial judge, compare the AI's response with a reference answer, provide reasoning and corrections, rate the response, and suggest improvements if necessary, ensuring that WISE responses adhere to high standards of information retrieval and interaction quality.
 
 \begin{figure}[h!]
     \centering
@@ -159,7 +159,7 @@ The LLM Evaluator was built using the “LLM-as-a-Judge” methodology \cite{zhe
     \label{fig:llme-prompt}
 \end{figure}
 
-GPT-4, recognized as the most advanced LLM available at the time, was chosen for this evaluation role. Its superior understanding and generative capabilities made it extremely effective in simulating human-like evaluative judgments and producing nuanced feedback. This comprehensive evaluation strategy, combining direct comparison with generative reasoning and statistical analysis, ensures a robust and thorough evaluation of the chatbot's capabilities.
+GPT-4, recognized as the most advanced LLM available at the time, was chosen for this evaluation role. Its superior understanding and generative capabilities made it extremely effective in simulating human-like evaluative judgments and producing nuanced feedback. Furthermore, the LLM Evaluator was designed to allow the selection of different models for evaluation, providing flexibility in assessing the chatbot's performance using various LLMs.
 
 Following a thorough literature review, the architecture of the evaluation system was designed to incorporate a versatile range of metrics to comprehensively assess different dimensions of model performance. The key evaluation metrics used in the system were integrated from the Retrieval Augmented Generation Assessment (RAGAS) framework \cite{es2023ragas}:
 
@@ -176,13 +176,44 @@ Following a thorough literature review, the architecture of the evaluation syste
 
 Additionally, the Similarity Score metric was implemented to compute similarity scores between reference texts and predictions using embeddings from OpenAI's models. This method quantifies textual similarity through cosine similarity scores, providing a quantitative measure of how closely the generated text matches the reference material. It is a crucial tool for validating the semantic accuracy of generated texts. Integrating this score was essential to provide a quantitative evaluation metric, complementing the other LLM-based metrics.
 
+To enhance the evaluation further, subjectivity, polarity, and sentiment analysis were also implemented. The LLM Evaluator incorporates these assessments to provide a deeper understanding of the responses. Using the TextBlob library, the system evaluates the subjectivity (a measure of personal opinion, emotion, or judgment) and polarity (a measure of sentiment orientation from negative to positive) of text entries. Additionally, the langdetect library ensures that these evaluations are only applied to texts detected as English, guaranteeing the accuracy of the sentiment analysis. This addition helps in understanding the emotional and subjective tone of the AI-generated responses, adding another layer of qualitative analysis to the overall evaluation framework.
+
 \subsection{Testing and Visualization}
 
 Each module, from basic metrics to more complex evaluation algorithms, has undergone extensive testing. Advanced features such as context management and probability-based metrics were incorporated to address nuanced aspects of model performance, including contextual relevance and predicted text probability distributions.
 
 The results have been visualized in a user-friendly manner, implementing graphical representations of performance metrics using bar charts and tables. Output formats have been refined to ensure clarity and accessibility. Comprehensive documentation was created to explain the use of each component of the system, facilitating future development and understanding.
 
-\textbf{**inserisci LLME visualization**}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/llme/llm-performance-average-metrics.png}
+    \caption{Evaluation Report: This chart displays the average scores for numeric metrics such as similarity score, reasoning rating, answer correctness, faithfulness, coherence, conciseness, harmfulness, maliciousness, context recall, and context precision. The visualization provides an overview of the model's performance across different dimensions, highlighting areas where the AI excels and areas that may require improvement.}
+    \label{fig:llm-performance-average-metrics}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/llme/metrics-comparison.png}
+    \caption{Metrics Comparison: This graph compares various performance metrics for each instance. The metrics include similarity score, reasoning rating, answer correctness, and faithfulness. The comparison helps in understanding the consistency of the model's performance across different instances and provides insights into specific cases where the AI's performance may vary significantly.}
+    \label{fig:metrics-comparison}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/llme/assistant-performance-table-2.png}
+    \caption{Assistant Performance Table: This table provides a detailed breakdown of the performance metrics for each instance. It includes the question, reference answer, AI prediction, similarity score, correctness, faithfulness, coherence, conciseness, harmfulness, maliciousness, context recall, context precision, subjectivity, polarity, and sentiment analysis. The table helps in identifying strengths and weaknesses in the AI responses, facilitating a comprehensive evaluation of the model's performance.}
+    \label{fig:assistant-performance-table}
+\end{figure}
+
+The visualizations presented in Figures \ref{fig:llm-performance-average-metrics}, \ref{fig:metrics-comparison} and \ref{fig:assistant-performance-table} provide a comprehensive overview of the AI model's performance.
+
+Figure \ref{fig:llm-performance-average-metrics} presents the average scores for key numeric metrics, giving a high-level summary of the model's overall performance. This visualization helps in quickly identifying which areas the model performs well in (such as coherence and conciseness) and which areas need further improvement (like answer correctness and context precision).
+
+Figure \ref{fig:metrics-comparison} shows a detailed comparison of metrics across different instances. This graph is useful for evaluating the consistency of the AI's performance and for identifying specific instances where the model's performance deviates significantly from the average. Such insights are valuable for targeted improvements and for understanding the conditions under which the model performs best.
+
+Figure \ref{fig:assistant-performance-table} offers a detailed breakdown of each instance, highlighting various performance metrics. This table is instrumental in pinpointing specific areas where the AI's responses are strong or weak. For instance, metrics like similarity score and answer correctness are crucial for assessing the factual accuracy and relevance of the AI's responses.
+
+Together, these visualizations provide a robust framework for evaluating the performance of the LLM, ensuring that it meets the high standards required for effective information retrieval and interaction quality.
 
 \subsection{Creation of a Python Package}
 
