@@ -1,8 +1,231 @@
-\section{Large Language Models (LLMs)}
-Introduction and brief history of LLMs.
+\section{Large Language Models}
 
-\section{The Transformer Architecture}
-Description of the Transformer architecture including its core elements: tokenization, positional encoding, self-attention mechanism, Multi-head attention, feed-forward Neural Networks, Add and norm step, Residual connection (add), Layer normalization (norm), Encoder and decoder stacks, Final linear and softmax layer.
+When we talk about Large Language Models (LLMs), we refer to advanced software designed to communicate in a human-like manner. These models possess the remarkable ability to understand complex contexts and generate consistent, human-like content. If you have ever interacted with a chatbot or AI virtual assistant, you may have used an LLM without realizing it. LLMs are used in various applications such as text generation, machine translation, sentiment analysis and document summarization, among others. They have become an essential part of the artificial intelligence (AI) landscape, and this section delves into their history and evolution.
+
+LLMs refer to large, general-purpose language processing models that are pre-trained on large data sets to learn the fundamental structures and semantics of human language. The term “large” indicates both the significant amount of data needed for training and the billions or even trillions of parameters these models contain. Pre-training enables LLMs to handle common language tasks such as text classification, question answering and document summarization. After pre-training, these models are typically fine-tuned to smaller, specialized datasets for specific domains, improving their accuracy and efficiency. \cite{researchgraph2024}
+
+\subsection{Evolution of Large Language Models}
+
+\subsubsection{Early Days: Chatbots and Rule-Based Systems (1960s)}
+
+The journey of LLMs began in the 1960s with ELIZA, an early natural language processing computer program created by Joseph Weizenbaum \cite{weizenbaum1966eliza}. ELIZA was able to simulate a conversation by searching for key words and using programmed responses. Following ELIZA, SHRDLU, developed by Terry Winograd in the early 1970s \cite{winograd1972understanding}, was an advanced program capable of understanding and manipulating a virtual block world through natural language commands. This marked a significant step toward machine understanding of context and intentions.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/llms/llms-history.png}
+    \caption{Timeline of Large Language Models (LLMs) development. \textit{Source:} \cite{AnalyticsVidhya2023}}
+    \label{fig:llms-history}
+\end{figure}
+
+\subsubsection{Rise of Recurrent Neural Networks (1980s)}
+
+In the late 20th century, recurrent neural networks (RNNs), inspired by the interconnected neurons of the human brain, were born. Introduced in 1986, RNNs gained popularity for their ability to remember previous inputs and process sequential data, making them suitable for natural language processing (NLP) tasks. However, RNNs have had limitations with long sentences, often suffering from the gradient vanishing problem \cite{elman1990finding}.
+
+\subsubsection{Rise of Long Short-Term Memory (1990s)}
+
+Long short-term memory (LSTM), a specialized type of RNNs, was introduced in 1997 to address the limitations of RNNs. LSTMs are capable of remembering information over long sequences, overcoming the short-term memory limitations of RNNs. Their unique architecture, with input, forgetting and output gates, allowed LSTMs to retain relevant information in memory, making them more efficient for capturing long-term dependencies in sentences \cite{hochreiter1997long}.
+
+\subsubsection{Gated Recurrent Units (2010s)}
+
+In 2014, Gated Recurrent Units (GRUs) were introduced to solve problems similar to LSTMs, but with a simpler structure. GRUs use only two ports: an update port and a reset port, making them more computationally efficient, while maintaining the long-term dependencies in the sentences \cite{cho2014learning}.
+
+\subsubsection{Rise of Attention Mechanism (2014)}
+
+The introduction of the attention mechanism in 2014 marked a paradigm shift in sequence modeling. Unlike RNNs, which process sentences with a context vector of fixed size, attention mechanisms allowed models to dynamically select relevant parts of the source sequence, ensuring that crucial information was not lost, especially in longer sequences.
+
+\subsubsection{The Invention of Transformers Architecture (2017)}
+
+Transformers, introduced in 2017 by Vaswani et al. in the paper “Attention is All You Need” \cite{vaswani2017attention}, relied on an attention mechanism to process sequences. The processors featured an encoder-decoder architecture with multiple layers of self-attention and feed-forward neural networks. The multi-headed attention mechanism allowed the processors to simultaneously focus on different parts of the input sentence, capturing various contextual nuances. Transformers could also process sequences in parallel, rather than sequentially, leading to the development of sophisticated LLMs such as BERT and GPT.
+
+\subsubsection{Emergence of Large Language Models (2018-Onwards)}
+
+With the success of transformers, scaling these models became the next logical step. Google's BERT model, released in 2018, processed text bidirectionally, setting new performance standards in various benchmarks \cite{devlin2018bert}. OpenAI's GPT-2, released in 2019, and GPT-3 in 2020, demonstrated the capabilities of generative models in performing a wide range of tasks \cite{radford2019language}. OpenAI continued to advance the GPT series with GPT-3.5 in 2022 and GPT-4 in 2023. ChatGPT, based on GPT-3.5, became the fastest growing consumer application in history after its release in November 2022.
+
+Other major players in the technology industry and academia have also contributed to the development of LLMs. Google's PaLM (Pathways Language Model) was released in March 2023, followed by PaLM 2 in May 2023 \cite{chowdhery2023palm}. In December 2023, Google unveiled Gemini, a multimodal model capable of processing different forms of information. Meta AI released the LLaMA (Large Language Model Meta AI) series in 2023, offering open-source models for research and commercial use \cite{touvron2023llama}. Anthropic introduced the Claude series in 2023, prioritizing the universal benefits and security of AI \cite{anthropic2024claude}.
+
+\subsubsection{Conclusion}
+
+The evolution of language models from simple rule-based systems to complex intelligence models means significant progress in AI technology. Today, large language models (LLMs) are more than just tools for improving text-based applications; they are increasingly capable of understanding and communicating with humans. Moreover, multimodal LLMs are able to handle not only text, but also images and sounds, integrating various forms of data to comprehensively understand and analyze different contexts. These models are transforming the way we interact with technology, making it more accessible and responsive to human needs. In essence, LLMs are becoming powerful partners for humans, helping us tackle multiple tasks and simplifying our lives in various ways. \cite{researchgraph2024}
+
+\section{Transformer Architecture}
+
+One of the main breakthroughs in language modeling, which lies at the core of all modern state-of-the-art LLMs, was the introduction of the transformer architecture and the mechanism of self-attention in 2017. This advancement was presented in the seminal paper "Attention is All You Need" by Vaswani et al. \cite{vaswani2017attention}. The transformer architecture revolutionized natural language processing (NLP) by enabling models to capture long-range dependencies more efficiently than previous architectures.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/llms/transformer-architecture.png}
+    \caption{The general architecture of the transformer, composed of an encoder and a decoder. The encoder takes the input sequence and converts it into continuous representations, while the decoder generates the output sequence from these representations. \textit{Source:} \cite{vaswani2017attention}}
+    \label{fig:transformer-architecture}
+\end{figure}
+
+The self-attention mechanism is a pivotal component of the transformer. It enables models to weigh the importance of different elements in a sequence by measuring the similarity between elements and determining how much attention each element should give to others. This mechanism allows the model to capture intricate relationships and dependencies across the entire input sequence, enhancing its ability to understand and generate coherent and context-aware outputs. In NLP, the self-attention mechanism effectively models relationships between all words in a sentence, facilitating better comprehension and generation of text.
+
+At its core, the transformer architecture leverages self-attention mechanisms to process input sequences. Unlike traditional sequential models, the transformer processes all elements in a sequence simultaneously, allowing it to handle long-range dependencies efficiently. The architecture employs an encoder-decoder structure, with the encoder specializing in input representation and the decoder responsible for generating output.
+
+The encoder in the transformer architecture takes the input sequence and converts it into a series of continuous representations. Each layer in the encoder consists of a multi-head self-attention mechanism followed by a position-wise fully connected feed-forward network. This structure allows the encoder to capture various aspects of the input sequence, making it highly effective at understanding context.
+
+The decoder, on the other hand, generates the output sequence from the continuous representations provided by the encoder. Like the encoder, each layer in the decoder also includes a multi-head self-attention mechanism and a feed-forward network. Additionally, the decoder incorporates an encoder-decoder attention mechanism that helps it focus on relevant parts of the input sequence while generating the output. This attention mechanism ensures that the output sequence is contextually aligned with the input sequence.
+
+The transformer architecture is highly parallelizable, making it computationally efficient and capable of handling input sequences of varying lengths. Its ability to process all elements in a sequence simultaneously, rather than sequentially, significantly reduces the training time for large datasets. This parallelism, combined with the effectiveness of the self-attention mechanism, has made the transformer the foundation for state-of-the-art models in machine translation, text generation, and many other NLP tasks.
+
+In summary, the transformer architecture, with its self-attention mechanism, has transformed the field of NLP. It has provided the foundation for many advanced language models by offering a more efficient and effective way to capture long-range dependencies in text. As illustrated in Figure \ref{fig:transformer-architecture}, the general architecture of the transformer consists of an encoder and a decoder, with each component playing a crucial role in processing and generating sequences. The transformative impact of this architecture continues to drive advancements in NLP and AI. The key elements of this architecture, such as positional encoding, multi-head attention, feed-forward neural networks, add \& norm steps, residual connections, layer normalization, and the final linear and softmax layers, will be further explained in subsequent sections to provide a more detailed understanding of these components.
+
+\subsubsection{Positional Encoding}
+
+In the transformer architecture, the order of tokens in a sequence is not inherently captured since the model processes all tokens in parallel. To ensure that the model can consider the order or position of tokens in its computations, positional encodings are added to the input encodings.
+
+The original transformer paper by Vaswani et al. \cite{vaswani2017attention} introduced sinusoidal positional encodings. The idea is to produce unique encodings for each position that can be added to the token embeddings, enabling the model to distinguish the position of each token in a sequence. For position \( p \) and dimension \( i \), the positional encoding is calculated as:
+
+\begin{equation}
+    PE(p, 2i) = \sin\left(\frac{p}{10000^{2i/d}}\right)
+\end{equation}
+
+\begin{equation}
+    PE(p, 2i + 1) = \cos\left(\frac{p}{10000^{2i/d}}\right)
+\end{equation}
+
+where \( d \) is the dimensionality of the embeddings. These sinusoidal functions ensure that the positional encodings are distinct and can provide a relative sense of position, which can be leveraged by the attention mechanisms.
+
+In more recent LLMs, positional encoding is implemented using learned encodings instead of sinusoidal encodings \cite{jin2023growlength}. In this learned approach, the positional encodings are parameters in the model, initialized randomly and learned during the training process just like token encodings. The dimension of the learned position encodings vector is thus connected to the maximum sequence length that the model can take as input. For example, the BERT \cite{devlin2018bert} model uses a positional encoding dimension of \( 768 \times 512 \), which restricts BERT to inputs no greater than 512 tokens. This fixed maximum input length is a primary disadvantage of learned positional encodings. However, they can adapt during training, allowing the model to potentially learn positional representations that are better suited to the specificities of the training data, whereas sinusoidal encodings are not learnable and cannot be adjusted to better suit the training data.
+
+In summary, positional encodings are a crucial component of the transformer architecture that allows the model to incorporate the order of tokens in a sequence. While the original sinusoidal positional encodings provide a fixed and non-trainable way to capture position, learned positional encodings offer flexibility and adaptability at the cost of a fixed maximum input length.
+
+\subsubsection{Self-Attention Mechanism}
+
+The self-attention mechanism is a fundamental component of the transformer architecture that allows a model to consider other words in the input when encoding a particular word. This capability is crucial for understanding the context and relationships between words in a sequence. During training, the model learns the weights given to each word.
+
+Given an input sequence \( X \) with tokens \( x_1, x_2, \ldots, x_n \), each token is transformed into three vectors:
+\begin{itemize}
+    \item \textbf{Query (Q):} Represents the token in question.
+    \item \textbf{Key (K):} Represents all tokens that we compare against.
+    \item \textbf{Value (V):} Contains the information of the tokens.
+\end{itemize}
+
+These vectors are derived from the embeddings of the input tokens through learned weight matrices \( W_Q \), \( W_K \), and \( W_V \). For each token, the self-attention mechanism involves the following steps:
+
+\begin{enumerate}
+    \item \textbf{Calculate attention scores:} This is done by taking the dot product of the Query vector with the Key vectors of all tokens.
+    \begin{equation}
+        \text{score}(Q, K) = Q \cdot K^T
+    \end{equation}
+    
+    \item \textbf{Softmax normalization:} The scores are scaled down (usually by dividing by the square root of the depth of the Key vectors, \( \sqrt{d_k} \)) and passed through a softmax function to obtain the attention weights.
+    \begin{equation}
+        \text{Attention}(Q, K) = \text{softmax}\left(\frac{Q \cdot K^T}{\sqrt{d_k}}\right)
+    \end{equation}
+    
+    \item \textbf{Calculate output:} The attention weights are used to take a weighted sum of the Value vectors, giving the context-aware representation of the token.
+    \begin{equation}
+        \text{Output} = \text{Attention}(Q, K) \cdot V
+    \end{equation}
+\end{enumerate}
+
+The self-attention mechanism allows the model to weigh the importance of different elements in the sequence dynamically. By measuring the similarity between elements and determining how much attention each element should give to others, the model can capture intricate relationships and dependencies across the entire input sequence. This enhances its ability to understand and generate coherent and context-aware outputs. 
+
+In NLP, the self-attention mechanism effectively models relationships between all words in a sentence, facilitating better comprehension and generation of text. This mechanism is a cornerstone of modern state-of-the-art language models and is integral to their success in various NLP tasks. The key elements of this mechanism, such as multi-head attention, will be further elaborated upon later in this thesis.
+
+\subsubsection{Multi-Head Attention}
+
+The concept of multi-head attention is an enhancement to the basic self-attention mechanism, allowing the model to capture different aspects of the input data more effectively. Instead of performing self-attention once, the transformer architecture executes it multiple times in parallel. This parallel execution involves multiple sets of weight matrices, enabling the model to learn different representations of the input data.
+
+In multi-head attention, instead of a single set of weight matrices \( W_Q \), \( W_K \), and \( W_V \), there are \( h \) sets for \( h \) heads. Each head independently performs self-attention and produces an output. These outputs from all heads are then concatenated and passed through a linear transformation using a learned weight matrix \( W_O \) to produce the final output of the multi-head attention layer. The process can be summarized with the following equation:
+
+\begin{equation}
+    \text{MultiHeadOutput} = \text{Concat}(\text{head}_1, \text{head}_2, \ldots, \text{head}_h) \cdot W_O
+\end{equation}
+
+The learned weight matrix \( W_O \), like other parameters in neural networks, is optimized during the training process. For models like GPT-4, these weight matrices (and other parameters) are learned through optimization on a massive corpus of training data during the initial pre-training phase.
+
+The primary advantage of multi-head attention is that different heads can learn to focus on different parts or aspects of the input data. For instance, in processing a sentence, one head might focus on the grammatical structure, another on the semantics, and yet another on the tone or sentiment. This parallel attention mechanism allows the model to capture a richer and more diverse set of relationships within the input data, leading to more nuanced and accurate outputs.
+
+The effectiveness of multi-head attention lies in its ability to provide multiple perspectives on the same input sequence, thus enhancing the model's ability to understand and generate complex language constructs. This mechanism, along with the other components of the transformer architecture, has significantly advanced the field of natural language processing, enabling the development of powerful language models capable of performing a wide range of tasks with high accuracy and efficiency. 
+
+The detailed workings and benefits of multi-head attention will be further explained in later sections of this thesis, covering aspects such as its implementation in the transformer architecture and its impact on model performance.
+
+\subsubsection{Feed-Forward Neural Networks}
+
+In the transformer architecture, after the multi-head attention mechanism processes the input, each position in the input sequence is independently passed through a feed-forward neural network (FFNN). This network is identical for each position, which means that the same weights and biases are applied regardless of the position in the sequence.
+
+The FFNN within the transformer consists of two linear transformations with a ReLU activation function between them:
+
+\begin{itemize}
+    \item \textbf{First Linear Layer}: The input is first multiplied by a weight matrix \( W_1 \) and then a bias \( b_1 \) is added. This produces a transformed version of the input.
+    \item \textbf{ReLU Activation}: The output of the first linear layer is then passed through a ReLU (Rectified Linear Unit) activation function. The ReLU function is defined as:
+    \begin{equation}
+        \text{ReLU}(x) = \max(0, x)
+    \end{equation}
+    This introduces non-linearity into the model, allowing it to capture more complex patterns in the data.
+    \item \textbf{Second Linear Layer}: The activated output is passed through another linear layer by multiplying it with a weight matrix \( W_2 \) and adding a bias \( b_2 \). This produces the final output of the FFNN.
+\end{itemize}
+
+Given an input \( x \), the FFNN can be represented as:
+\begin{equation}
+    \text{FFN}(x) = \text{ReLU}(x \cdot W_1 + b_1) \cdot W_2 + b_2
+\end{equation}
+
+Where:
+\begin{itemize}
+    \item \( x \) is the input to the FFNN.
+    \item \( W_1 \) and \( W_2 \) are weight matrices.
+    \item \( b_1 \) and \( b_2 \) are bias vectors.
+\end{itemize}
+
+All of \( W_1 \), \( W_2 \), \( b_1 \), and \( b_2 \) are learnable parameters, optimized during (pre-)training.
+
+While the multi-head attention mechanism allows the model to focus on different parts of the input sequence, the FFNN further transforms this attended output. It can be considered as an additional layer of abstraction or transformation of the data. The combination of attention and feed-forward mechanisms enables the transformer model to handle a wide range of sequence transduction tasks, for example in NLP tasks like text summarization, named entity recognition, or question-answering.
+
+The key elements of the feed-forward network and their detailed functionality will be further explained in later sections of this thesis.
+
+\subsubsection{Add \& Norm Step}
+
+After the multi-head attention and FFNN operations in the transformer architecture, the output is passed through the add \& norm step. This step provides the model with the ability to learn in a stable and efficient way, while at the same time having the capability to be stacked into very deep (multilayered) architectures, like those seen in many state-of-the-art models. The add \& norm step consists of two main components: the residual connection and layer normalization.
+
+\subsubsection{Residual Connection (Add)}
+
+The residual (or "skip") connection layer provides a shortcut that allows the input of a sub-layer to be added directly to its output. This allows the network to learn identity functions, meaning that if the most optimal action for a particular layer is to leave the input unchanged, the network can achieve this through the residual connection layer. The weights of the sublayer can be pushed towards zero, making its output negligible, and thus \(\text{SubLayer}(X) \approx 0\). When this is added to the original input \(X\) through the residual connection, the result is approximately \(X\), achieving the identity mapping. This mechanism not only improves the performance of the model but also enhances training stability. Mathematically, this can be represented as:
+
+\begin{equation}
+    Z = X + \text{SubLayer}(X)
+\end{equation}
+
+Where:
+\begin{itemize}
+    \item \(X\) is the input to the sublayer.
+    \item \(\text{SubLayer}(X)\) represents the transformations applied by the sublayer to the input \(X\).
+    \item \(Z\) is the final output after the residual connection.
+\end{itemize}
+
+The residual connections are directly related to mitigating the well-known vanishing gradient problem. In deep neural networks, especially those with many layers, the gradients can become extremely small as they are propagated backward through the network during training. This causes the earlier layers of the network to receive very small gradient updates, making them learn very slowly or sometimes not at all. In residual connection layers, the gradient can flow directly through the addition operation without any attenuation. As a result, even layers deep in the network receive meaningful gradient updates, largely resolving the vanishing gradient problem. 
+
+\subsubsection{Layer Normalization (Norm)}
+
+Following the residual connection, the transformer applies layer normalization that standardizes the activations (or outputs) of each feature that passed through the multi-head attention layers and FFNNs earlier. Based on their calculated mean and variance, the activations are standardized to a consistent scale with a mean of zero and a standard deviation of one. Such normalization ensures uniformity in the scale of the activations, independent of the layer or input in the transformer.
+
+Given \( Z \) as the input to layer normalization, the mean \( \mu_Z \) and variance \( \sigma_Z^2 \) are computed as:
+\[
+\mu_Z = \frac{1}{d} \sum_{i=1}^{d} Z_i \quad \text{and} \quad \sigma_Z^2 = \frac{1}{d} \sum_{i=1}^{d} (Z_i - \mu_Z)^2
+\]
+where \( d \) denotes the feature dimension of \( Z \). Subsequently, the normalized output \( \hat{Z} \) for each feature is calculated as:
+\[
+\hat{Z}_i = \frac{Z_i - \mu_Z}{\sqrt{\sigma_Z^2 + \epsilon}}
+\]
+Here, \( \epsilon \) is a small constant added for numerical stability. After normalization, the activations are scaled and shifted using learnable parameters:
+\[
+\text{Norm}(Z)_i = \gamma \hat{Z}_i + \beta
+\]
+where \( \gamma \) and \( \beta \) are learnable scaling and shifting parameters, respectively, with the same dimensionality as \( Z \).
+
+By maintaining the activations at a consistent scale across different layers, layer normalization ensures that gradients do not diminish exponentially as they are propagated backward through many layers of the network. Thus, both residual connection and layer normalization layers help mitigate the vanishing (or exploding) gradient problem, allowing the transformer to be effectively trained even when stacked into many layers.
+
+\subsubsection{Encoder and Decoder Stacks}
+
+The transformer architecture used in state-of-the-art LLMs like GPT-4 \cite{achiam2023gpt} and LLaMA 2 \cite{touvron2023llama} models consists of stacks of encoder and/or decoder blocks. Each block contains multi-head attention and feedforward neural network layers. The stacking of multiple such blocks allows for increased representational power, enabling the model to learn complex patterns and relationships within the data.
+
+\subsubsection{Final Linear and Softmax Layer}
+
+The decoder’s output goes through a final linear layer followed by a softmax layer to produce a probability distribution over the target vocabulary. When using a transformer model for an NLP task, the target vocabulary defines the set of all possible words, tokens, or symbols that the model can output \cite{jozefowicz2016exploring}. The linear layer transforms the high-dimensional representations outputted by the decoder stack into a space that matches the size of the target vocabulary. The softmax function is then applied to convert the raw scores from the linear layer into probabilities, such that the sum of the probabilities across all vocabulary tokens equals one. This probability distribution represents the model’s prediction of the likelihood of each token in the target vocabulary being the next token in the sequence, facilitating NLP tasks like translation and text generation tasks.
+
+\newpage
 
 \section{Model Size}
 Importance of model size and review of parameter size of AI Neural Networks over the past decades.
@@ -41,27 +264,27 @@ From the innovative OpenAI Evals platform to pioneering concepts like LLM-as-a-J
 
 \newpage
 
-\section{The Importance of ML Experiment Tracking}
+\section{The importance of tracking ML experiments}
 
-Experiment tracking in Machine Learning (ML) involves systematically saving relevant metadata for each experiment and organizing these experiments. An ML experiment is a structured approach to testing a hypothesis, and its metadata includes inputs (such as code, datasets, or hyperparameters) and outputs (such as metrics and models) \cite{wandb2023}. This process is particularly crucial in the development of Large Language Models (LLMs) and AI applications where experiments can be highly complex and iterative.
+Tracking experiments in Machine Learning involves systematically saving the relevant metadata for each experiment and organizing these experiments. An ML experiment is a structured approach to testing a hypothesis, and its metadata include inputs (such as code, datasets or hyperparameters) and outputs (such as metrics and models) \cite{wandb2023}. This process is particularly crucial in the development of large language models (LLMs) and artificial intelligence applications, where experiments can be very complex and iterative.
 
-Unlike traditional software development, which follows a well-defined set of product features, ML development revolves around continuous experimentation with new datasets, models, software libraries, and tuning parameters to optimize metrics such as model accuracy. This process depends heavily on input data and training methods, making reproducibility essential throughout the ML development cycle \cite{zaharia2018accelerating}.
+Unlike traditional software development, which follows a well-defined set of product features, ML development revolves around continually experimenting with new datasets, models, software libraries, and tuning parameters to optimize metrics such as model accuracy. This process is highly dependent on input data and training methods, making reproducibility essential throughout the ML development cycle.
 
-A significant portion of the ML development process is dedicated to model selection experiments, which involve training and tuning models and their features \cite{schelter2017automatically}. Data scientists often conduct these experiments in an ad-hoc manner, without standardized methods for storing and managing experimental data and artifacts. Consequently, results from different experiments may not be comparable, and reproducing successful results can be tedious and time-consuming, particularly in larger teams. This issue is compounded in AI applications, where the complexity of experiments increases dramatically.
+A significant part of the ML development process is devoted to model selection experiments, which involve training and tuning the models and their features \cite{schelter2017automatically}. Data scientists often conduct these experiments in an ad hoc manner, without standardized methods for storing and managing data and experimental artifacts. As a result, results from different experiments may not be comparable, and replication of positive results can be tedious and time-consuming, especially in larger teams. This problem is exacerbated in artificial intelligence applications, where the complexity of experiments increases significantly.
 
-Effective ML experiment tracking addresses these issues by providing a structured approach to managing the full ML lifecycle, from development to deployment \cite{zaharia2018accelerating}. It ensures that the metadata and provenance of artifacts produced in ML workloads are properly understood and recorded. This includes details such as who created the model, which hyperparameters were used, and what feature transformations were applied \cite{schelter2017automatically}.
+Effective tracking of ML experiments solves these problems by providing a structured approach to managing the entire ML lifecycle, from development to deployment. It ensures that the metadata and provenance of artifacts produced in ML workloads are properly understood and recorded. This includes details such as who created the model, what hyperparameters were used, and what feature transformations were applied \cite{schelter2017automatically}.
 
-Tracking ML experiments is crucial because slight changes in inputs can lead to entirely different results. By organizing and logging inputs and outputs, data scientists can:
+Tracking ML experiments is critical because slight changes in inputs can lead to completely different results. By organizing and recording inputs and outputs, data scientists can:
 
 \begin{itemize}
-    \item Maintain an overview of all experiments run, aiding in managing and tracking progress.
-    \item Ensure details and reproducibility, enabling the replication of results and understanding of what was done.
-    \item Facilitate comparison to identify which changes led to improvements and why \cite{wandb2023}.
+    \item Maintain an overview of all experiments performed, helping to manage and monitor progress.
+    \item Guarantee detail and reproducibility, enabling replication of results and insight into what was done.
+    \item Facilitate comparison to identify what changes led to improvements and why.
 \end{itemize}
 
-MLflow is an open-source ML platform designed to tackle these lifecycle challenges by offering APIs for experiment tracking, reproducible runs, and model packaging and deployment. It provides a flexible interface that allows data scientists to bring their own training code, metrics, and inference logic while benefiting from a structured development process \cite{zaharia2018accelerating}. Similarly, lightweight metadata tracking systems can manage the lineage of produced artifacts, enabling regular automated comparisons of models and providing a foundation for advanced meta-learning \cite{schelter2017automatically}. Another modern tools is experiment tracker by Weights \& Biases (W\&B), that provides comprehensive solutions for tracking, organizing, and comparing experiments. This tool offers features like automated logging of inputs and outputs, centralized dashboards for experiment management, and capabilities for detailed analysis and comparison \cite{wandb2023}.
+One of the most reliable solutions is MLflow, an open-source ML analysis platform designed to address these lifecycle challenges, offering APIs for tracking experiments, reproducible runs, packaging, and distributing models. It provides a flexible interface that allows data scientists to insert their own training code, metrics and inference logic, while benefiting from a structured development process \cite{zaharia2018accelerating}. Similar to MLflow, lightweight metadata tracking systems can manage the path of artifacts produced, enabling regular automatic model comparisons and providing a basis for advanced meta-learning \cite{schelter2017automatically}. Another modern solution is the experiment tracker developed by Weights \& Biases (W\&B), which provides comprehensive solutions for tracking, organizing, and comparing experiments. This tool offers features such as automatic recording of inputs and outputs, centralized dashboards for managing experiments, and detailed analysis and comparison capabilities \cite{wandb2023}.
 
-However, an innovative approach, MLtraq, demonstrated better results compared to other tools in experiment tracking. MLtraq's advantages include blazing-fast tracking speeds, extreme tracking and interoperability with native database types, and unparalleled flexibility and openness. These features enable MLtraq to handle high-frequency logging, large complex objects, and seamless collaboration, setting it apart from other experiment tracking solutions. Due to these significant advantages, we will delve into an in-depth analysis of MLtraq capabilities.
+However, a novel approach, MLtraq, has demonstrated better performance than other experiment tracking tools in several respects, including incredible tracking speed, extreme tracking and interoperability with native database types, and unparalleled flexibility and openness. These features enable MLtraq to handle high-frequency recordings, large complex objects, and seamless collaboration, setting it apart from other experiment tracking solutions. Because of these significant advantages, we will go into an in-depth analysis of MLtraq's capabilities.
 
 \subsection{Introduction to MLtraq: An Open-source Python Library}
 
@@ -70,19 +293,19 @@ MLtraq is an open-source Python library specifically designed for ML and AI deve
 MLtraq offers several key advantages:
 
 \begin{itemize}
-    \item \textbf{Blazing Fast:} Recognized as the fastest experiment tracking solution in the industry, MLtraq ensures minimal initialization times and supports high-frequency logging, which is crucial for a smooth developer experience and effective CI/CD processes. Its ability to efficiently track large, complex Python objects like datasets, timeseries, and media files without limitations makes it a robust and powerful tool for ML and AI development. Relying solely on the filesystem as a database is a recipe for low performance. As noted on the SQLite website, relying on a single file to store the local database copy could be 35\% faster than a filesystem-based solution. The higher initialization cost of having a proper database pays off in scalability and reliability. MLtraq provides the flexibility to choose where to store objects with the Data store interface.
-    \item \textbf{Extreme Tracking and Interoperability:} MLtraq excels in tracking and interoperability with its unique DATAPAK format, which ensures efficient serialization and deserialization of diverse data types. DATAPAK leverages open formats like Arrow IPC for Pandas and Arrow tables, and NumPy NEP for NumPy arrays, to encode complex Python objects into easily manageable formats. This format, combined with the use of a safe subset of Pickle opcodes, allows seamless integration with native database types and ensures robust handling of complex objects, enhancing collaboration and data sharing capabilities across local or remote SQL databases. The entity-attribute-value database model adopted by MLflow and FastTrackML requires inserting a new record for every new tracked value, making it painfully slow. Furthermore, the tracked value type is fixed to the SQL column type, resulting in limited flexibility.
-    \item \textbf{Promoting Collaboration:} MLtraq facilitates seamless collaboration by allowing teams to create, store, reload, mix, resume, and share experiments using any local or remote SQL database. The state of experiments is persisted to the database in tables, enabling robust data management. Supported data types include native database types, basic types, container types, and complex types, all serialized with the DATAPAK format for consistency. This ensures that experiments can be easily backed up, merged, and shared, enhancing collaborative efforts across different environments and promoting efficient teamwork. If not implemented carefully, the solutions that adopt threading to incorporate streaming capabilities pay the hidden cost of IPC (Inter-Process Communication). Further, the higher complexity results in more I/O errors and reliability concerns.
-    \item \textbf{Flexible and Open:} Enables interaction with experiments using Python, Pandas, and SQL, providing flexibility without vendor lock-in. Most methods implement the serialization of arrays and other complex, non-scalar objects with custom text encodings, relying on uuencoding and JSON-like formats. Compression is either missing or handled by creating ZIP files of artifacts stored on the filesystem. The process is slow, and the support for complex types is limited or missing: floating point and timestamp precision are ignored, etc. Arrow IPC, native serialization, zero-copy writes, and safe pickling provide superior performance and portability, as proved by MLtraq. \cite{mltraq2024}
+    \item \textbf{Fast:} Recognized as the industry's fastest experiment tracing solution, MLtraq guarantees minimal initialization times and supports high-frequency logging, key elements for a smooth development experience and effective CI/CD processes. Its ability to efficiently and unrestrictedly track large and complex Python objects, such as datasets, time series, and media files, makes it a robust and powerful tool for ML and AI development. Relying solely on the filesystem as a database is a recipe for low performance. As stated on the SQLite website, relying on a single file to store the local copy of the database could be 35 percent faster than a solution based on the \cite{sqlite2024} filesystem. The higher cost of initializing a proper database pays for itself in scalability and reliability. MLtraq offers the flexibility of choosing where to store objects with the Data store interface.
+    \item \textbf{Extreme Traceability and Interoperability:} MLtraq excels in tracking and interoperability with its unique DATAPAK format, which provides efficient serialization and deserialization of different types of data. DATAPAK leverages open formats such as Arrow IPC for Pandas and Arrow tables, and NumPy NEP for NumPy arrays, to encode complex Python objects into easily manageable formats. This format, combined with the use of a secure subset of Pickle opcodes, enables seamless integration with native database types and provides robust management of complex objects, enhancing collaboration and data sharing capabilities between local or remote SQL databases. The entity-attribute-value database model adopted by MLflow and FastTrackML requires a new record to be entered for each new plotted value, making it painfully slow. In addition, the tracked value type is fixed to the SQL column type, resulting in limited flexibility.
+    \item \textbf{Promoting Collaboration:} MLtraq facilitates seamless collaboration by enabling teams to create, store, reload, mix, resume, and share experiments using any local or remote SQL database. The status of experiments is stored in the database in tables, enabling robust data management. Supported data types include native database types, base types, container types and complex types, all serialized with the DATAPAK format to ensure consistency. This ensures that experiments can be easily backed up, merged and shared, improving collaboration across environments and promoting efficient teamwork. Unless carefully implemented, solutions that adopt threading to incorporate streaming capabilities pay the hidden cost of IPC (Inter-Process Communication). In addition, the increased complexity leads to more I/O errors and reliability issues.
+    \item \textbf{Flexible and open}. Allows interaction with experiments using Python, Pandas, and SQL, providing flexibility without the use of vendors. Most methods implement serialization of arrays and other complex nonscalar objects with custom text encodings, relying on uuencoding and JSON-like formats. Compression is either absent or handled by creating ZIP files of the artifacts stored on the filesystem. The process is slow and support for complex types is limited or absent: floating-point and timestamp precision are ignored, etc. Arrow IPC, native serialization, zero-copy writes, and secure pickling provide superior performance and portability, as demonstrated by MLtraq. \cite{mltraq2024}
 \end{itemize}
 
 \subsubsection{Performance Evaluation of Experiment Tracking Solutions}
 
-We conducted two experiments to evaluate the performance of various experiment tracking solutions, including MLtraq, Weights \& Biases (W\&B), Neptune, FastTrackML, Comet, Aim, and MLflow. The experiments focused on initialization time and high-frequency tracking performance.\newline
+Two experiments were conducted to evaluate the performance of different experiment tracking solutions, including MLtraq, Weights \& Biases (W\&B), Neptune, FastTrackML, Comet, Aim and MLflow. The experiments focused on initialization time and high-frequency tracking performance. \newline
 
 \textbf{Experiment 1: Initialization Time}
 
-This experiment measures the time required to start a new experiment and track a single value. Initialization time is a critical factor, as it impacts the ability to experiment with hundreds of thousands of possible configurations. The primary costs are dominated by threading and database management.
+This experiment measures the time it takes to start a new experiment and plot a single value. Initialization time is a critical factor because it affects the ability to experiment with hundreds of thousands of possible configurations. The main costs are dominated by threading and database management.
 
 \begin{figure}[h!]
     \centering
@@ -94,7 +317,7 @@ This experiment measures the time required to start a new experiment and track a
 The results, shown in Figure \ref{fig:init-time}, indicate the following:
 
 \begin{itemize}
-    \item \textbf{WandB and MLflow:} These tools perform the worst due to threading and event management, costing up to 400 times more than the other methods.
+    \item \textbf{W\&B and MLflow:} These tools perform the worst due to threading and event management, costing up to 400 times more than the other methods.
     \item \textbf{Aim:} Spends most of the time creating and managing its embedded key-value store.
     \item \textbf{Comet:} The cost is primarily due to thread management.
     \item \textbf{FastTrackML:} Remarkably fast in creating new runs due to its background server, which eliminates most of the database initialization cost.
@@ -117,118 +340,9 @@ The results, illustrated in Figure \ref{fig:high-freq}, highlight the following:
 
 \begin{itemize}
     \item \textbf{FastTrackML:} While efficient in creating new runs, inserting new tracking records is similarly expensive to MLflow due to their entity-attribute-value database model.
-    \item \textbf{Aim and WandB:} Perform at a fraction of the cost compared to MLflow and FastTrackML.
-    \item \textbf{Neptune, Comet, and MLtraq:} These are the highest-performing methods, with MLtraq being the fastest, up to 100 times faster than WandB.\newline
+    \item \textbf{Aim and W\&B:} Perform at a fraction of the cost compared to MLflow and FastTrackML.
+    \item \textbf{Neptune, Comet, and MLtraq:} These are the highest-performing methods, with MLtraq being the fastest, up to 100 times faster than W\&B.\newline
 \end{itemize}
-
-\textbf{MLtraq: The Fastest Experiment-Tracking Solution}
-
-MLtraq stands out as the fastest experiment-tracking solution for workloads involving hundreds of thousands of runs and arbitrarily large, complex Python objects. It provides superior performance and flexibility, making it an optimal choice for efficient and scalable experiment tracking.
-
-\begin{itemize}
-    \item The primary goal of other solutions often gravitates toward backward compatibility, third-party integrations, and complete model lifecycle management. However, their support for rich modeling of experiments, runs, and complex Python objects is limited or missing.
-    \item Relying solely on the filesystem as a database is a recipe for low performance. As noted on the SQLite website, using a single file to store the local database copy can be 35\% faster than a filesystem-based solution. MLtraq provides the flexibility to choose where to store objects with the Data store interface.
-    \item Solutions that adopt threading to incorporate streaming capabilities incur the hidden cost of Inter-Process Communication (IPC), resulting in more I/O errors and reliability concerns.
-    \item The entity-attribute-value database model adopted by MLflow and FastTrackML requires inserting a new record for every new tracked value, making it painfully slow.
-    \item Most methods implement the serialization of arrays and other complex, non-scalar objects with custom text encodings, relying on uuencoding and JSON-like formats. Arrow IPC, native serialization, zero-copy writes, and safe pickling provide superior performance and portability, as demonstrated by MLtraq.
-\end{itemize}
-
-Due to these significant advantages, we will analyze this innovative approach in detail.
-
-
-\subsubsection{Key Features}
-
-MLtraq includes a range of features designed to enhance the experiment tracking process:
-
-\begin{itemize}
-    \item \textbf{Immediate:} Allows the design and execution of experiments with just a few lines of code and supports metric streaming.
-    \item \textbf{Collaborative:} Supports backing up, merging, sharing, and reloading experiments with their computation state anywhere.
-    \item \textbf{Interoperable:} Provides access to experiments through Python, Pandas, and SQL with native database types and open formats.
-    \item \textbf{Flexible:} Tracks native Python data types and structures, as well as NumPy, Pandas, and PyArrow objects.
-    \item \textbf{Lightweight:} A thin layer with minimal dependencies that can run anywhere and complement other components and services.
-\end{itemize}
-
-\subsubsection{Design Choices}
-
-MLtraq incorporates several thoughtful design choices to optimize its functionality:
-
-\begin{itemize}
-    \item \textbf{Computation:} Uses joblib.Parallel for process-based parallelism in chained execution of steps. It also supports cluster-specific backends like Dask, Ray, and Spark, requiring step functions and run objects to be serializable with cloudpickle.
-    \item \textbf{Persistence:} Defaults to SQLite but can connect to any SQL database supported by SQLAlchemy. It supports a wide range of data types and provides a Data store interface for handling large objects. Compression is available but disabled by default.
-\end{itemize}
-\newpage
-
-
-\subsection{(Maybe improved) Introduction to MLtraq: An Open-source Python Library}
-
-
-MLtraq offers several key advantages:
-
-\begin{itemize}
-    \item \textbf{Blazing Fast:} Recognized as the fastest experiment tracking solution in the industry, MLtraq ensures minimal initialization times and supports high-frequency logging, which is crucial for a smooth developer experience and effective CI/CD processes. Its ability to efficiently track large, complex Python objects like datasets, time series, and media files without limitations makes it a robust and powerful tool for ML and AI development. Unlike other solutions that rely solely on the filesystem, MLtraq uses a proper database setup, which significantly improves scalability and reliability. The Data store interface provides flexibility in object storage locations.
-    \item \textbf{Extreme Tracking and Interoperability:} MLtraq excels in tracking and interoperability with its unique DATAPAK format, ensuring efficient serialization and deserialization of diverse data types. DATAPAK leverages open formats like Arrow IPC for Pandas and Arrow tables, and NumPy NEP for NumPy arrays, to encode complex Python objects into manageable formats. This format, combined with the use of a safe subset of Pickle opcodes, allows seamless integration with native database types and ensures robust handling of complex objects, enhancing collaboration and data sharing capabilities across local or remote SQL databases. In contrast, the entity-attribute-value database model used by MLflow and FastTrackML requires inserting a new record for each tracked value, which is slow and inflexible.
-    \item \textbf{Promoting Collaboration:} MLtraq facilitates seamless collaboration by allowing teams to create, store, reload, mix, resume, and share experiments using any local or remote SQL database. The state of experiments is persisted to the database in tables, enabling robust data management. Supported data types include native database types, basic types, container types, and complex types, all serialized with the DATAPAK format for consistency. This ensures that experiments can be easily backed up, merged, and shared, enhancing collaborative efforts across different environments and promoting efficient teamwork.
-    \item \textbf{Flexible and Open:} MLtraq enables interaction with experiments using Python, Pandas, and SQL, providing flexibility without vendor lock-in. Most methods implement the serialization of arrays and other complex, non-scalar objects with custom text encodings, relying on uuencoding and JSON-like formats. Compression is either missing or handled by creating ZIP files of artifacts stored on the filesystem. The process is slow, and the support for complex types is limited or missing: floating point and timestamp precision are ignored, etc. Arrow IPC, native serialization, zero-copy writes, and safe pickling provide superior performance and portability, as demonstrated by MLtraq.
-\end{itemize}
-
-\subsubsection{Performance Evaluation of Experiment Tracking Solutions}
-
-We conducted two experiments to evaluate the performance of various experiment tracking solutions, including MLtraq, Weights \& Biases (W\&B), Neptune, FastTrackML, Comet, Aim, and MLflow. The experiments focused on initialization time and high-frequency tracking performance.
-
-\textbf{Experiment 1: Initialization Time}
-
-This experiment measures the time required to start a new experiment and track a single value. Initialization time is a critical factor, as it impacts the ability to experiment with hundreds of thousands of possible configurations. The primary costs are dominated by threading and database management.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth]{images/mltraq/mltraq-Initialization-time.png}
-    \caption{Initialization time for tracking a single value across different experiment tracking solutions.}
-    \label{fig:init-time}
-\end{figure}
-
-The results, shown in Figure \ref{fig:init-time}, indicate the following:
-
-\begin{itemize}
-    \item \textbf{WandB and MLflow:} These tools perform the worst due to threading and event management, costing up to 400 times more than the other methods.
-    \item \textbf{Aim:} Spends most of the time creating and managing its embedded key-value store.
-    \item \textbf{Comet:} The cost is primarily due to thread management.
-    \item \textbf{FastTrackML:} Remarkably fast in creating new runs due to its background server, which eliminates most of the database initialization cost.
-    \item \textbf{MLtraq:} Writing to SQLite is the primary cost.
-    \item \textbf{Neptune:} Performs best with no threading, no SQLite database, and simply writing the tracking data to files.
-\end{itemize}
-
-\textbf{Experiment 2: High-Frequency Tracking}
-
-While efficient initialization is essential, the ability to monitor many values quickly is critical for any tracking solution. This experiment assesses the time required to track and store up to 10,000 values.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth]{images/mltraq/mltraq-high-frequency.png}
-    \caption{High-frequency tracking performance for up to 10,000 values across different experiment tracking solutions.}
-    \label{fig:high-freq}
-\end{figure}
-
-The results, illustrated in Figure \ref{fig:high-freq}, highlight the following:
-
-\begin{itemize}
-    \item \textbf{FastTrackML:} While efficient in creating new runs, inserting new tracking records is similarly expensive to MLflow due to their entity-attribute-value database model.
-    \item \textbf{Aim and WandB:} Perform at a fraction of the cost compared to MLflow and FastTrackML.
-    \item \textbf{Neptune, Comet, and MLtraq:} These are the highest-performing methods, with MLtraq being the fastest, up to 100 times faster than WandB.
-\end{itemize}
-
-\textbf{MLtraq: The Fastest Experiment-Tracking Solution}
-
-MLtraq stands out as the fastest experiment-tracking solution for workloads involving hundreds of thousands of runs and arbitrarily large, complex Python objects. It provides superior performance and flexibility, making it an optimal choice for efficient and scalable experiment tracking.
-
-\begin{itemize}
-    \item The primary goal of other solutions often gravitates toward backward compatibility, third-party integrations, and complete model lifecycle management. However, their support for rich modeling of experiments, runs, and complex Python objects is limited or missing.
-    \item Relying solely on the filesystem as a database is a recipe for low performance. As noted on the SQLite website, using a single file to store the local database copy can be 35\% faster than a filesystem-based solution. MLtraq provides the flexibility to choose where to store objects with the Data store interface.
-    \item Solutions that adopt threading to incorporate streaming capabilities incur the hidden cost of Inter-Process Communication (IPC), resulting in more I/O errors and reliability concerns.
-    \item The entity-attribute-value database model adopted by MLflow and FastTrackML requires inserting a new record for every new tracked value, making it painfully slow.
-    \item Most methods implement the serialization of arrays and other complex, non-scalar objects with custom text encodings, relying on uuencoding and JSON-like formats. Arrow IPC, native serialization, zero-copy writes, and safe pickling provide superior performance and portability, as demonstrated by MLtraq.
-\end{itemize}
-
-Due to these significant advantages, we will analyze this innovative approach in detail.
 
 \subsubsection{Key Features}
 
@@ -251,6 +365,7 @@ MLtraq incorporates several thoughtful design choices to optimize its functional
     \item \textbf{Persistence:} Defaults to SQLite but can connect to any SQL database supported by SQLAlchemy. It supports a wide range of data types and provides a Data store interface for handling large objects. Compression is available but disabled by default.
 \end{itemize}
 
+In summary, MLtraq stands out as a powerful and efficient tool for tracking ML and AI experiments. It outperforms other solutions in terms of initialization time and high-frequency tracking performance, demonstrating significant advantages in speed, flexibility, and ability to handle complex data structures. Its unique features, such as the DATAPAK format for serialization, flexible storage options, and robust support for collaborative efforts, make it an invaluable resource for developers. Careful design choices further enhance its functionality, making MLtraq the optimal choice for scalable and efficient tracking of experiments. Delving deeper into the analysis of this innovative approach, it becomes clear that MLtraq offers unparalleled performance and reliability, setting a new standard in the field of experiment tracking.
 
 \newpage
 
