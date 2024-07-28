@@ -1,8 +1,8 @@
 \section{Large Language Models}
 
-When we talk about Large Language Models (LLMs), we refer to advanced software designed to communicate in a human-like manner. These models possess the remarkable ability to understand complex contexts and generate consistent, human-like content. If you have ever interacted with a chatbot or AI virtual assistant, you may have used an LLM without realizing it. LLMs are used in various applications such as text generation, machine translation, sentiment analysis and document summarization, among others. They have become an essential part of the artificial intelligence (AI) landscape, and this section delves into their history and evolution.
+When we talk about Large Language Models (LLMs), we refer to advanced software designed to communicate in a human-like manner. These models possess the remarkable ability to understand complex contexts and generate consistent, human-like content. If you have ever interacted with a chatbot or AI virtual assistant, you may have used an LLM without realizing it. LLMs are used in various applications such as text generation, machine translation, sentiment analysis and document summarization, among others. They have become an essential part of the artificial intelligence (AI) landscape. This section delves into their history and evolution, including an analysis of the architecture of the transformer.
 
-LLMs refer to large, general-purpose language processing models that are pre-trained on large data sets to learn the fundamental structures and semantics of human language. The term “large” indicates both the significant amount of data needed for training and the billions or even trillions of parameters these models contain. Pre-training enables LLMs to handle common language tasks such as text classification, question answering and document summarization. After pre-training, these models are typically fine-tuned to smaller, specialized datasets for specific domains, improving their accuracy and efficiency. \cite{researchgraph2024}
+LLMs refer to large, general-purpose language processing models that are pre-trained on large datasets to learn the fundamental structures and semantics of human language. The term “large” indicates both the significant amount of data needed for training and the billions or even trillions of parameters these models contain. Pre-training enables LLMs to handle common language tasks such as text classification, question answering and document summarization. After pre-training, these models are typically fine-tuned to smaller, specialized datasets for specific domains, improving their accuracy and efficiency. \cite{researchgraph2024}
 
 \subsection{Evolution of Large Language Models}
 
@@ -19,11 +19,11 @@ The journey of LLMs began in the 1960s with ELIZA, an early natural language pro
 
 \subsubsection{Rise of Recurrent Neural Networks (1980s)}
 
-In the late 20th century, recurrent neural networks (RNNs), inspired by the interconnected neurons of the human brain, were born. Introduced in 1986, RNNs gained popularity for their ability to remember previous inputs and process sequential data, making them suitable for natural language processing (NLP) tasks. However, RNNs have had limitations with long sentences, often suffering from the gradient vanishing problem \cite{elman1990finding}.
+In the late 20th century, recurrent neural networks (RNNs), inspired by the interconnected neurons of the human brain, were born. Introduced in 1986, RNNs gained popularity for their ability to remember previous inputs and process sequential data, making them suitable for NLP tasks. However, RNNs have had limitations with long sentences, often suffering from the gradient vanishing problem \cite{elman1990finding}.
 
 \subsubsection{Rise of Long Short-Term Memory (1990s)}
 
-Long short-term memory (LSTM), a specialized type of RNNs, was introduced in 1997 to address the limitations of RNNs. LSTMs are capable of remembering information over long sequences, overcoming the short-term memory limitations of RNNs. Their unique architecture, with input, forgetting and output gates, allowed LSTMs to retain relevant information in memory, making them more efficient for capturing long-term dependencies in sentences \cite{hochreiter1997long}.
+Long short-term memory (LSTM), a specialized type of RNNs, was introduced in 1997 to address the limitations of RNNs. LSTMs are capable of remembering information over long sequences, overcoming the short-term memory limitations of RNNs. Their unique architecture, with input, forgetting, and output gates, allowed LSTMs to retain relevant information in memory, making them more efficient for capturing long-term dependencies in sentences \cite{hochreiter1997long}.
 
 \subsubsection{Gated Recurrent Units (2010s)}
 
@@ -31,25 +31,23 @@ In 2014, Gated Recurrent Units (GRUs) were introduced to solve problems similar 
 
 \subsubsection{Rise of Attention Mechanism (2014)}
 
-The introduction of the attention mechanism in 2014 marked a paradigm shift in sequence modeling. Unlike RNNs, which process sentences with a context vector of fixed size, attention mechanisms allowed models to dynamically select relevant parts of the source sequence, ensuring that crucial information was not lost, especially in longer sequences.
+The introduction of the attention mechanism on paper on neural machine translation \cite{bahdanau2014neural} in 2014 marked a paradigm shift in sequence modeling. Unlike RNNs, which process sentences with a context vector of fixed size, attention mechanisms allowed models to dynamically select relevant parts of the source sequence, ensuring that crucial information was not lost, especially in longer sequences.
 
 \subsubsection{The Invention of Transformers Architecture (2017)}
 
-Transformers, introduced in 2017 by Vaswani et al. in the paper “Attention is All You Need” \cite{vaswani2017attention}, relied on an attention mechanism to process sequences. The processors featured an encoder-decoder architecture with multiple layers of self-attention and feed-forward neural networks. The multi-headed attention mechanism allowed the processors to simultaneously focus on different parts of the input sentence, capturing various contextual nuances. Transformers could also process sequences in parallel, rather than sequentially, leading to the development of sophisticated LLMs such as BERT and GPT.
+Transformers, introduced in 2017 by Vaswani et al. in the paper “Attention is All You Need” \cite{vaswani2017attention}, relied on an attention mechanism to process sequences. The processors featured an encoder-decoder architecture with multiple layers of self-attention and feed-forward neural networks. The multi-layered attention mechanism allowed the processors to simultaneously focus on different parts of the input sentence, capturing various contextual nuances. Processors could also process sequences in parallel, rather than sequentially, leading to the development of sophisticated LLMs such as BERT and GPT. Given its importance and influence in the AI field, the transformer architecture will be discussed in more depth in later sections.
 
 \subsubsection{Emergence of Large Language Models (2018-Onwards)}
 
-With the success of transformers, scaling these models became the next logical step. Google's BERT model, released in 2018, processed text bidirectionally, setting new performance standards in various benchmarks \cite{devlin2018bert}. OpenAI's GPT-2, released in 2019, and GPT-3 in 2020, demonstrated the capabilities of generative models in performing a wide range of tasks \cite{radford2019language}. OpenAI continued to advance the GPT series with GPT-3.5 in 2022 and GPT-4 in 2023. ChatGPT, based on GPT-3.5, became the fastest growing consumer application in history after its release in November 2022.
+With the success of transformers, scaling these models became the next logical step. Google's BERT model, released in 2018, processed text bidirectionally, setting new performance standards in various benchmarks \cite{devlin2018bert}. OpenAI's GPT-2, released in 2019, and GPT-3 in 2020, demonstrated the capabilities of generative models in performing a wide range of tasks \cite{radford2019language}. OpenAI continued to advance the GPT series with GPT-3.5 in 2022, GPT-4 in 2023 and GPT-4o in 2024. ChatGPT, based on GPT-3.5, became the fastest growing consumer application in history after its release in November 2022.
 
-Other major players in the technology industry and academia have also contributed to the development of LLMs. Google's PaLM (Pathways Language Model) was released in March 2023, followed by PaLM 2 in May 2023 \cite{chowdhery2023palm}. In December 2023, Google unveiled Gemini, a multimodal model capable of processing different forms of information. Meta AI released the LLaMA (Large Language Model Meta AI) series in 2023, offering open-source models for research and commercial use \cite{touvron2023llama}. Anthropic introduced the Claude series in 2023, prioritizing the universal benefits and security of AI \cite{anthropic2024claude}.
+Other major players in the technology industry and academia have also contributed to the development of LLMs. Google's PaLM (Pathways Language Model) was released in March 2023, followed by PaLM 2 in May 2023 \cite{chowdhery2023palm}. In December 2023, Google unveiled Gemini, a multimodal model capable of processing different forms of information. Meta AI released the LLaMA (Large Language Model Meta AI) series in 2023, offering open-source models for research and commercial use \cite{touvron2023llama}. Anthropic introduced the Claude series in 2023, prioritizing the universal benefits and security of AI \cite{anthropic2024claude}. \newline
 
-\subsubsection{Conclusion}
-
-The evolution of language models from simple rule-based systems to complex intelligence models means significant progress in AI technology. Today, large language models (LLMs) are more than just tools for improving text-based applications; they are increasingly capable of understanding and communicating with humans. Moreover, multimodal LLMs are able to handle not only text, but also images and sounds, integrating various forms of data to comprehensively understand and analyze different contexts. These models are transforming the way we interact with technology, making it more accessible and responsive to human needs. In essence, LLMs are becoming powerful partners for humans, helping us tackle multiple tasks and simplifying our lives in various ways. \cite{researchgraph2024}
+The evolution of language models from simple rule-based systems to complex intelligence models means significant progress in artificial intelligence technology. Today, LLMs are more than just tools for improving text-based applications; they are increasingly capable of understanding and communicating with humans. Moreover, multimodal LLMs are able to handle not only text, but also images, sounds and videos, integrating various forms of data to comprehensively understand and analyze different contexts. These models are transforming the way we interact with technology, making it more accessible and responsive to human needs. In essence, LLMs are becoming powerful partners for humans, helping us tackle multiple tasks and simplifying our lives in various ways. \cite{researchgraph2024}
 
 \section{Transformer Architecture}
 
-One of the main breakthroughs in language modeling, which lies at the core of all modern state-of-the-art LLMs, was the introduction of the transformer architecture and the mechanism of self-attention in 2017. This advancement was presented in the seminal paper "Attention is All You Need" by Vaswani et al. \cite{vaswani2017attention}. The transformer architecture revolutionized natural language processing (NLP) by enabling models to capture long-range dependencies more efficiently than previous architectures.
+As highlighted in the previous section, a key breakthrough in language modeling, central to all modern state-of-the-art LLMs, was the introduction of transform architecture and the self-attention mechanism in 2017. This advance was presented in the seminal paper “Attention is All You Need” by Vaswani et al. \cite{vaswani2017attention}, which revolutionized natural language processing (NLP) by enabling models to capture long-range dependencies much more efficiently than previous architectures.
 
 \begin{figure}[h!]
     \centering
@@ -58,24 +56,29 @@ One of the main breakthroughs in language modeling, which lies at the core of al
     \label{fig:transformer-architecture}
 \end{figure}
 
-The self-attention mechanism is a pivotal component of the transformer. It enables models to weigh the importance of different elements in a sequence by measuring the similarity between elements and determining how much attention each element should give to others. This mechanism allows the model to capture intricate relationships and dependencies across the entire input sequence, enhancing its ability to understand and generate coherent and context-aware outputs. In NLP, the self-attention mechanism effectively models relationships between all words in a sentence, facilitating better comprehension and generation of text.
+The self-attention mechanism is a key component of the transformer, enabling models to weigh the importance of different elements in a sequence by measuring the similarity between elements and determining the amount of attention each element should pay to the others. This mechanism enables the model to grasp complex relationships and dependencies in the entire input sequence, enhancing its ability to understand and generate coherent, context-aware outputs. In NLP, the self-attention mechanism effectively models the relationships between all words in a sentence, facilitating better understanding and generation of text.
 
-At its core, the transformer architecture leverages self-attention mechanisms to process input sequences. Unlike traditional sequential models, the transformer processes all elements in a sequence simultaneously, allowing it to handle long-range dependencies efficiently. The architecture employs an encoder-decoder structure, with the encoder specializing in input representation and the decoder responsible for generating output.
+The great advantage of the transformer architecture of being highly parallelizable makes it computationally efficient and able to handle input sequences of varying lengths. The ability to process all elements of a sequence simultaneously, rather than sequentially, significantly reduces training time for large data sets. This parallelism, combined with the effectiveness of the self-attention mechanism, has made the transformer the basis for state-of-the-art models in machine translation, text generation and many other NLP tasks.
 
-The encoder in the transformer architecture takes the input sequence and converts it into a series of continuous representations. Each layer in the encoder consists of a multi-head self-attention mechanism followed by a position-wise fully connected feed-forward network. This structure allows the encoder to capture various aspects of the input sequence, making it highly effective at understanding context.
-
-The decoder, on the other hand, generates the output sequence from the continuous representations provided by the encoder. Like the encoder, each layer in the decoder also includes a multi-head self-attention mechanism and a feed-forward network. Additionally, the decoder incorporates an encoder-decoder attention mechanism that helps it focus on relevant parts of the input sequence while generating the output. This attention mechanism ensures that the output sequence is contextually aligned with the input sequence.
-
-The transformer architecture is highly parallelizable, making it computationally efficient and capable of handling input sequences of varying lengths. Its ability to process all elements in a sequence simultaneously, rather than sequentially, significantly reduces the training time for large datasets. This parallelism, combined with the effectiveness of the self-attention mechanism, has made the transformer the foundation for state-of-the-art models in machine translation, text generation, and many other NLP tasks.
-
-In summary, the transformer architecture, with its self-attention mechanism, has transformed the field of NLP. It has provided the foundation for many advanced language models by offering a more efficient and effective way to capture long-range dependencies in text. As illustrated in Figure \ref{fig:transformer-architecture}, the general architecture of the transformer consists of an encoder and a decoder, with each component playing a crucial role in processing and generating sequences. The transformative impact of this architecture continues to drive advancements in NLP and AI. The key elements of this architecture, such as positional encoding, multi-head attention, feed-forward neural networks, add \& norm steps, residual connections, layer normalization, and the final linear and softmax layers, will be further explained in subsequent sections to provide a more detailed understanding of these components.
+As illustrated in Figure \ref{fig:transformer-architecture}, the overall transformer architecture consists of an encoder and a decoder, with each component playing a crucial role in processing and sequence generation. The transformative impact of this architecture continues to drive advances in NLP and AI. The key elements of this architecture, such as positional encoding, multi-headed attention, feed-forward neural networks, norm step addition, residual connections, layer normalization, and linear and softmax final layers, will be discussed in the subsequent sections to provide a more detailed understanding of these components.
 
 \subsubsection{Positional Encoding}
 
-In the transformer architecture, the order of tokens in a sequence is not inherently captured since the model processes all tokens in parallel. To ensure that the model can consider the order or position of tokens in its computations, positional encodings are added to the input encodings.
+In the field of natural language processing (NLP), transformer models have radically changed our approach to sequence-sequence tasks. Unlike traditional recurrent neural networks (RNNs) or convolutional neural networks (CNNs), transformers process tokens in parallel and have no intrinsic awareness of token order. Positional encodings are a key technique for incorporating transformer models with an understanding of sequence order, enabling them to effectively process and understand input sequences. \cite{li2023transformer}
 
-The original transformer paper by Vaswani et al. \cite{vaswani2017attention} introduced sinusoidal positional encodings. The idea is to produce unique encodings for each position that can be added to the token embeddings, enabling the model to distinguish the position of each token in a sequence. For position \( p \) and dimension \( i \), the positional encoding is calculated as:
+Positional encodings play a key role in transformer models for several reasons:
 
+\begin{itemize}
+    \item \textbf{Preserve sequence order:} Transformer models handle tokens in parallel and have no intrinsic information about token order. Positional encodings provide this information, allowing the model to distinguish tokens based on their position. This is essential for tasks where word order is important, such as language translation and text generation.
+    
+    \item \textbf{Maintaining Contextual Information:} In NLP tasks, the meaning of a word often depends on its position within the sentence. For example, the word “cat” in “The cat sat on the carpet” has a different meaning than “The carpet sat on the cat.” Positional encodings help maintain this contextual information, allowing the model to understand the correct meaning based on word order.
+    
+    \item \textbf{Improving generalization}. By incorporating positional information, transformer models can better generalize between sequences of different lengths. This is especially important for tasks where the length of the input sequence varies, such as summarizing documents or answering questions. Positional encodings allow the model to handle input sequences of different lengths without compromising performance.
+    
+    \item \textbf{Mitigate symmetry:} Without positional encodings, the self-attention mechanism of transformational models treats tokens symmetrically, which can lead to ambiguous representations. Positional encodings introduce asymmetry, ensuring that tokens in different positions are treated distinctly, thus improving the model's ability to capture long-range dependencies \cite{geeksforgeeks2024-pe}.
+\end{itemize}
+
+The original transformer paper by Vaswani et al. \cite{vaswani2017attention} introduced sinusoidal positional encodings. The idea is to produce unique encodings for each position that can be added to token embeddings, allowing the model to distinguish the position of each token in a sequence. For position \( p \) and size \( i \), the positional encoding is calculated as:
 \begin{equation}
     PE(p, 2i) = \sin\left(\frac{p}{10000^{2i/d}}\right)
 \end{equation}
@@ -84,78 +87,78 @@ The original transformer paper by Vaswani et al. \cite{vaswani2017attention} int
     PE(p, 2i + 1) = \cos\left(\frac{p}{10000^{2i/d}}\right)
 \end{equation}
 
-where \( d \) is the dimensionality of the embeddings. These sinusoidal functions ensure that the positional encodings are distinct and can provide a relative sense of position, which can be leveraged by the attention mechanisms.
+where \( d \) is the dimensionality of embeddings. These sinusoidal functions ensure that positional encodings are unique and can convey position-related information that can be used by attention mechanisms. Each dimension of the positional encoding aligns with a sine or cosine function of different wavelengths, creating a geometric progression from \( 2\pi \) to \( 10000 \times 2\pi \). For any fixed offset \( k \), \( PE(p+k) \) can be expressed as a linear function of \( PE(p) \).
 
-In more recent LLMs, positional encoding is implemented using learned encodings instead of sinusoidal encodings \cite{jin2023growlength}. In this learned approach, the positional encodings are parameters in the model, initialized randomly and learned during the training process just like token encodings. The dimension of the learned position encodings vector is thus connected to the maximum sequence length that the model can take as input. For example, the BERT \cite{devlin2018bert} model uses a positional encoding dimension of \( 768 \times 512 \), which restricts BERT to inputs no greater than 512 tokens. This fixed maximum input length is a primary disadvantage of learned positional encodings. However, they can adapt during training, allowing the model to potentially learn positional representations that are better suited to the specificities of the training data, whereas sinusoidal encodings are not learnable and cannot be adjusted to better suit the training data.
+Kazemnejad \cite{kazemnejad2019:pencoding} provides an intuitive explanation of this encoding scheme, emphasizing its ability to capture positional information in a way that satisfies several important criteria: it must produce a unique encoding for each time-step, maintain consistent distances between time-steps in sentences of different lengths, generalize to longer sentences, and remain deterministic.
 
-In summary, positional encodings are a crucial component of the transformer architecture that allows the model to incorporate the order of tokens in a sequence. While the original sinusoidal positional encodings provide a fixed and non-trainable way to capture position, learned positional encodings offer flexibility and adaptability at the cost of a fixed maximum input length.
+In more recent large language models (LLMs), positional encoding often uses learned rather than sinusoidal encodings. In this approach, positional encodings are randomly initialized model parameters learned during training, similar to token encodings. The size of the learned positional encoding vector is related to the maximum sequence length that the model can handle. For example, the BERT model \cite{devlin2018bert} employs a positional encoding size of \( 768 \times 512 \), limiting BERT to a maximum input length of 512 tokens. Although the fixed maximum input length is a disadvantage of learned positional encodings, they can adapt during training, allowing the model to learn positional representations better suited to the training data, unlike static sinusoidal encodings.
 
-\subsubsection{Self-Attention Mechanism}
+\subsection{Self-attention mechanism}
 
-The self-attention mechanism is a fundamental component of the transformer architecture that allows a model to consider other words in the input when encoding a particular word. This capability is crucial for understanding the context and relationships between words in a sequence. During training, the model learns the weights given to each word.
+The self-attention mechanism is a key component of the transformer architecture, enabling the model to dynamically evaluate the relative importance of different words in a sequence. Initially introduced in the seminal article “Attention is All You Need” by Vaswani et al. \cite{vaswani2017attention}, self-attention is essential for understanding the context and relationships between words, thus enhancing the model's ability to capture long-range dependencies.
 
-Given an input sequence \( X \) with tokens \( x_1, x_2, \ldots, x_n \), each token is transformed into three vectors:
+In the self-attention mechanism, each token of an input sequence \( X \) with tokens \( x_1, x_2, \ldots, x_n \) is transformed into three vectors:
 \begin{itemize}
-    \item \textbf{Query (Q):} Represents the token in question.
-    \item \textbf{Key (K):} Represents all tokens that we compare against.
+    \item \textbf{Query (Q):} It represents the token in question.
+    \item \textbf{Key (K):} Represents all tokens against which the query is compared.
     \item \textbf{Value (V):} Contains the information of the tokens.
-\end{itemize}
+\fine{itemize}
 
-These vectors are derived from the embeddings of the input tokens through learned weight matrices \( W_Q \), \( W_K \), and \( W_V \). For each token, the self-attention mechanism involves the following steps:
+These vectors are derived from the embeddings of the input tokens through learned weight matrices \( W_Q \), \( W_K \) and \( W_V \). The self-attention mechanism involves the following steps for each token:
 
 \begin{enumerate}
-    \item \textbf{Calculate attention scores:} This is done by taking the dot product of the Query vector with the Key vectors of all tokens.
+    \item \textbf{Calculate attention scores:}. This is done by taking the dot product of the Query vector with the Key vectors of all tokens.
     \begin{equation}
         \text{score}(Q, K) = Q \cdot K^T
     \end{equation}
     
-    \item \textbf{Softmax normalization:} The scores are scaled down (usually by dividing by the square root of the depth of the Key vectors, \( \sqrt{d_k} \)) and passed through a softmax function to obtain the attention weights.
+    \item \textbf{Softmax normalization:} The scores are rescaled - usually by dividing them by the square root of the depth of the Key vectors, \( \sqrt{d_k} \) - and passed through a softmax function to obtain the attention weights.
     \begin{equation}
-        \text{Attention}(Q, K) = \text{softmax}\left(\frac{Q \cdot K^T}{\sqrt{d_k}}\right)
+        \text{Attention}(Q, K) = \text{softmax}\left(\frac{Q \cdot K^T}{\sqrt{d_k}} \right)
     \end{equation}
     
-    \item \textbf{Calculate output:} The attention weights are used to take a weighted sum of the Value vectors, giving the context-aware representation of the token.
+    \item \textbf{Calculation of output:} The attention weights are used to make a weighted sum of the Value vectors, giving the contextual representation of the token.
     \begin{equation}
         \text{Output} = \text{Attention}(Q, K) \cdot V
     \end{equation}
 \end{enumerate}
 
-The self-attention mechanism allows the model to weigh the importance of different elements in the sequence dynamically. By measuring the similarity between elements and determining how much attention each element should give to others, the model can capture intricate relationships and dependencies across the entire input sequence. This enhances its ability to understand and generate coherent and context-aware outputs. 
-
-In NLP, the self-attention mechanism effectively models relationships between all words in a sentence, facilitating better comprehension and generation of text. This mechanism is a cornerstone of modern state-of-the-art language models and is integral to their success in various NLP tasks. The key elements of this mechanism, such as multi-head attention, will be further elaborated upon later in this thesis.
+This self-attention mechanism allows the model to dynamically weigh the importance of different elements in the sequence, facilitating better understanding and generation of the text. The detailed operation of the self-attention mechanism includes calculating attention scores, applying softmax normalization, and obtaining context-aware representations, thus capturing complex relationships and dependencies in the entire input sequence. \cite{geeksforgeeks2024-sa}
 
 \subsubsection{Multi-Head Attention}
 
-The concept of multi-head attention is an enhancement to the basic self-attention mechanism, allowing the model to capture different aspects of the input data more effectively. Instead of performing self-attention once, the transformer architecture executes it multiple times in parallel. This parallel execution involves multiple sets of weight matrices, enabling the model to learn different representations of the input data.
+The multi-head attention mechanism enhances the basic self-attention by enabling the model to capture different aspects of the input data more effectively. Instead of performing self-attention once, the transformer executes it multiple times in parallel. This involves multiple sets of weight matrices, allowing the model to learn different representations of the input data.
 
-In multi-head attention, instead of a single set of weight matrices \( W_Q \), \( W_K \), and \( W_V \), there are \( h \) sets for \( h \) heads. Each head independently performs self-attention and produces an output. These outputs from all heads are then concatenated and passed through a linear transformation using a learned weight matrix \( W_O \) to produce the final output of the multi-head attention layer. The process can be summarized with the following equation:
+In multi-head attention, there are \( h \) sets of weight matrices \( W_Q \), \( W_K \), and \( W_V \). Each head independently performs self-attention and produces an output. These outputs are then concatenated and passed through a linear transformation using a learned weight matrix \( W_O \) to produce the final output of the multi-head attention layer:
 
 \begin{equation}
     \text{MultiHeadOutput} = \text{Concat}(\text{head}_1, \text{head}_2, \ldots, \text{head}_h) \cdot W_O
 \end{equation}
 
-The learned weight matrix \( W_O \), like other parameters in neural networks, is optimized during the training process. For models like GPT-4, these weight matrices (and other parameters) are learned through optimization on a massive corpus of training data during the initial pre-training phase.
+The learned weight matrix \( W_O \) is optimized during the training process. For models like GPT-4, these weight matrices and other parameters are learned through optimization on a large corpus of training data.
 
-The primary advantage of multi-head attention is that different heads can learn to focus on different parts or aspects of the input data. For instance, in processing a sentence, one head might focus on the grammatical structure, another on the semantics, and yet another on the tone or sentiment. This parallel attention mechanism allows the model to capture a richer and more diverse set of relationships within the input data, leading to more nuanced and accurate outputs.
+The primary advantage of multi-head attention is that different heads can focus on different parts or aspects of the input data. For instance, in processing a sentence, one head might focus on the grammatical structure, another on the semantics, and yet another on the tone or sentiment. This parallel attention mechanism allows the model to capture a richer and more diverse set of relationships within the input data, leading to more nuanced and accurate outputs \cite{geeksforgeeks2024-sa}.
 
-The effectiveness of multi-head attention lies in its ability to provide multiple perspectives on the same input sequence, thus enhancing the model's ability to understand and generate complex language constructs. This mechanism, along with the other components of the transformer architecture, has significantly advanced the field of natural language processing, enabling the development of powerful language models capable of performing a wide range of tasks with high accuracy and efficiency. 
+\begin{equation}
+    \text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \text{head}_2, \ldots, \text{head}_h)W_O
+\end{equation}
 
-The detailed workings and benefits of multi-head attention will be further explained in later sections of this thesis, covering aspects such as its implementation in the transformer architecture and its impact on model performance.
+The multi-head attention mechanism, along with other components of the transformer architecture, significantly advances the field of NLP, enabling the development of powerful language models capable of performing a wide range of tasks with high accuracy and efficiency.
 
 \subsubsection{Feed-Forward Neural Networks}
 
-In the transformer architecture, after the multi-head attention mechanism processes the input, each position in the input sequence is independently passed through a feed-forward neural network (FFNN). This network is identical for each position, which means that the same weights and biases are applied regardless of the position in the sequence.
+In the transformer architecture, after the multi-headed attention mechanism processes the input, each position in the input sequence passes independently through a feed-forward neural network (FFNN). This network is identical for each position, meaning that the same weights and biases are applied regardless of position in the sequence.
 
-The FFNN within the transformer consists of two linear transformations with a ReLU activation function between them:
+The FFNN within the transformer comprises two linear transformations with a ReLU activation function in between:
 
 \begin{itemize}
-    \item \textbf{First Linear Layer}: The input is first multiplied by a weight matrix \( W_1 \) and then a bias \( b_1 \) is added. This produces a transformed version of the input.
-    \item \textbf{ReLU Activation}: The output of the first linear layer is then passed through a ReLU (Rectified Linear Unit) activation function. The ReLU function is defined as:
+    \item \textbf{First linear layer}: The input is first multiplied by a weight matrix \( W_1 \) and then a bias is added \( b_1 \), producing a transformed version of the input.
+    \item \textbf{ReLU activation}: The output of the first linear layer is then passed through a ReLU (Rectified Linear Unit) activation function. The ReLU function is defined as follows:
     \begin{equation}
         \text{ReLU}(x) = \max(0, x)
     \end{equation}
-    This introduces non-linearity into the model, allowing it to capture more complex patterns in the data.
-    \item \textbf{Second Linear Layer}: The activated output is passed through another linear layer by multiplying it with a weight matrix \( W_2 \) and adding a bias \( b_2 \). This produces the final output of the FFNN.
+    This introduces nonlinearity into the model, allowing it to capture more complex patterns in the data.
+    \item \textbf{second linear layer}: The activated output is then passed through another linear layer, multiplying it with a weight matrix \( W_2 \) and adding a bias \( b_2 \). This produces the final output of the FFNN.
 \end{itemize}
 
 Given an input \( x \), the FFNN can be represented as:
@@ -165,24 +168,24 @@ Given an input \( x \), the FFNN can be represented as:
 
 Where:
 \begin{itemize}
-    \item \( x \) is the input to the FFNN.
-    \item \( W_1 \) and \( W_2 \) are weight matrices.
-    \item \( b_1 \) and \( b_2 \) are bias vectors.
+    \item \( x \) is the input of the FFNN.
+    \item \( W_1 \) and \item \( W_2 \) are weight matrices.
+    \item \( b_1 \) and \item \( b_2 \) are bias vectors.
 \end{itemize}
 
-All of \( W_1 \), \( W_2 \), \( b_1 \), and \( b_2 \) are learnable parameters, optimized during (pre-)training.
+All parameters \( W_1 \), \( W_2 \), \( b_1 \) and \( b_2 \) are learnable parameters, optimized during (pre)training.
 
-While the multi-head attention mechanism allows the model to focus on different parts of the input sequence, the FFNN further transforms this attended output. It can be considered as an additional layer of abstraction or transformation of the data. The combination of attention and feed-forward mechanisms enables the transformer model to handle a wide range of sequence transduction tasks, for example in NLP tasks like text summarization, named entity recognition, or question-answering.
+While the multi-headed attention mechanism allows the model to focus on different parts of the input sequence, FFNN further transforms the attention output. It can be considered an additional level of data abstraction or transformation. The combination of attention and feed-forward mechanisms allows the transformer model to handle a wide range of sequence transduction tasks, such as text synthesis, named entity recognition, or question answering.
 
-The key elements of the feed-forward network and their detailed functionality will be further explained in later sections of this thesis.
+\cite{pires2023one} provides an in-depth analysis of the role of FFNNs in transformational models. The authors found that although FFNNs consume a significant portion of the model parameters, they exhibit a significant degree of redundancy. By sharing a single FFNN on all layers of the encoder and removing the FFNN from the decoder, the model achieves substantial parameter savings and faster inference speed, with only a slight decrease in accuracy. The study also explores increasing the amplitude of the shared FFNN, which leads to significant improvements in both accuracy and latency, highlighting the potential for optimizing the use of FFNN in transformer models.
 
-\subsubsection{Add \& Norm Step}
+\subsubsection{Stabilizing Transformer Layers: Add \& Norm Step}
 
-After the multi-head attention and FFNN operations in the transformer architecture, the output is passed through the add \& norm step. This step provides the model with the ability to learn in a stable and efficient way, while at the same time having the capability to be stacked into very deep (multilayered) architectures, like those seen in many state-of-the-art models. The add \& norm step consists of two main components: the residual connection and layer normalization.
+After the multi-headed attention mechanism and feed-forward neural network layer process the inputs in the transformer architecture, the output is stabilized using the add \& norm step. This step is crucial for maintaining model stability and efficiency during training, enabling the architecture to support the deep, multilayer structures common in advanced models. The add \& norm step comprises two main components: the residual connection and layer normalization.
 
-\subsubsection{Residual Connection (Add)}
+\subsubsection{Residual Connections for Stability (Add)}
 
-The residual (or "skip") connection layer provides a shortcut that allows the input of a sub-layer to be added directly to its output. This allows the network to learn identity functions, meaning that if the most optimal action for a particular layer is to leave the input unchanged, the network can achieve this through the residual connection layer. The weights of the sublayer can be pushed towards zero, making its output negligible, and thus \(\text{SubLayer}(X) \approx 0\). When this is added to the original input \(X\) through the residual connection, the result is approximately \(X\), achieving the identity mapping. This mechanism not only improves the performance of the model but also enhances training stability. Mathematically, this can be represented as:
+Residual connection (or “skip”) provides a shortcut, allowing a sublayer's input to be added directly to its output. This allows the network to effectively learn identity functions; if the best action for a particular layer is to leave the input unchanged, the residual connection layer facilitates this. The weights of the sublayer can be reduced almost to zero, making its output negligible, therefore \(\text{SubLayer}(X) \approx 0\). Adding this data to the original input \(X\) through the residual connection yields an output close to \(X\), resulting in an identity mapping. This mechanism not only increases the performance of the model, but also improves the stability of training. Mathematically, it is represented as:
 
 \begin{equation}
     Z = X + \text{SubLayer}(X)
@@ -191,39 +194,45 @@ The residual (or "skip") connection layer provides a shortcut that allows the in
 Where:
 \begin{itemize}
     \item \(X\) is the input to the sublayer.
-    \item \(\text{SubLayer}(X)\) represents the transformations applied by the sublayer to the input \(X\).
+    \item \(\text{SubLayer}(X)\) signifies the transformations applied by the sublayer to the input \(X\).
     \item \(Z\) is the final output after the residual connection.
 \end{itemize}
 
-The residual connections are directly related to mitigating the well-known vanishing gradient problem. In deep neural networks, especially those with many layers, the gradients can become extremely small as they are propagated backward through the network during training. This causes the earlier layers of the network to receive very small gradient updates, making them learn very slowly or sometimes not at all. In residual connection layers, the gradient can flow directly through the addition operation without any attenuation. As a result, even layers deep in the network receive meaningful gradient updates, largely resolving the vanishing gradient problem. 
+Residual connections are critical in mitigating the vanishing gradient problem. In deep neural networks with many layers, gradients can decrease during backpropagate, causing the first layers to receive minimal gradient updates, slowing learning or stopping it altogether. Residual connections allow gradients to flow directly through the addition operation without decreasing, ensuring that deep layers also receive substantial gradient updates and solving the vanishing gradient problem.
 
-\subsubsection{Layer Normalization (Norm)}
+\subsubsection{Layer Normalization for Consistency (Norm)}
 
-Following the residual connection, the transformer applies layer normalization that standardizes the activations (or outputs) of each feature that passed through the multi-head attention layers and FFNNs earlier. Based on their calculated mean and variance, the activations are standardized to a consistent scale with a mean of zero and a standard deviation of one. Such normalization ensures uniformity in the scale of the activations, independent of the layer or input in the transformer.
+After residual connection, the transformer applies layer normalization to standardize the activations of each feature that has passed through the multi-headed attention layers and FFNNs. This normalization, based on the calculated mean and variance of the activations, scales them so that they have a mean of zero and a standard deviation of one. This normalization ensures that the scale of the activations is consistent, regardless of the layer or input into the transformer.
 
 Given \( Z \) as the input to layer normalization, the mean \( \mu_Z \) and variance \( \sigma_Z^2 \) are computed as:
-\[
+\begin{equation}
 \mu_Z = \frac{1}{d} \sum_{i=1}^{d} Z_i \quad \text{and} \quad \sigma_Z^2 = \frac{1}{d} \sum_{i=1}^{d} (Z_i - \mu_Z)^2
-\]
+\end{equation}
 where \( d \) denotes the feature dimension of \( Z \). Subsequently, the normalized output \( \hat{Z} \) for each feature is calculated as:
-\[
+\begin{equation}
 \hat{Z}_i = \frac{Z_i - \mu_Z}{\sqrt{\sigma_Z^2 + \epsilon}}
-\]
+\end{equation}
+
 Here, \( \epsilon \) is a small constant added for numerical stability. After normalization, the activations are scaled and shifted using learnable parameters:
-\[
+\begin{equation}
 \text{Norm}(Z)_i = \gamma \hat{Z}_i + \beta
-\]
+\end{equation}
+
 where \( \gamma \) and \( \beta \) are learnable scaling and shifting parameters, respectively, with the same dimensionality as \( Z \).
 
-By maintaining the activations at a consistent scale across different layers, layer normalization ensures that gradients do not diminish exponentially as they are propagated backward through many layers of the network. Thus, both residual connection and layer normalization layers help mitigate the vanishing (or exploding) gradient problem, allowing the transformer to be effectively trained even when stacked into many layers.
+Maintaining the activations at a consistent scale across different layers, layer normalization ensures that gradients do not diminish exponentially as they backpropagate through many layers. Consequently, both residual connections and layer normalization address the vanishing (or exploding) gradient problem, enabling the effective training of deep transformer models.
 
 \subsubsection{Encoder and Decoder Stacks}
 
 The transformer architecture used in state-of-the-art LLMs like GPT-4 \cite{achiam2023gpt} and LLaMA 2 \cite{touvron2023llama} models consists of stacks of encoder and/or decoder blocks. Each block contains multi-head attention and feedforward neural network layers. The stacking of multiple such blocks allows for increased representational power, enabling the model to learn complex patterns and relationships within the data.
 
+The transformer encoder processes the input sequence and transforms it into a series of continuous representations. Each layer of the encoder has a multi-headed self-attention mechanism followed by a fully connected position-based feed-forward network. This design allows the encoder to effectively capture and understand various aspects of the input sequence.
+
+In contrast, the decoder produces the output sequence from the continuous representations provided by the encoder. Similar to the encoder, each layer of the decoder contains a multi-headed self-attention mechanism and a feed-forward network. In addition, the decoder incorporates an attention mechanism between encoder and decoder, which allows it to focus on relevant parts of the input sequence during output generation. This attention mechanism ensures that the output sequence remains contextually consistent with the input sequence.
+
 \subsubsection{Final Linear and Softmax Layer}
 
-The decoder’s output goes through a final linear layer followed by a softmax layer to produce a probability distribution over the target vocabulary. When using a transformer model for an NLP task, the target vocabulary defines the set of all possible words, tokens, or symbols that the model can output \cite{jozefowicz2016exploring}. The linear layer transforms the high-dimensional representations outputted by the decoder stack into a space that matches the size of the target vocabulary. The softmax function is then applied to convert the raw scores from the linear layer into probabilities, such that the sum of the probabilities across all vocabulary tokens equals one. This probability distribution represents the model’s prediction of the likelihood of each token in the target vocabulary being the next token in the sequence, facilitating NLP tasks like translation and text generation tasks.
+The decoder output goes through a final linear layer and then a softmax layer to create a probability distribution over the target vocabulary. In the context of an NLP task using a transformer model, the target vocabulary includes all possible words, tokens or symbols that the model can generate \cite{jozefowicz2016exploring}. The linear layer converts the high-dimensional representations produced by the decoding stack to a dimensionality that corresponds to the size of the target vocabulary. Next, the softmax function is applied to these raw scores, converting them into probabilities such that the total probability of all vocabulary tokens is equal to one. The resulting probability distribution reflects the model's prediction of the probability that each target vocabulary token is the next token in the sequence, thus enabling operations such as translation and text generation.
 
 \newpage
 
