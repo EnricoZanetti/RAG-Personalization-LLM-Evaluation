@@ -93,7 +93,7 @@ Kazemnejad \cite{kazemnejad2019:pencoding} provides an intuitive explanation of 
 
 In more recent large language models (LLMs), positional encoding often uses learned rather than sinusoidal encodings. In this approach, positional encodings are randomly initialized model parameters learned during training, similar to token encodings. The size of the learned positional encoding vector is related to the maximum sequence length that the model can handle. For example, the BERT model \cite{devlin2018bert} employs a positional encoding size of \( 768 \times 512 \), limiting BERT to a maximum input length of 512 tokens. Although the fixed maximum input length is a disadvantage of learned positional encodings, they can adapt during training, allowing the model to learn positional representations better suited to the training data, unlike static sinusoidal encodings.
 
-\subsection{Self-attention mechanism}
+\subsubsection{Self-attention mechanism}
 
 The self-attention mechanism is a key component of the transformer architecture, enabling the model to dynamically evaluate the relative importance of different words in a sequence. Initially introduced in the seminal article “Attention is All You Need” by Vaswani et al. \cite{vaswani2017attention}, self-attention is essential for understanding the context and relationships between words, thus enhancing the model's ability to capture long-range dependencies.
 
@@ -102,7 +102,7 @@ In the self-attention mechanism, each token of an input sequence \( X \) with to
     \item \textbf{Query (Q):} It represents the token in question.
     \item \textbf{Key (K):} Represents all tokens against which the query is compared.
     \item \textbf{Value (V):} Contains the information of the tokens.
-\fine{itemize}
+\end{itemize}
 
 These vectors are derived from the embeddings of the input tokens through learned weight matrices \( W_Q \), \( W_K \) and \( W_V \). The self-attention mechanism involves the following steps for each token:
 
@@ -237,7 +237,34 @@ The decoder output goes through a final linear layer and then a softmax layer to
 \newpage
 
 \section{Model Size}
-Importance of model size and review of parameter size of AI Neural Networks over the past decades.
+
+The size of a neural network model, especially in the realms of AI and natural language processing, is a crucial determinant of its performance and capabilities. Model size, typically quantified by the number of parameters, significantly affects the model's ability to learn and represent complex data patterns. Larger models can encapsulate more detailed relationships, leading to enhanced accuracy and robustness across various tasks. However, increasing model size also brings challenges such as higher computational demands, greater memory usage, and longer training durations.
+
+\subsubsection{Evolution of Parameter Size in AI Neural Networks Over the Decades}
+
+The development of AI neural networks over the years has been characterized by a dramatic increase in the number of parameters. In the early days of AI, models like simple feed-forward neural networks and early convolutional neural networks (CNNs) had relatively modest parameter counts. For instance, LeNet-5, an early CNN from the 1990s, had approximately 60,000 parameters \cite{lecun1998gradient}.
+
+As computational capabilities and data availability improved, researchers were able to create larger and more complex models. The emergence of deeper architectures such as VGGNet and ResNet in the 2010s saw a significant rise in parameter sizes. VGG-16, for example, has about 138 million parameters \cite{simonyan2014very}, whereas ResNet-50 has around 25 million parameters \cite{he2016deep}.
+
+The shift towards larger models continued with the introduction of transformers and large language models (LLMs). BERT, introduced by Devlin et al. in 2018, has 110 million parameters in its base version and 340 million in its larger version \cite{devlin2018bert}. GPT-3, released by OpenAI in 2020, represented a major leap with 175 billion parameters \cite{brown2020language}. These extensive models have set new benchmarks in various NLP tasks.
+
+Examining the transformer architecture, it is clear that what distinguishes state-of-the-art LLMs is their size. The size of an LLM is defined by the number of parameters, which are fine-tuned during training to generate meaningful language \cite{zhao2023survey, naveed2023comprehensive}. The trend in the size of large neural networks, including LLMs, has seen exponential growth in the last decade \cite{sadiq2023generative}. Figure 3.3 illustrates this trend, particularly for LLMs, shown in orange.
+
+% for models comparison:
+% link1: https://chat.lmsys.org/?leaderboard
+% link2: https://artificialanalysis.ai/
+
+Before the 2000s, language models were relatively simple and small due to computational limitations. From 1950 until around 2010, model sizes increased steadily but not exponentially. The advent of deep learning and hardware advancements around 2010 led to a significant increase in model sizes. Since then, LLMs like GPT (2018) with 117 million parameters to GPT-3 (2020) with 175 billion parameters and GPT-4 with 1.76 trillion parameters have demonstrated rapid growth in LLM size.
+
+The number of parameters in LLMs is a key factor in their ability to capture complex, high-dimensional relationships in data \cite{zhao2023survey}. More parameters generally mean a higher model complexity, often resulting in better performance across a variety of NLP tasks \cite{villalobos2022machine}. However, larger models can also be more prone to overfitting and require significant computational resources \cite{wei2022emergent}.
+
+The number of parameters in LLMs is closely tied to the size of their training datasets \cite{gpt3report}. More complex models require extensive and diverse texts to train effectively, capturing the nuances and subtleties of language. The training set size is usually measured in tokens, which are the fundamental units of text that LLMs use to process and generate language. Tokens can be individual characters, syllables, words, or parts of sentences, depending on the tokenization algorithm used in the LLM \cite{gpt3report}. OpenAI suggests a rule of thumb for GPT-4: one token generally corresponds to about four characters of text in common English. Table 3.1 provides an overview of the parameter and training set sizes for six of the most commonly used LLMs.
+
+The table highlights the correlation between the number of parameters and training set token sizes. For Claude 2, the training set size is not specified in its documentation but is likely estimated between the training set sizes of LLaMA 2 and Falcon. DeepMind researchers \cite{deepmind2023} have found that for optimal training, the model size and the number of training tokens should be scaled equally: for every doubling of model size, the number of training tokens should also be doubled. However, as these models are already trained on massive datasets, including large portions of the internet, it is becoming increasingly challenging to continue expanding the training dataset size. This has led to innovations in training data generation, such as data augmentation and synthetic data generation. Additionally, there is growing interest in methods that allow models to learn more efficiently from smaller datasets, like supervised fine-tuning and a new technique called 'delta-tuning' \cite{deltatuning2023}. Delta-tuning involves selectively tuning a small subset of the model's parameters while keeping the rest fixed, reducing the need for vast tokenized datasets while still enabling the training of powerful next-generation LLMs.
+
+The increase in model size has introduced challenges, including significant computational requirements and the need for efficient hardware. There is an ongoing discussion about the trade-offs between model size and practical deployment constraints, such as inference speed and energy consumption.
+
+In summary, model size plays a pivotal role in the performance of AI neural networks. The trend towards larger models has driven significant advancements in AI capabilities, especially in NLP. However, it also requires a careful balance between performance and practical considerations like computational efficiency and resource demands.
 
 \section{Training Process}
 Explanation of the training process, divided into three key parts: Pre-training, Fine-tuning, and Prompt-based Learning.
