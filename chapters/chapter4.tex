@@ -79,34 +79,34 @@ To provide access to these features, WISE offers multiple interaction modes to c
 
 \subsection{WISE Technology Stack}
 
-The WISE technology stack integrates various components to provide a robust and efficient system for document management and information retrieval. WISE is built using the LangChain framework \cite{langchain2024}, which provides a powerful and flexible platform for developing applications that involve complex language understanding and generation tasks.
+The WISE technology stack integrates several components to provide a robust and efficient system for document management and information retrieval. WISE is built using the LangChain \cite{langchain2024} framework, which provides a powerful and flexible platform for developing applications involving complex language understanding and generation tasks.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/wise/wise-stack.png}
+    \includegraphics[width=0.8\textwidth]{images/wise/wise-stack-updated.jpg}
     \caption{The technology stack of WISE, showcasing its integration with large language models via APIs, its backend architecture, and its use of various databases for storing documents, embeddings, files, user permissions, and chat history. \textit{Source:} \cite{hpa2024}}
     \label{fig:wise-stack}
 \end{figure}
 
-Designed to be flexible, scalable, and efficient, the WISE technology stack shown in figure \ref{fig:wise-stack}, leverages the power of LLMs and robust backend infrastructure. The key components include:
+Designed to be flexible, scalable and efficient, the WISE technology stack shown in the figure \ref{fig:wise-stack}, leverages the power of LLMs and robust backend infrastructure. Key components include:
 
 \begin{itemize}
-    \item \textbf{Large Language Model Integration:} WISE integrates with LLMs allowing the chatbot to utilize advanced AI capabilities for natural language understanding and generation. The system is agnostic to the specific LLM used, providing flexibility in choosing the most appropriate model for different tasks.
+    \item \textbf{Integration of large language models}. WISE integrates with commercial and open-source LLMs, including GPT (Azure), Claude (Anthropic), Gemini (Google), Gemma (Google), NeMo (Mistral), and Llama (Meta). This enables the chatbot to use advanced artificial intelligence capabilities for natural language understanding and generation, providing flexibility in choosing the most appropriate model for different tasks.
 
     \item \textbf{API Interface:} The API interface facilitates communication between the user and the WISE backend. Users interact with WISE through this API, which processes requests and retrieves relevant information from the backend.
 
-    \item \textbf{WISE Backend:} The backend consists of the WISE engine, which is responsible for processing user queries, retrieving information, and generating responses. It acts as the core component that integrates various databases and the LLMs to deliver accurate and timely information.
+    \item \textbf{WISE Backend:} The backend consists of the WISE engine, which is responsible for processing user requests, retrieving information, and generating responses. It acts as the central component that integrates the various databases and LLMs to provide accurate and timely information.
 \end{itemize}
 
 \textbf{Database Systems:} 
 
-    \begin{itemize}
-        \item \textbf{Supabase Database:} Used for storing documents, embeddings, and vector databases. This allows WISE to efficiently manage and retrieve document data and their associated embeddings for semantic search.
-        \item \textbf{AWS S3 Bucket:} Used for storing document files. This ensures scalable and durable storage for large volumes of document data.
-        \item \textbf{Postgres SQL Database:} Used for managing user data, permissions, and chat history. This relational database ensures secure and efficient management of user-specific information and interactions. \cite{hpa2024}
-    \end{itemize}
+\begin{itemize}
+    \item \textbf{Database: } Used to store documents, embeddings, and vector databases. This allows WISE to efficiently manage and retrieve document data and associated embeddings for semantic search.
+    \item \textbf{AWS S3 Bucket:} Used to store document files. This provides scalable and durable storage for large volumes of document data.
+    \item \textbf{Postgres SQL Database:} Used to manage user data, permissions, and chat history. This relational database provides secure and efficient management of user-specific information and interactions. \cite{hpa2024}
+\end{itemize}
 
-This comprehensive technology stack enables WISE to deliver high-performance document management and information retrieval services, ensuring scalability, security, and flexibility to meet the diverse needs of various industries.
+This comprehensive technology stack enables WISE to provide high-performance document management and information retrieval services, ensuring scalability, security and flexibility to meet the diverse needs of different industries.
 
 \subsection{Advantages of WISE}
 
@@ -166,12 +166,12 @@ The HPA LLM-Evaluator is an evaluation system designed and developed during my i
 
 \subsubsection{Prompt Engineering}
 
-The LLM Evaluator was developed using the “LLM-as-a-Judge” methodology \cite{zheng2024judging}, an innovative approach in artificial intelligence research that leverages LLMs to evaluate the responses of an AI assistant by comparing them with human-generated truth responses. The prompt used by Zheng et al. \cite{zheng2024judging} for reference-driven comparison of generated answers was adapted, as shown in Figure \ref{fig:llme-prompt}. This adapted prompt instructs an LLM to act as an impartial judge, compare the AI chatbot's response with a reference response, provide reasons and corrections, evaluate the response, and suggest improvements if necessary. This methodology ensures that WISE's responses meet high-quality standards of information retrieval and interaction.
+The LLM Evaluator was developed using the “LLM-as-a-Judge” methodology \cite{zheng2024judging}, an innovative approach in artificial intelligence research that leverages LLMs to evaluate the responses of an AI assistant by comparing them with human-generated truth responses. The prompt used by Zheng et al. \cite{zheng2024judging} for reference-driven comparison of generated answers was adapted to judge the response of a single AI assistant. The original prompt from Zheng et al.'s paper \cite{zheng2024judging} is shown in Figure \ref{fig:llme-prompt}. The adapted prompt instructs an LLM to act as an impartial judge, compare the AI chatbot's response with a reference response, provide reasons and corrections, evaluate the response, and suggest improvements if necessary. This methodology ensures that WISE's responses meet high-quality standards for information retrieval and interaction.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/llme/llme-prompt.png}
-    \caption{The evaluation prompt used in the LLM Evaluator, adapted from the methodology presented by Zheng et al. (2024) \cite{zheng2024judging}}
+    \includegraphics[width=0.8\textwidth]{images/llme/zheng-prompt-original.png}
+    \caption{The original evaluation prompt presented by Zheng et al. (2024) for reference-guided pairwise comparison \cite{zheng2024judging}}
     \label{fig:llme-prompt}
 \end{figure}
 
