@@ -1,6 +1,6 @@
 \section{WISE: a Case Study}
 
-In this chapter, a case study is presented and discussed  focusing on WISE, a proprietary chatbot developed by HPA: High Performance Analytics. WISE leverages the Retrieval-Augmented Generation (RAG) framework to enhance its information retrieval capabilities, offering a sophisticated and efficient solution for a wide range of applications. In addition, this chapter will introduce my internship project developed at HPA during spring 2024, the HPA LLM Evaluator, illustrating its implementation, methodologies, and potential work improvements. This overview will provide insights into the development and evaluation of advanced AI systems in practical settings.
+In this chapter, a case study is presented and discussed  focusing on WISE, a proprietary chatbot developed by HPA: High Performance Analytics. WISE leverages the Retrieval-Augmented Generation (RAG) framework to enhance its information retrieval capabilities, offering a sophisticated and efficient solution for a wide range of applications. In addition, this chapter will introduce my internship project developed at HPA during spring 2024, the LLM Evaluator, illustrating its implementation, methodologies, and potential work improvements. This overview will provide insights into the development and evaluation of advanced AI systems in practical settings.
 
 \subsection{HPA: High Performance Analytics}
 
@@ -40,41 +40,44 @@ WISE operates through a series of systematic steps that ensure efficient and acc
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/wise/wise-chat-UX.png}
-    \caption{An example of the WISE chatbot interface. Users can interact with WISE via a chat interface, asking questions and receiving detailed responses. The right panel provides context by showing the documents and data sources used to generate the responses. \textit{Source:} \cite{hpa2024}}
+    \includegraphics[width=0.8\textwidth]{images/wise/wise-ux.png}
+    \caption{An example of the WISE chatbot interface. Users can interact with WISE via a chat interface, asking questions and receiving detailed responses, filtering on the source  documents. \textit{Source:} \cite{hpa2024}}
     \label{fig:wise-chat-ux}
 \end{figure}
 
-Only 35\% of a company's data is available to management. Dashboards and reports are often outdated and analysts struggle to meet user demands. WISE addresses these challenges by providing a single point of access to the entire business knowledge base, ensuring accurate and up-to-date answers. The following features highlight the comprehensive functionality of WISE:
+\subsubsection{Key Features}
+
+Today, only 35\% of a company's data is available to management. Dashboards and reports are often outdated and analysts struggle to meet user demands. WISE addresses these challenges by providing a single point of access to the entire business knowledge base, ensuring accurate and up-to-date answers. The following features highlight the comprehensive functionality of WISE:
 
 \begin{itemize}
-    \item \textbf{Multilingual by design:} WISE supports multiple languages to ensure that users with different language backgrounds can easily interact with the system. By transparently managing foreign language conversations, WISE facilitates seamless communication and data retrieval in multinational companies.
+    \item \textbf{Automatic Summaries, Comparisons, and Inconsistency Checks:} WISE can generate concise summaries, compare documents, and identify inconsistencies. This feature saves users time by automatically creating summaries of long documents, highlighting key points and identifying discrepancies between different documents. In this way, the user is able to quickly understand and use the information.
     
-    \item \textbf{Supports structured and unstructured databases}. WISE can handle different types of data formats, providing flexibility and comprehensive search capabilities. Whether data is organized in structured formats such as SQL databases or unstructured forms such as text documents and e-mail, WISE can efficiently process and retrieve relevant information. This versatility makes it an indispensable tool for organizations with diverse data storage systems.
+    \item \textbf{Automatic Text Generation:} WISE can create various text documents based on the data it accesses. This includes the generation of user manuals, contracts, articles and other documentation, ensuring that all generated content is consistent with the latest data and company standards. The system simplifies the documentation process, reducing the workload of employees.
     
-    \item \textbf{Two-factor authentication (2FA) or enterprise single sign-on (SSO):} These methods that provide secure access to the system are needed to access WISE. Two-factor authentication adds an additional layer of security by requiring users to provide two forms of identification before accessing the system. Enterprise single sign-on allows employees to log in with their corporate credentials, simplifying the authentication process while maintaining high security standards.
+    \item \textbf{Integration with Enterprise Systems (CRM, ERP):} WISE integrates seamlessly with other enterprise systems, increasing their usefulness and reach. By connecting to Customer Relationship Management (CRM) and Enterprise Resource Planning (ERP) systems, WISE can access and leverage data from different business functions. This integration provides users with a comprehensive view of the organization's data and processes, facilitating decision making.
+    
+    \item \textbf{Multilingual by Design:} WISE supports multiple languages to ensure that users with different language backgrounds can easily interact with the system. By transparently managing foreign language conversations, WISE facilitates seamless communication and data retrieval in multinational companies.
     
     \item \textbf{Multimodality:} Supports images and videos, enabling users to query multimedia content and improving the scope of information retrieval. This feature enables WISE to process and understand visual data, making it possible to search and retrieve information from images, diagrams, and video content. It is particularly useful in areas such as manufacturing and security, where visual data is critical.
     
     \item \textbf{Response Evaluation and RLHF:} Users can evaluate the responses provided by WISE, facilitating continuous improvement through Reinforcement Learning from Human Feedback (RLHF). This feedback mechanism helps refine artificial intelligence models and improve the accuracy and relevance of the information provided. It ensures that WISE evolves based on user interactions and feedback, leading to improved performance over time.
     
-    \item \textbf{Spreadsheet support (XLS):} WISE can interpret and retrieve information from spreadsheet files. This functionality is critical for organizations that rely on spreadsheets for data management and reporting. WISE can read, process, and extract relevant information from complex Excel files, providing users with fast and accurate access to data.
+    \item \textbf{Spreadsheet Support (XLS):} WISE can interpret and retrieve information from spreadsheet files. This functionality is critical for organizations that rely on spreadsheets for data management and reporting. WISE can read, process, and extract relevant information from complex Excel files, providing users with fast and accurate access to data.
     
-    \item \textbf{Automatic summaries, comparisons and inconsistency checks between documents:} WISE can generate concise summaries, compare documents, and identify inconsistencies. This feature saves users time by automatically creating summaries of long documents, highlighting key points and identifying discrepancies between different documents. In this way, the user is able to quickly understand and use the information.
+    \item \textbf{Supports Structured and Unstructured Databases:} WISE can handle different types of data formats, providing flexibility and comprehensive search capabilities. Whether data is organized in structured formats such as SQL databases or unstructured forms such as text documents and e-mail, WISE can efficiently process and retrieve relevant information. This versatility makes it an indispensable tool for organizations with diverse data storage systems.
     
-    \item \textbf{Automatic text generation (manuals, contracts, articles) from databases:} WISE can create various text documents based on the data it accesses. This includes the generation of user manuals, contracts, articles and other documentation, ensuring that all generated content is consistent with the latest data and company standards. The system simplifies the documentation process, reducing the workload of employees.
+    \item \textbf{Two-Factor Authentication (2FA) or Enterprise Single Sign-On (SSO):} These methods provide secure access to the system. Two-factor authentication adds an additional layer of security by requiring users to provide two forms of identification before accessing the system. Enterprise single sign-on allows employees to log in with their corporate credentials, simplifying the authentication process while maintaining high security standards.
     
-    \item \textbf{Uses triggers and actions for process automation:} This feature enhances workflow automation by responding to specific triggers with predefined actions. For example, WISE can automatically send notifications, update records, or initiate workflows based on user requests or data changes. This automation capability improves operational efficiency and reduces the potential for human error.
-    
-    \item \textbf{Integration with enterprise systems (CRM, ERP):} WISE integrates seamlessly with other enterprise systems, increasing their usefulness and reach. By connecting to Customer Relationship Management (CRM) and Enterprise Resource Planning (ERP) systems, WISE can access and leverage data from different business functions. This integration provides users with a comprehensive view of the organization's data and processes, facilitating decision making. \cite{hpa2024}
+    \item \textbf{Uses Triggers and Actions for Process Automation:} This feature enhances workflow automation by responding to specific triggers with predefined actions. For example, WISE can automatically send notifications, update records, or initiate workflows based on user requests or data changes. This automation capability improves operational efficiency and reduces the potential for human error.
 \end{itemize}
 
+\subsubsection{Interaction Modes}
 To provide access to these features, WISE offers multiple interaction modes to cater to various user preferences and needs:
 
 \begin{itemize}
-    \item \textbf{Classic conversational interface (chat):} Allows users to interact with WISE through a text-based chat interface.
-    \item \textbf{Voice interface (speech-to-text):} Enables users to communicate with WISE using their voice, which is converted to text for processing.
-    \item \textbf{Avatar (text-to-speech):} Provides an engaging and interactive experience by converting text responses into speech, represented by an avatar.
+    \item \textbf{Classic Conversational Interface (Chat):} Allows users to interact with WISE through a text-based chat interface, as depicted in Figure \ref{fig:wise-chat-ux}.
+    \item \textbf{Voice Interface (Speech-to-Text):} Enables users to communicate with WISE using their voice, which is converted to text for processing.
+    \item \textbf{Avatar (Text-to-Speech):} Provides an engaging and interactive experience by converting text responses into speech, represented by an avatar.
 \end{itemize}
 
 \subsection{WISE Technology Stack}
@@ -154,28 +157,30 @@ Although WISE provides a robust and efficient solution for document management a
     \item \textbf{Efficient use of resources:} Optimizing the computational efficiency of WISE by exploiting smaller models, such as DistilBERT, can significantly reduce processing cost and time. Transfer learning from large-scale pre-trained models is increasingly popular in NLP, but running these large models at the edge or under limited computational budgets remains a challenge. DistilBERT is a small, general-purpose language representation model that can be tuned to perform well across a wide range of tasks, similar to its larger counterparts. Using knowledge distillation during the pre-training phase, DistilBERT achieves a 40\% reduction in model size while maintaining 97\% of BERT's language comprehension capabilities and being 60\% faster. This approach not only makes the model cheaper to pre-train, but it is also suitable for on-device calculations, improving the accessibility and affordability of WISE for a wider range of organizations. \cite{sanh2019distilbert}
 \end{itemize}
 
-Through these areas, WISE can be further refined to provide even more reliable, efficient, and context-aware document management and information retrieval solutions, ensuring that it meets the evolving needs of its users.
+WISE represents a cutting-edge approach to document management and information retrieval, leveraging advanced artificial intelligence technologies to deliver efficient, accurate and context-aware solutions. WISE stands out for its ability to solve the inefficiencies of traditional document retrieval methods. The integration of LLM and the RAG framework allows users to interact with a sophisticated virtual assistant that can understand natural language queries and provide accurate and relevant answers from extensive knowledge bases. Moreover, WISE's extensive capabilities, including multilingual support, multimodal capabilities, and secure access features, make it a versatile and indispensable tool for modern businesses.
+
+Looking ahead, the areas identified for future work, such as AI agent integration, bias mitigation, and resource efficiency, highlight the ongoing efforts to improve WISE's capabilities. These enhancements will further strengthen WISE's position as a leader in AI-driven document management, ensuring that it continues to meet the evolving needs of its users and maintain its competitive edge in the marketplace.
 
 \newpage
 
-\section{HPA LLM-Evaluator}
+\section{LLM Evaluator}
 
-The HPA LLM-Evaluator is an evaluation system designed and developed during my internship at HPA in the spring of 2024 to evaluate the performance of chatbot-based applications leveraging Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) technology. The primary objective was to create a comprehensive framework for evaluating WISE, with the goal of measuring its performance using a set of metrics to improve its capabilities and accuracy in information retrieval and response generation. This project involved several steps, including a review of the literature, implementation of evaluation metrics, visualization of the results, and extensive testing. The following sections will introduce these aspects.
+The LLM Evaluator is an evaluation system designed and developed during my internship at HPA in the spring of 2024 to evaluate the performance of chatbot-based applications leveraging Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) technology. The primary objective was to create a comprehensive framework for evaluating WISE, with the goal of measuring its performance using a set of metrics to improve its capabilities and accuracy in information retrieval and response generation. This project involved several steps, including a review of the literature, implementation of evaluation metrics, visualization of the results, and extensive testing. The following sections will discuss these aspects in detail.
 
 \subsection{Evaluation Methodology and Implementation}
 
 \subsubsection{Prompt Engineering}
 
-The LLM Evaluator was developed using the “LLM-as-a-Judge” methodology \cite{zheng2024judging}, an innovative approach in artificial intelligence research that leverages LLMs to evaluate the responses of an AI assistant by comparing them with human-generated truth responses. The prompt used by Zheng et al. \cite{zheng2024judging} for reference-driven comparison of generated answers was adapted to judge the response of a single AI assistant. The original prompt from Zheng et al.'s paper \cite{zheng2024judging} is shown in Figure \ref{fig:llme-prompt}. The adapted prompt instructs an LLM to act as an impartial judge, compare the AI chatbot's response with a reference response, provide reasons and corrections, evaluate the response, and suggest improvements if necessary. This methodology ensures that WISE's responses meet high-quality standards for information retrieval and interaction.
+One of the key feature of the LLM Evaluator was developed using the “LLM-as-a-Judge” methodology \cite{zheng2024judging}, an innovative approach in AI research that leverages LLMs to evaluate the responses of an AI assistant by comparing them with human-generated truth responses. The prompt created by Zheng et al. \cite{zheng2024judging}, shown in Figure \ref{fig:llme-prompt}, for reference-driven comparison of generated answers was adapted in the LLM Evaluator to evaluate the response of a single AI assistant. The adapted prompt instructs an LLM to act as an impartial judge, compare the AI chatbot's response with a reference response, provide reasons and corrections, evaluate the response, and suggest improvements if necessary. This methodology ensures that WISE's responses meet high-quality standards for information retrieval and interaction.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\textwidth]{images/llme/zheng-prompt-original.png}
-    \caption{The original evaluation prompt presented by Zheng et al. (2024) for reference-guided pairwise comparison \cite{zheng2024judging}}
+    \caption{The original evaluation prompt presented by Zheng et al. (2024) for reference-guided pairwise comparison. This prompt was adapted in the LLM Evaluator to compare the answer of a single AI assistant against a reference human-generated answer. \textit{Source:} \cite{zheng2024judging}}
     \label{fig:llme-prompt}
 \end{figure}
 
- The LLM Evaluator was designed to allow the selection of different Large Language Models for evaluation, providing flexibility in evaluating chatbot performance using different LLMs.
+ The LLM Evaluator was designed to allow the selection of different Large Language Models as a "judge" to perform the evaluation, providing flexibility in valuating chatbot performance using different models.
 
 \subsubsection{RAGAS Metrics}
 Following a thorough literature review, the architecture of the evaluation system was designed to incorporate a versatile range of metrics to comprehensively evaluate different dimensions of model performance. The key evaluation metrics used in the system were integrated from the Retrieval Augmented Generation Assessment (RAGAS) framework \cite{es2023ragas}:
@@ -224,14 +229,14 @@ To further enhance the evaluation, subjectivity, polarity, and sentiment analysi
 
 Each module of the evaluation system was tested to ensure its robustness and accuracy. Results were visualized in a simple way, using bar graphs and tables to graphically represent performance metrics. Output formats were refined to improve clarity and accessibility, ensuring that the data were easy to interpret.
 
-The visualizations presented in figures \ref{fig:llm-performance-average-metrics}, \ref{fig:metrics-comparison} and \ref{fig:assistant-performance-table} provide a comprehensive overview of the AI model's performance. To produce these results, a dataset composed by correct and wrong generated answers was used to assess that the LLM Evaluator behaves as expected. GPT-4, recognized as the most advanced LLM available at the time, was chosen for the evaluation role. Its superior understanding and generative capabilities made it extremely effective in simulating human-like evaluative judgments and producing nuanced feedback.
-
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\textwidth]{images/llme/llm-performance-average-metrics.png}
     \caption{Evaluation Report: This chart displays the average scores for numeric metrics. The visualization provides an overview of the model's performance across different dimensions, highlighting areas where the AI chatbots excels and areas that may require improvement.}
     \label{fig:llm-performance-average-metrics}
 \end{figure}
+
+The visualizations presented in figures \ref{fig:llm-performance-average-metrics}, \ref{fig:metrics-comparison} and \ref{fig:assistant-performance-table} provide a comprehensive overview of the AI model's performance. To produce these results, a dataset composed by correct and wrong generated answers was used to assess that the LLM Evaluator behaves as expected. GPT-4, recognized as the most advanced LLM available at the time, was chosen for the evaluation role. Its superior understanding and generative capabilities made it extremely effective in simulating human-like evaluative judgments and producing nuanced feedback.
 
 \begin{figure}[h!]
     \centering
@@ -259,7 +264,7 @@ The project culminated in the creation of a proprietary Python package that enca
 
 \subsection{Limitations}
 
-Although the HPA LLM-Evaluator provides a solid framework for evaluating the performance of chatbots, some limitations need to be recognized:
+Although the LLM Evaluator provides a solid framework for evaluating the performance of chatbots, some limitations need to be recognized:
 
 \begin{itemize}
     \item \textbf{Language Constraints:} Evaluator sentiment analysis functions, including subjectivity and polarity evaluation, are limited to English texts due to dependence on the TextBlob and langdetect libraries. This limitation reduces the evaluator's applicability in multilingual environments, particularly in the Italian context in which HPA primarily operates.
@@ -270,7 +275,7 @@ Although the HPA LLM-Evaluator provides a solid framework for evaluating the per
 
 \subsection{Future Work and Improvements}
 
-To address these limitations and improve the capabilities of the HPA LLM-Evaluator, several future directions of work are proposed:
+To address these limitations and improve the capabilities of the LLM Evaluator, several future directions of work are proposed:
 
 \begin{itemize}
     \item \textbf{Multilingual Support:} Expanding sentiment analysis capabilities to support multiple languages using advanced NLP libraries or multilingual LLMs will enhance the evaluator's applicability across different language environments, aligning with WISE's multilingual capabilities. \cite{abdullah2021multilingual}
@@ -279,6 +284,6 @@ To address these limitations and improve the capabilities of the HPA LLM-Evaluat
     \item \textbf{Dynamic Updating of References:} Implementing mechanisms to dynamically update reference responses based on the latest information and changing contexts will enhance the relevance and accuracy of assessments. To address the challenge of integrating dynamically created reference responses by humans, an automated system could be developed. This system would leverage AI to monitor and gather the latest relevant data from trusted sources and then generate updated reference responses. Additionally, incorporating a human-in-the-loop approach ensures that these AI-generated updates are verified for accuracy and relevance before being used in evaluations. \cite{wu2022survey}
 \end{itemize}
 
-By addressing these limitations and exploring these future directions of work, the HPA LLM evaluator can be further refined to provide even more reliable, fair, and context-aware evaluations of AI-based solutions.
+By addressing these limitations and exploring these future directions of work, the LLM Evaluator can be further refined to provide even more reliable, fair, and context-aware evaluations of AI-based solutions.
 
 HPA's LLM-Evaluator provides a comprehensive and robust framework for evaluating chatbot performance, leveraging advanced methodologies and metrics to ensure high standards of information retrieval and interaction quality. By incorporating sophisticated evaluation techniques and a user-friendly visualization, the system enhances HPA's ability to evaluate and improve its AI-based solutions, ensuring the continued development and deployment of high-quality AI applications.
