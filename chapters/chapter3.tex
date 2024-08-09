@@ -12,8 +12,8 @@ The journey of LLMs began in the 1960s with ELIZA, an early natural language pro
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.6\textwidth]{images/llms/llms-history.png}
-    \caption{Timeline of Large Language Models (LLMs) development. \textit{Source:} \cite{AnalyticsVidhya2023}}
+    \includegraphics[width=0.8\textwidth]{images/llms/llms-timeline.png}
+    \caption{Timeline of Large Language Models (LLMs) development.}
     \label{fig:llms-history}
 \end{figure}
 
@@ -62,7 +62,7 @@ The great advantage of the transformer architecture of being highly parallelizab
 
 As illustrated in Figure \ref{fig:transformer-architecture}, the overall transformer architecture consists of an encoder and a decoder, with each component playing a crucial role in processing and sequence generation. The transformative impact of this architecture continues to drive advances in NLP and AI. The key elements of this architecture, such as positional encoding, multi-headed attention, feed-forward neural networks, norm step addition, residual connections, layer normalization, and linear and softmax final layers, will be discussed in the subsequent sections to provide a more detailed understanding of these components.
 
-\subsubsection{Positional Encoding}
+\subsection{Positional Encoding}
 
 In the field of natural language processing (NLP), transformer models have radically changed our approach to sequence-sequence tasks. Unlike traditional recurrent neural networks (RNNs) or convolutional neural networks (CNNs), transformers process tokens in parallel and have no intrinsic awareness of token order. Positional encodings are a key technique for incorporating transformer models with an understanding of sequence order, enabling them to effectively process and understand input sequences. \cite{li2023transformer}
 
@@ -93,7 +93,7 @@ Kazemnejad \cite{kazemnejad2019:pencoding} emphasizes the ability of this encodi
 
 In more recent large language models (LLMs), positional encoding often uses learned rather than sinusoidal encodings. In this approach, positional encodings are randomly initialized model parameters learned during training, similar to token encodings. The size of the learned positional encoding vector is related to the maximum sequence length that the model can handle. For example, the BERT model \cite{devlin2018bert} employs a positional encoding size of \( 768 \times 512 \), limiting BERT to a maximum input length of 512 tokens. Although the fixed maximum input length is a disadvantage of learned positional encodings, they can adapt during training, allowing the model to learn positional representations better suited to the training data, unlike static sinusoidal encodings.
 
-\subsubsection{Self-attention mechanism}
+\subsection{Self-attention mechanism}
 
 The self-attention mechanism is a key component of the transformer architecture, enabling the model to dynamically evaluate the relative importance of different words in a sequence. Initially introduced in the seminal article “Attention is All You Need” by Vaswani et al. \cite{vaswani2017attention}, self-attention is essential for understanding the context and relationships between words, thus enhancing the model's ability to capture long-range dependencies.
 
@@ -125,7 +125,7 @@ These vectors are derived from the embeddings of the input tokens through learne
 
 This self-attention mechanism allows the model to dynamically weigh the importance of different elements in the sequence, facilitating better understanding and generation of the text. The detailed operation of the self-attention mechanism includes calculating attention scores, applying softmax normalization, and obtaining context-aware representations, thus capturing complex relationships and dependencies in the entire input sequence. \cite{geeksforgeeks2024-sa}
 
-\subsubsection{Multi-Head Attention}
+\subsection{Multi-Head Attention}
 
 The multi-head attention mechanism enhances the basic self-attention by enabling the model to capture different aspects of the input data more effectively. Instead of performing self-attention once, the transformer executes it multiple times in parallel. This involves multiple sets of weight matrices, allowing the model to learn different representations of the input data.
 
@@ -145,7 +145,7 @@ The primary advantage of multi-head attention is that different heads can focus 
 
 The multi-head attention mechanism, along with other components of the transformer architecture, significantly advances the field of NLP, enabling the development of powerful language models capable of performing a wide range of tasks with high accuracy and efficiency.
 
-\subsubsection{Feed-Forward Neural Networks}
+\subsection{Feed-Forward Neural Networks}
 
 In the transformer architecture, after the multi-headed attention mechanism processes the input, each position in the input sequence passes independently through a feed-forward neural network (FFNN). This network is identical for each position, meaning that the same weights and biases are applied regardless of position in the sequence.
 
@@ -158,7 +158,7 @@ The FFNN within the transformer comprises two linear transformations with a ReLU
         \text{ReLU}(x) = \max(0, x)
     \end{equation}
     This introduces nonlinearity into the model, allowing it to capture more complex patterns in the data.
-    \item \textbf{second linear layer}: The activated output is then passed through another linear layer, multiplying it with a weight matrix \( W_2 \) and adding a bias \( b_2 \). This produces the final output of the FFNN.
+    \item \textbf{Second linear layer}: The activated output is then passed through another linear layer, multiplying it with a weight matrix \( W_2 \) and adding a bias \( b_2 \). This produces the final output of the FFNN.
 \end{itemize}
 
 Given an input \( x \), the FFNN can be represented as:
@@ -179,7 +179,7 @@ While the multi-headed attention mechanism allows the model to focus on differen
 
 \cite{pires2023one} provides an in-depth analysis of the role of FFNNs in transformational models. The authors found that although FFNNs consume a significant portion of the model parameters, they exhibit a significant degree of redundancy. By sharing a single FFNN on all layers of the encoder and removing the FFNN from the decoder, the model achieves substantial parameter savings and faster inference speed, with only a slight decrease in accuracy. The study also explores increasing the amplitude of the shared FFNN, which leads to significant improvements in both accuracy and latency, highlighting the potential for optimizing the use of FFNN in transformer models.
 
-\subsubsection{Stabilizing Transformer Layers: Add \& Norm Step}
+\subsection{Stabilizing Transformer Layers: Add \& Norm Step}
 
 After the multi-headed attention mechanism and feed-forward neural network layer process the inputs in the transformer architecture, the output is stabilized using the add \& norm step. This step is crucial for maintaining model stability and efficiency during training, enabling the architecture to support the deep, multilayer structures common in advanced models. The add \& norm step comprises two main components: the residual connection and layer normalization.
 
@@ -222,7 +222,7 @@ where \( \gamma \) and \( \beta \) are learnable scaling and shifting parameters
 
 Maintaining the activations at a consistent scale across different layers, layer normalization ensures that gradients do not diminish exponentially as they backpropagate through many layers. Consequently, both residual connections and layer normalization address the vanishing (or exploding) gradient problem, enabling the effective training of deep transformer models.
 
-\subsubsection{Encoder and Decoder Stacks}
+\subsection{Encoder and Decoder Stacks}
 
 The transformer architecture used in state-of-the-art LLMs like GPT-4 \cite{achiam2023gpt} and LLaMA 2 \cite{touvron2023llama} models consists of stacks of encoder and/or decoder blocks. Each block contains multi-head attention and feedforward neural network layers. The stacking of multiple such blocks allows for increased representational power, enabling the model to learn complex patterns and relationships within the data.
 
@@ -230,60 +230,283 @@ The transformer encoder processes the input sequence and transforms it into a se
 
 In contrast, the decoder produces the output sequence from the continuous representations provided by the encoder. Similar to the encoder, each layer of the decoder contains a multi-headed self-attention mechanism and a feed-forward network. In addition, the decoder incorporates an attention mechanism between encoder and decoder, which allows it to focus on relevant parts of the input sequence during output generation. This attention mechanism ensures that the output sequence remains contextually consistent with the input sequence.
 
-\subsubsection{Final Linear and Softmax Layer}
+\subsection{Final Linear and Softmax Layer}
 
 The decoder output goes through a final linear layer and then a softmax layer to create a probability distribution over the target vocabulary. In the context of an NLP task using a transformer model, the target vocabulary includes all possible words, tokens or symbols that the model can generate \cite{jozefowicz2016exploring}. The linear layer converts the high-dimensional representations produced by the decoding stack to a dimensionality that corresponds to the size of the target vocabulary. Next, the softmax function is applied to these raw scores, converting them into probabilities such that the total probability of all vocabulary tokens is equal to one. The resulting probability distribution reflects the model's prediction of the probability that each target vocabulary token is the next token in the sequence, thus enabling operations such as translation and text generation.
 
-\newpage
+\section{Impact of Model Size on AI Performance}
 
-\section{Model Size}
+The size of a neural network model, especially in the field of artificial intelligence and natural language processing, is a determining factor in its performance and capabilities. Model size, typically quantified by the number of parameters, affects the model's ability to learn and represent complex data models. Larger models can encapsulate more detailed relationships, resulting in increased accuracy and robustness in various tasks. However, increasing model size also brings challenges, such as increased computational demands, increased memory usage and longer training times.
 
-The size of a neural network model, especially in the realms of AI and natural language processing, is a crucial determinant of its performance and capabilities. Model size, typically quantified by the number of parameters, significantly affects the model's ability to learn and represent complex data patterns. Larger models can encapsulate more detailed relationships, leading to enhanced accuracy and robustness across various tasks. However, increasing model size also brings challenges such as higher computational demands, greater memory usage, and longer training durations.
+\subsection{Evolution of Parameter Sizes in AI Neural Networks}
 
-\subsubsection{Evolution of Parameter Size in AI Neural Networks Over the Decades}
+The development of AI neural networks over the years has been characterized by an increase in the number of parameters. In the early days of artificial intelligence, models such as simple feed-forward neural networks and early convolutional neural networks (CNNs) had a relatively modest number of parameters. In fact, before the 2000s, language models were relatively simple and small due to computational limitations. For example, LeNet-5, an early CNN developed by LeCun et al. \cite{lecun1998gradient} in 1998, had about 60,000 parameters. 
 
-The development of AI neural networks over the years has been characterized by a dramatic increase in the number of parameters. In the early days of AI, models like simple feed-forward neural networks and early convolutional neural networks (CNNs) had relatively modest parameter counts. For instance, LeNet-5, an early CNN from the 1990s, had approximately 60,000 parameters \cite{lecun1998gradient}.
+As computational capabilities and data availability improved, researchers were able to create larger and more complex models. In particular, the advent of deep learning and the hardware advances of the 2010s led to the emergence of deeper architectures, such as VGGNet and ResNet, which significantly increased parameter sizes. VGG-16, for example, has about 138 million parameters \cite{simonyan2014very}, while ResNet-50 has about 25 million parameters \cite{he2016deep}.
 
-As computational capabilities and data availability improved, researchers were able to create larger and more complex models. The emergence of deeper architectures such as VGGNet and ResNet in the 2010s saw a significant rise in parameter sizes. VGG-16, for example, has about 138 million parameters \cite{simonyan2014very}, whereas ResNet-50 has around 25 million parameters \cite{he2016deep}.
+The shift toward larger models has continued with the introduction of transformers and large language models. BERT, introduced by Devlin et al. \cite{devlin2018bert} in 2018, has 110 million parameters in its basic version and 340 million in the larger version. OpenAI's GPT-3 (2020), with 175 billion parameters \cite{brown2020language}, and GPT-4 (2023) with 1.76 trillion parameters \cite{achiam2023gpt} have demonstrated rapid growth in the size of LLM models, establishing new benchmarks in various NLP tasks.
 
-The shift towards larger models continued with the introduction of transformers and large language models (LLMs). BERT, introduced by Devlin et al. in 2018, has 110 million parameters in its base version and 340 million in its larger version \cite{devlin2018bert}. GPT-3, released by OpenAI in 2020, represented a major leap with 175 billion parameters \cite{brown2020language}. These extensive models have set new benchmarks in various NLP tasks.
+The number of parameters in LLM models significantly affects their ability to capture complex, high-dimensional relationships in data. In general, increasing the number of parameters increases the complexity of the model, which often results in improved performance in various NLP tasks. However, larger models also tend to be more prone to overfitting and require significant computational resources \cite{zhao2023survey, villalobos2022machine, wei2022emergent}.
 
-Examining the transformer architecture, it is clear that what distinguishes state-of-the-art LLMs is their size. The size of an LLM is defined by the number of parameters, which are fine-tuned during training to generate meaningful language \cite{zhao2023survey, naveed2023comprehensive}. The trend in the size of large neural networks, including LLMs, has seen exponential growth in the last decade \cite{sadiq2023generative}. Figure 3.3 illustrates this trend, particularly for LLMs, shown in orange.
+In addition, the number of parameters of LLMs is related to the volume of their training datasets. Complex models require large and diverse texts to effectively capture the intricate nuances of language. The size of these training datasets is typically measured in tokens, the basic units that LLMs use for text processing and generation. Depending on the tokenization algorithm employed, the tokens may represent individual characters, syllables, words or segments of sentences \cite{brown2020language}.
 
-% for models comparison:
-% link1: https://chat.lmsys.org/?leaderboard
-% link2: https://artificialanalysis.ai/
+\subsection{Recent Trends in AI development}
 
-Before the 2000s, language models were relatively simple and small due to computational limitations. From 1950 until around 2010, model sizes increased steadily but not exponentially. The advent of deep learning and hardware advancements around 2010 led to a significant increase in model sizes. Since then, LLMs like GPT (2018) with 117 million parameters to GPT-3 (2020) with 175 billion parameters and GPT-4 with 1.76 trillion parameters have demonstrated rapid growth in LLM size.
+The importance of model size has been further emphasized by recent trends in the development of artificial intelligence, where training computation has emerged as a critical factor. Models with a training computation greater than 10 floating-point operations (FLOP) are depicted in Figure \ref{fig:large-scale-models}. This threshold defines models as "large-scale models," which typically involve training costs of hundreds of thousands of dollars or more. For example, AI Index estimates that OpenAI's GPT-4 used about \$78 million in computation for training, while Google's Gemini Ultra cost \$191 million in computation. \cite{epoch2024trackinglargescaleaimodels,maslej2024ai} 
 
-The number of parameters in LLMs is a key factor in their ability to capture complex, high-dimensional relationships in data \cite{zhao2023survey}. More parameters generally mean a higher model complexity, often resulting in better performance across a variety of NLP tasks \cite{villalobos2022machine}. However, larger models can also be more prone to overfitting and require significant computational resources \cite{wei2022emergent}.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/llms/large-scale-models-by-domain-and-date.png}
+    \caption{Large-scale models by domain and publication date. The graph displays the training calculation (in FLOP) of various models in different domains over time. \textit{Source:} \cite{epoch2024trackinglargescaleaimodels}}
+    \label{fig:large-scale-models}
+\end{figure}
 
-The number of parameters in LLMs is closely tied to the size of their training datasets \cite{gpt3report}. More complex models require extensive and diverse texts to train effectively, capturing the nuances and subtleties of language. The training set size is usually measured in tokens, which are the fundamental units of text that LLMs use to process and generate language. Tokens can be individual characters, syllables, words, or parts of sentences, depending on the tokenization algorithm used in the LLM \cite{gpt3report}. OpenAI suggests a rule of thumb for GPT-4: one token generally corresponds to about four characters of text in common English. Table 3.1 provides an overview of the parameter and training set sizes for six of the most commonly used LLMs.
+In 2020, only 11 models were trained that exceeded the 10\textsuperscript{23} FLOP, but by 2024 the number had risen to 81, indicating a rapid acceleration in the release of large-scale models. Most of these models are linguistic models, while others are multimodal or image processing models. This trend highlights the predominance of language and image generation tasks in AI development since 2021 \cite{epoch2024trackinglargescaleaimodels}.
 
-The table highlights the correlation between the number of parameters and training set token sizes. For Claude 2, the training set size is not specified in its documentation but is likely estimated between the training set sizes of LLaMA 2 and Falcon. DeepMind researchers \cite{deepmind2023} have found that for optimal training, the model size and the number of training tokens should be scaled equally: for every doubling of model size, the number of training tokens should also be doubled. However, as these models are already trained on massive datasets, including large portions of the internet, it is becoming increasingly challenging to continue expanding the training dataset size. This has led to innovations in training data generation, such as data augmentation and synthetic data generation. Additionally, there is growing interest in methods that allow models to learn more efficiently from smaller datasets, like supervised fine-tuning and a new technique called 'delta-tuning' \cite{deltatuning2023}. Delta-tuning involves selectively tuning a small subset of the model's parameters while keeping the rest fixed, reducing the need for vast tokenized datasets while still enabling the training of powerful next-generation LLMs.
+The rapid advancement of the computational frontier is driven by the exponential increase in ML R\&D investment and hardware performance. Recent trends indicate a growth rate of 4-5 times per year for remarkable models between 2010 and May 2024. For language models in particular, there has been an overall growth rate of up to 9 times per year, attributed to the industry approaching the frontier of artificial intelligence. The continued increase in training computation further underscores the need for efficient hardware and innovative training techniques to support the growth of large-scale AI models \cite{epoch2024trainingcomputeoffrontieraimodelsgrowsby45xperyear}.
 
-The increase in model size has introduced challenges, including significant computational requirements and the need for efficient hardware. There is an ongoing discussion about the trade-offs between model size and practical deployment constraints, such as inference speed and energy consumption.
+A significant portion of large-scale models have been developed in the United States, but China has also contributed an increasing share. The leading organizations with the most confirmed large-scale models are Google, Meta, DeepMind, Hugging Face, and OpenAI. In addition, developers include several companies, universities, and government institutions. When considering unconfirmed models, organizations such as Anthropic and Alibaba also occupy a prominent position. Most of the large-scale models are produced by industry rather than academia, some are the result of industry-university collaborations, and a couple are developed by government institutions. Notably, almost half of the large-scale models have downloadable and publicly available weights, mainly trained with calculations between 10\textsuperscript{23} and 10\textsuperscript{24}. FLOP. However, larger proprietary models often use much higher computational resources and do not disclose training details.
 
-In summary, model size plays a pivotal role in the performance of AI neural networks. The trend towards larger models has driven significant advancements in AI capabilities, especially in NLP. However, it also requires a careful balance between performance and practical considerations like computational efficiency and resource demands.
+However, the growth frontier has shown signs of slowing due to potential obstacles such as data scarcity, willingness to invest, data center power restrictions, or the inability to scale chip production. These factors may have an impact on the exponential growth of computing resources required for training advanced AI models \cite{epoch2024trainingcomputeoffrontieraimodelsgrowsby45xperyear}.
+
+In conclusion, model size plays a key role in the performance of AI neural networks. The trend toward larger models has led to significant advances in AI capabilities, especially in the field of NLP. However, it also requires a careful balance between performance and practical considerations, such as computational efficiency and resource demands. The continued increase in training computation and associated challenges highlight the need for innovative approaches to maintain the trajectory of AI progress.
 
 \section{Training Process}
-Explanation of the training process, divided into three key parts: Pre-training, Fine-tuning, and Prompt-based Learning.
+
+Training large language models (LLMs) is a complex process comprising a series of discrete stages, each of which is designed to enhance the model's capabilities in a gradual and systematic manner. The training of these sophisticated models, which include billions of parameters, has been made possible by recent advances in computing power and architectural innovations. The training process is comprised of three distinct phases: pre-training, fine-tuning, and prompt-based learning. Each phase contributes uniquely to the development and refinement of the model (Figure \ref{fig:training-process}).
+
+Large language models undergo an initial phase of pre-training, during which the model is trained on a substantial unlabeled dataset, which frequently encompasses a significant portion of internet text. This phase enables the LLM to develop a foundational comprehension of language structures and patterns through the recognition and learning from the input data. Following the completion of the pre-training phase, the models are then subjected to a fine-tuning process utilising smaller, task-specific datasets. The objective of this tuning process is to adapt the model's capabilities to perform specialized tasks, such as translation, question answering, or chatbot functionality. Prompting entails engaging with an optimized model through the use of specific questions or statements, referred to as prompts, with the objective of eliciting the desired response from the model. The following sections will examine these three essential elements of LLM training and the methodologies employed to train LLMs for question-answering chatbot applications.
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/llms/LLM-training-process.png}
+    \caption{Overview of the training process of LLMs. LLMs learn from more targeted inputs at each stage of the training process. The first phase of this learning is pre-training, in which the LLM can be trained on a mix of unlabeled data without any human supervision. The second phase is fine-tuning, in which narrower data sets and human feedback are introduced as inputs to the basic model. The fine-tuned model can then enter a further phase, in which humans with specialized knowledge implement hinting techniques that can transform the LLM into an enhanced model to perform specialized tasks. \textit{Source:} \cite{omiye2023large}}
+    \label{fig:training-process}
+\end{figure}
 
 \subsection{Pre-training}
-Pre-training methods in transformer-based LLMs.
 
-\subsection{Next-token and Multi-token prediction}
-Note: start reading @gloeckle2024better \newline
-Overview of next-token prediction and a novel methodology to train LLMs: multi-token prediction, an improvement over next-token prediction in training language models for generative or reasoning tasks. 
+The pre-training phase is a critical component in the development of LLMs, enabling them to understand and generate human language. This phase is a self-supervised process in which the model is trained on a large corpus of unlabeled data, such as Internet texts, Wikipedia, Github code, social media posts, and BooksCorpus. Some models also incorporate proprietary datasets containing specialized texts such as scientific articles \cite{brown2020language, devlin2018bert}.
 
-\section{Fine-tuning}
-Scope and techniques.
+The primary objective during the pre-training phase is to predict the subsequent word in a sentence. This is a computationally demanding task that entails converting the text into tokens prior to entering them into the model proposed by Radford et al. \cite{radford2019language}. This phase yields a rudimentary model that, while capable of generating general language, is unable to perform tasks requiring nuance.
+
+The two principal methods for pre-training are Autoregressive Language Modeling (ALM) and Masked Language Modeling (MLM). Both approaches have had a significant impact on the development of state-of-the-art LLMs, enhancing their capacity to comprehend and produce texts that are akin to those produced by humans.
+
+\subsubsection{Autoregressive Language Modeling (ALM)}
+
+In the context of natural language processing, autoregressive language modeling represents a generative approach whereby the model is tasked with predicting the subsequent word in a sequence, given the preceding words. Autoregressive language models, exemplified by GPT (Generative Pre-trained Transformer), have attracted considerable attention due to their remarkable proficiency in generating high-quality text and executing a diverse range of language-related tasks. These models employ a transformer architecture to facilitate the sequential processing of textual data. The autoregressive mechanism enables the generation of coherent and contextually relevant text by sampling from the learned probability distribution over the vocabulary. This has been demonstrated in previous studies, including those by Radford et al. (2018, 2019) and Achiam (2023), which used GPT as a case study \cite{radford2018improving, radford2019language, achiam2023gpt}.
+
+All autoregressive models developed by OpenAI have employed a semi-supervised learning approach, which combines elements of both supervised and unsupervised learning. Specifically, OpenAI introduced a methodology involving unsupervised pre-training followed by supervised fine-tuning, which addresses the high costs associated with the creation of labeled datasets for language tasks.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/llms/gpt.png}
+    \caption{The architecture of the decoder represents the transformer of a GPT, which has been trained for the purpose of auto-regressive text generation. The diagram demonstrates the integration of text prediction and task-specific classifiers, as well as the application of multi-headed self-attention and feed-forward neural networks. \textit{Source:} \cite{radford2018improving}}
+    \label{fig:transformer_architecture}
+\end{figure}
+
+In unsupervised pre-training, a high-capacity language model is trained on an extensive corpus of text with the objective of maximizing the log-likelihood of the next word given the context provided by the preceding sequence. The formal objective is stated as follows:
+
+\begin{equation}
+    \mathcal{L}_1(\mathcal{U}) = \sum_{i} \log P(u_i | u_{i-k}, \ldots, u_{i-1}; \Theta)
+\end{equation}
+
+where \( k \) represents the context window. In simpler terms, the model looks back at \( k \) tokens while predicting the \((k+1)^{th}\) token. In the pre-training phase, a multi-layer transformer decoder is utilized. Subsequently, multi-headed self-attention is applied to the input tokens, followed by a position-wise feed-forward network. The resulting output is a distribution over the target tokens.
+
+This is subsequently followed by a supervised fine-tuning phase, where a labeled dataset with \( y \) as labels and \( x \) as inputs is utilized. The inputs are passed through the pre-trained model, and the output from the final transformer block is fed into an additional linear output layer with parameters \( W_y \) to predict \( y \). This process results in the following intermediate objective to maximize:
+
+\begin{equation}
+    \mathcal{L}_2(\mathcal{C}) = \sum_{(x,y)} \log P(y | x^1, \ldots, x^m)
+\end{equation}
+
+The incorporation of the pre-training objective as an auxiliary objective during fine-tuning has been demonstrated to enhance generalization and accelerate convergence, as evidenced by research findings. Consequently, the pre-training loss \( \mathcal{L}_1 \) is integrated into the final objective with a weighting factor \( \lambda \):
+
+\begin{equation}
+    \mathcal{L}_3(\mathcal{C}) = \mathcal{L}_2(\mathcal{C}) + \lambda \ast \mathcal{L}_1(\mathcal{C})
+\end{equation}
+ 
+\subsubsection{Masked Language Modeling (MLM)}
+
+Masked Language Modeling, on the other hand, is a denoising goal used primarily by models such as BERT (Bidirectional Encoder Representations from Transformers) \cite{devlin2018bert}. In MLM, certain tokens in the input sequence are randomly masked, and the model is tasked with predicting these masked tokens based on their surrounding context. This bidirectional approach allows the model to understand context from both the left and the right of the masked token, providing a more holistic understanding of the text.
+
+The MLM approach has several advantages. By leveraging bidirectional context, MLM models can develop a comprehensive understanding of language patterns and dependencies. This capability is particularly beneficial for tasks that require nuanced understanding, such as question answering and natural language inference. In addition, the MLM pre-training goal has been shown to enhance the model's generalization capabilities, leading to improved performance in various downstream tasks \cite{yang2019xlnet}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/llms/Model-structure-of-the-label-masked-language-model-N-MASK-is-a-mask-token-containing.png}
+    \caption{An illustration of Masked Language Modeling (MLM) in a transformer architecture. The input sequence contains masked tokens that the model attempts to predict based on the context provided by the surrounding tokens. Token embeddings are combined with positional embeddings before being fed into the transformer encoder. The final output is a prediction of the masked token using the bidirectional context. \textit{Source:} \cite{park2019}}
+    \label{fig:mlm_architecture}
+\end{figure}
+
+The introduction of MLM has significantly advanced the field of natural language processing. Models pre-trained with MLM have achieved state-of-the-art results on numerous benchmark datasets, demonstrating their effectiveness in capturing complex linguistic patterns. For example, BERT has set new performance standards on the General Language Understanding Evaluation (GLUE) benchmark \cite{wang2018glue}.
+
+In addition, subsequent variations and extensions of the MLM approach, such as RoBERTa \cite{liu2019roberta} and XLNet \cite{yang2019xlnet}, have further pushed the boundaries of what is possible with pre-trained language models. These models have refined the MLM methodology, incorporating larger training corpora and more sophisticated training strategies to achieve even better results.
+
+\subsubsection{Comparative Analysis}
+
+Compared to Autoregressive Language Modeling (ALM), MLM offers distinct advantages for tasks that require a holistic understanding of context. While ALM generates text sequentially, limiting its context to preceding tokens, MLM's bidirectional nature allows it to consider both preceding and succeeding tokens, providing a richer context for language understanding. However, MLM is not inherently suited to text generation tasks without additional modifications, whereas ALM excels at such generative tasks.
+
+Both ALM and MLM have their strengths and trade-offs. ALM is inherently sequential and excels at text generation tasks where text flow is critical. However, its unidirectional nature can limit its performance in understanding context that spans both directions. On the other hand, MLM's bidirectional context understanding makes it powerful for tasks such as question answering and natural language inference, although it is not directly suited for text generation tasks without additional fine-tuning.
+
+The choice between ALM and MLM during pre-training depends on the intended use of the LLM. In practice, combining these approaches can yield models that leverage the strengths of both, as seen in some recent advances in the field \cite{lewis2019bart}.
+
+Understanding autoregressive and masked language modeling is fundamental to appreciating the design and capabilities of modern LLMs. These methods underpin the pre-training phase and set the stage for the remarkable performance of models in various NLP tasks.
+
+\subsubsection{Next-Token Prediction and Multi-Token Prediction}
+
+Next-token prediction is a fundamental task in training large language models (LLMs), where the model is trained to predict the next word in a sequence given the previous words. Formally, given a sequence of tokens \( \{x_1, x_2, \ldots, x_T\} \), the model learns to estimate the probability distribution \( P(x_t | x_1, x_2, \ldots, x_{t-1}) \). The learning objective is to minimize the cross-entropy loss:
+
+\begin{equation}
+    \mathcal{L}_1 = - \sum_{t} \log P_\theta (x_{t+1} | x_1, \ldots, x_t),
+\end{equation}
+
+where \( P_\theta \) is our large language model under training, aiming to maximize the probability of \( {x_{t+1}} \) as the next future token, given the history of past tokens \( {x_1, \ldots, x_t} \).
+
+Recently, a novel methodology known as multi-token prediction has been proposed to improve the training efficiency and performance of LLMs. In this approach, the model predicts multiple future tokens simultaneously, rather than one token at a time. This method leverages a shared model trunk and multiple independent output heads to predict the next \( n \) tokens in parallel. This leads to the following factorization of the multi-token prediction cross-entropy
+loss:
+
+\begin{equation}
+    \mathcal{L}_n = - \sum_{t} \sum_{i=1}^{n} \log P_\theta (x_{t+i} | z_{t:1}) \cdot P_\theta(z_{t:1} | x_{t:1}).
+\end{equation}
+
+In practice, as illustrated in Figure \ref{fig:multi-token-prediction}, the model architecture consists of a shared transformer backbone \( f_s \) that produces the hidden representation \( z_{t:1} \) from the observed context \( x_{t:1} \). Additionally, there are \( n \) independent output heads implemented as transformer layers \( f_{h_i} \), along with a shared unembedding matrix \( f_u \). Therefore, to predict \( n \) future tokens, we compute:
+
+\begin{equation}
+    P_\theta(x_{t+i} | x_{t:1}) = \text{softmax}(f_u(f_{h_i}(f_s(x_{t:1})))),
+\end{equation}
+
+for \( i = 1, \ldots, n \), where specifically \( P_\theta(x_{t+1} | x_{t:1}) \) represents our next-token prediction head.
+
+This multi-token prediction approach has demonstrated significant improvements in sampling efficiency and downstream performance, especially for larger model sizes and for tasks such as code generation. It has been shown that models trained with multi-token prediction can achieve higher accuracy on generative benchmarks such as HumanEval and MBPP, significantly outperforming models trained with traditional next-token prediction. In addition, multi-token prediction enhances the model's ability to perform algorithmic reasoning tasks and improves its out-of-domain generalization capabilities \cite{gloeckle2024better}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/llms/multi-token-pred-architecture.png}
+    \caption{Overview of the Multi-Token Prediction Architecture. The model predicts four future tokens simultaneously using a common trunk and four independent output heads. This setup improves sampling efficiency and inference speed. The performance gains are particularly noticeable for larger models and for generative tasks. \textit{Source:} \cite{gloeckle2024better}}
+    \label{fig:multi-token-prediction}
+\end{figure}
+
+In conclusion, multi-token prediction offers a promising improvement over next-token prediction by allowing models to learn more efficiently and effectively. This methodology not only speeds up the training process, but also improves the overall performance of LLMs in various generative and reasoning tasks.
+
+\subsection{Fine-tuning}
+% Introduction of fine-tuning + Differences from Pretraining
+% TODO
+
+Following the completion of the pre-training phase, the models are prepared for adaptation to a multitude of downstream tasks. This versatility and broad applicability serve to underscore the foundational yet incomplete nature of these models. For these and other reasons, these models are designated as "foundational".
+
+First, they are pivotal to the advancement of AI, providing the foundation upon which more sophisticated models can be constructed and refined. Their capacity to process a multitude of tasks across diverse domains, including language, vision, robotics, reasoning, and human interaction, illustrates their foundational role in AI research and application.
+
+Secondly, the term "foundation" underscores the pivotal yet nascent status of these models. Despite their impressive capabilities, these models possess emergent properties that are not yet fully understood, and their large scale introduces new, unforeseen abilities. These models are constructed on the tenets of deep learning and transfer learning, yet their efficacy across a multitude of tasks gives rise to a tendency towards homogeneity. While this homogenization offers significant advantages, it also means that any defects or biases present in the foundation models are propagated to all downstream models adapted from them \cite{bommasani2021opportunities}.
+
+This adaptation phase is called fine-tuning and it constitutes a further training of the foundation model on narrower, domain-specific datasets. For instance, models can be fine-tuned on medical transcripts for healthcare applications or on legal briefs for legal assistant bots \cite{radford2019language}. Fine-tuning involves modifying the model’s weights to optimize its performance for the particular nuances and vocabulary of the task-specific data. This process entails adjusting the model's parameters (weights) according to the task-specific data, which often includes labeled examples for supervised tasks.
+
+Fine-tuning can be enhanced through approaches such as Constitutional AI, which embeds predefined rules into the model's architecture, and reward training, where humans evaluate the quality of multiple model outputs \cite{bai2022constitutional}. Furthermore, reinforcement learning from human feedback (RLHF) is employed, which uses a comparison-based system to optimize model responses. While fine-tuning is less computationally intensive, it necessitates substantial human input to adapt the model for particular tasks with predefined outputs. The model that has undergone fine-tuning is then deployed in a variety of applications, including chatbots \cite{ouyang2022training}.
+
+\section{Methods of Fine-Tuning}
+
+	•	Parameter Efficient Fine-Tuning (PEFT)
+	•	LoRA (Low-Rank Adaptation)
+	•	Adapters
+	•	Prefix Tuning
+
+\subsubsection{Full Model Fine-Tuning}
+
+Full model fine-tuning represents the most straightforward approach, whereby all parameters of the pre-trained model are updated during the fine-tuning process. This approach is particularly effective when the target task bears a strong resemblance to the tasks on which the model was originally pre-trained. The advantage of full model fine-tuning is its capacity to adapt the model to the specific nuances of the new task, which may result in enhanced performance \cite{howard2018universal}.
+
+Nevertheless, the increasing size of LLMs over the years has rendered the fine-tuning process extremely computationally demanding and time-consuming. These challenges have significantly increased operational costs, and the financial burden of maintaining and deploying multiple instances of these fine-tuned models becomes especially pronounced when managing numerous downstream tasks.
+
+In light of these challenges, alternative fine-tuning approaches, such as Parameter Efficient Fine-Tuning (PEFT) methods, have been developed with the objective of optimizing the process, thereby reducing the computational and financial burdens associated with full model fine-tuning.
+
+\subsubsection{Layer-wise Fine-Tuning}
+
+Layer-wise fine-tuning represents a more refined approach to model fine-tuning, whereby the model is fine-tuned in stages, starting with the top layers (closer to the output) and gradually incorporating lower layers (closer to the input). This method allows for more precise adaptation, which can be particularly advantageous when the target task necessitates only minor modifications to the pre-trained model. The application of layer-wise fine-tuning can serve to mitigate the issue of overfitting by limiting the extent of alterations made to the model's parameters. This approach is often utilized in scenarios where computational resources are constrained or when dealing with smaller datasets \cite{ro2021autolr}.
+
+\subsubsection{Adapter Layers}
+
+Adapter layers provide a flexible and efficient alternative to full model fine-tuning. In this technique, small neural network modules, referred to as "adapters," are inserted into the layers of the pre-trained model. During the fine-tuning process, only the parameters of the adapter layers are updated, while the original model parameters remain fixed. This approach markedly diminishes the number of parameters that require modification, consequently reducing computational costs and accelerating training times. Adapter layers have been demonstrated to perform at a comparable level to full model fine-tuning, particularly in low-resource settings. Furthermore, they have been shown to be highly effective for multi-task learning, where the same pre-trained model can be fine-tuned for different tasks by simply switching the adapters. \cite{houlsby2019parameter}.
+
+\subsection{Parameter Efficient Fine-Tuning (PEFT)}
+
+In order to address the considerable computational and financial costs associated with the vast scale of LLM systems, the parameter-efficient fine-tuning (PEFT) approach was developed as a viable solution to this challenge. This approach facilitates the efficient adaptation of large models to a range of downstream tasks, thereby reducing the burden of significant costs. PEFT entails the process of fine-tuning a pre-trained large model to a specific task or domain while minimizing the number of additional parameters introduced and the computational resources required \cite{han2024parameter}.
+
+Among the various PEFT techniques, Low-Rank Adaptation (LoRA) is distinguished by its efficacy in reducing the computational demands associated with fine-tuning large-scale models. For this reason, LoRA will be introduced in the following section.
 
 \subsection{LoRA: Low-Rank Adaptation}
-The Low-Rank Adaptation (LoRA) technique reduces the number of trainable parameters by using a matrix rank decomposition.
 
-\subsection{Prompt-based Learning}
+To address the increasing scale of models, Low-Rank Adaptation (LoRA) has been proposed. This method involves freezing the pre-trained model weights and incorporating trainable rank decomposition matrices into each layer of the Transformer architecture. This significantly reduces the number of trainable parameters required for downstream tasks. In comparison to fine-tuning GPT-3 175B using Adam, LoRA achieves a reduction in trainable parameters by a factor of 10,000 and decreases the GPU memory requirement by a factor of three.
+
+Unlike traditional fine-tuning, which necessitates adjusting the entire model, LoRA focuses on modifying a smaller subset of parameters (lower-rank matrices), thereby reducing computational and memory overhead. This approach is predicated on the understanding that large models inherently possess a low-dimensional structure. By leveraging low-rank matrices, LoRA effectively adapts these models, allowing significant model changes to be represented with fewer parameters, thereby optimizing the adaptation process \cite{hu2021lora}.
+
+\subsubsection{Decomposition in LoRA}
+
+In traditional fine-tuning the weights of a pre-trained neural network are modified to adapt to a new task. This adjustment involves altering the original weight matrix \( W \) of the network. The changes made to \( W \) during fine-tuning are collectively represented by \( \Delta W \), such that the updated weights can be expressed as \( W + \Delta W \).
+
+Rather than modifying \( W \) directly, the LoRA approach decomposes \( \Delta W \). This decomposition is crucial in reducing the computational overhead associated with fine-tuning large models.
+
+The intrinsic rank hypothesis suggests that significant changes to the neural network can be captured using a lower-dimensional representation. Essentially, it posits that not all elements of \( \Delta W \) are equally important; instead, a smaller subset of these changes can effectively encapsulate the necessary adjustments.
+
+Building on this hypothesis, LoRA represents \( \Delta W \) as the product of two smaller matrices, \( A \) and \( B \), with a lower rank. The updated weight matrix \( W' \) thus becomes:
+
+\begin{equation}
+    W' = W + BA
+\end{equation}
+
+In this equation, the variable \( W \) is held constant, indicating that it is not updated during the training process. The matrices \( B \) and \( A \) are of lower dimensionality, with their product \( BA \) representing a low-rank approximation of \( \Delta W \).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/llms/lora.png}
+    \caption{Decomposition of \( \Delta W \) into two matrices \( A \) and \( B \), both of lower dimensionality than \( d \times d \). \textit{Source:} \cite{towardsdatascience2024lora}}
+    \label{fig:lora_decomposition}
+\end{figure}
+
+As illustrated in Figure \ref{fig:lora_decomposition}, by choosing matrices \( A \) and \( B \) to have a lower rank \( r \), the number of trainable parameters is significantly reduced. For instance, if \( W \) is a \( d \times d \) matrix, traditionally, updating \( W \) would involve \( d^2 \) parameters. However, with \( B \) and \( A \) of sizes \( d \times r \) and \( r \times d \) respectively, the total number of parameters reduces to \( 2dr \), which is much smaller when \( r \ll d \) \cite{hu2021lora}. \newline
+
+The reduction in the number of trainable parameters achieved through the LoRA method offers several significant advantages, particularly in the fine-tuning of large-scale neural networks. By lowering the number of parameters that need to be updated, LoRA reduces the system's memory footprint, which is crucial when managing extensive models. This reduction also leads to faster training and adaptation, as the computational demands are significantly diminished, allowing for more efficient training and fine-tuning of models for new tasks. Furthermore, the decreased parameter count makes it feasible to fine-tune large models on less powerful hardware, such as modest GPUs or CPUs, thereby broadening the accessibility of advanced AI capabilities. Finally, LoRA facilitates the scaling of AI models, enabling the expansion of their size and complexity without a corresponding increase in computational resources, thereby making the management of larger models more practical and cost-effective \cite{towardsdatascience2024lora}.
+
+In the context of LoRA, the concept of rank plays a pivotal role in determining the efficiency and effectiveness of the adaptation process. Remarkably, the paper highlights that the rank of the matrices \( A \) and \( B \) can be astonishingly low, sometimes as low as one.
+
+Despite the contributions of Hu et al. \cite{hu2021lora} primarily presents experiments in the field of NLP, the approach of low-rank adaptation is not limited to this domain and could be effectively employed in training various types of neural networks across different domains.
+
+\section{Prompt-based Learning}
+% PRELIMINARY WRITING
 Zero-Shot and Few-Shot Learning, Chain-of-Thought Reasoning
+
+Prompt-based learning in Large Language Models (LLMs) involves providing the model with a prompt or instruction that directs its text generation or predictions \cite{71}. Rather than fine-tuning the model with extensive labeled datasets, this method capitalizes on the model’s pre-existing knowledge, enabling it to generalize from the prompt to generate the desired output. By utilizing the model’s pre-trained weights—acquired during its initial training on a vast corpus of text—prompt-based learning guides the model’s response in a zero-shot or few-shot context. In these settings, the model produces responses without requiring additional training or with only minimal examples.
+
+LLMs exhibit adaptability to unfamiliar tasks and possess apparent reasoning abilities \cite{radford2019language, brown2020language}. However, realizing their full potential in specialized fields like medicine necessitates advanced training strategies. These strategies include direct prompting techniques like few-shot learning, where a few examples of a task at test time guide the model's responses, and zero-shot learning \cite{brown2020language, radford2019language}, which requires no prior specific examples.
+
+More sophisticated methods such as chain-of-thought prompting, encouraging the model to detail its reasoning process step-by-step, and self-consistency prompting, challenging the model to verify the consistency of its responses, are also critical \cite{wei2022chain}.
+
+An innovative technique, instruction prompt tuning, introduced by Lester et al. \cite{lester2021power}, provides a cost-effective solution to update the model's parameters, thereby improving performance in numerous downstream tasks. This method offers significant advantages over few-shot prompting, particularly for clinical applications, as demonstrated by Singhal et al. \cite{singhal2022large}. These techniques augment the core training processes of fine-tuned models, enhancing their alignment with specialized tasks, as shown in the Flan-PaLM model \cite{wei2022finetuned}. Understanding these training methodologies lays a strong foundation for discussing the current capabilities and future applications of LLMs.
+
+% OFFICIAL SECTION
+
+\subsection{Prompt-Based Learning}
+
+Prompt-based learning represents a significant shift in how LLMs are employed for natural language processing tasks. Instead of relying on extensive labeled datasets for training or fine-tuning, prompt-based learning uses textual prompts to guide the model in performing a specific task. This approach is particularly valuable in scenarios where the cost of annotating large datasets is prohibitive, such as in the development of AI chatbots for conversational AI \cite{madotto2021few}.
+
+Prompt-based learning leverages the model's pre-trained knowledge by providing a prompt or instruction that directs the model's responses. The effectiveness of this technique has been demonstrated by works such as Radford et al. (2019) \cite{radford2019language} and Brown et al. (2020) \cite{brown2020language}, where prompt-based few-shot learning achieved results comparable to state-of-the-art models trained with full-shot datasets. This method relies on the model's ability to generalize from minimal examples (few-shot learning) or even without any examples (zero-shot learning), making it a versatile and cost-effective solution for various NLP tasks, including question answering and sentiment analysis.
+
+\subsubsection{Prompt-Based Learning vs. Fine-Tuning}
+
+% go on reading from here
+The primary distinction between prompt-based learning and fine-tuning lies in the training process. Fine-tuning involves updating the model's weights based on a training set through a defined loss function. This requires a significant computational effort, as the entire model undergoes adjustments to optimize its performance for a specific task. In contrast, prompt-based learning bypasses the need for a training phase entirely. Instead of updating the model, it relies on pre-defined prompts that instruct the model on how to perform a task without altering its weights. This difference makes prompt-based learning particularly advantageous in contexts where computational resources are limited or where rapid adaptation to new tasks is required, as no retraining of the model is necessary \cite{madotto2021few}.
+
+\subsubsection{Zero-Shot, One-Shot, and Few-Shot Prompts}
+
+Prompt-based learning is often implemented using zero-shot, one-shot, or few-shot prompts, each offering varying levels of example-based guidance to the model:
+
+- **Zero-Shot Prompts:** In zero-shot learning, the model is given a prompt to perform a task without any additional examples. The model relies solely on its pre-trained knowledge to generate a response, making zero-shot prompts highly efficient in scenarios where no task-specific data is available.
+
+- **One-Shot Prompts:** One-shot learning involves providing the model with a single example in addition to the prompt. This example serves as a minimal guide, helping the model to generate responses that align more closely with the desired outcome.
+
+- **Few-Shot Prompts:** Few-shot learning extends this approach by supplying the model with a small number of examples (typically more than one but fewer than what would be used in full training). These examples, provided in the context of the prompt, help the model understand the task better, allowing it to produce responses that are more accurate and contextually appropriate.
+
+The effectiveness of prompt-based few-shot learning has been demonstrated across a wide range of tasks, including dialogue response generation, knowledge-grounded response generation, and dialogue state tracking. In many cases, it achieves performance comparable to, or even exceeding, that of fully fine-tuned models, without the need for extensive retraining. This makes prompt-based learning a powerful tool in the deployment of conversational AI systems, where flexibility and efficiency are paramount.
+
+In summary, prompt-based learning offers a compelling alternative to traditional fine-tuning by allowing LLMs to perform specific tasks with minimal or no retraining. By utilizing zero-shot, one-shot, and few-shot prompts, this approach maximizes the utility of pre-trained models, making them more adaptable and cost-effective in a wide variety of applications.
 
 \section{Augmented LLMs}
 Review of recent literature on incorporating external knowledge into task-oriented dialogue systems.
@@ -291,126 +514,30 @@ Review of recent literature on incorporating external knowledge into task-orient
 \subsection{Retrieval Augmented Generation Framework}
 Description of the retriever, generator, training, and decoding.
 
+\section{Dataset Considerations}
+Importance of high-quality datasets
+Strategies for dataset creations
+
 \section{Evaluating and Tracking Large Language Models}
+Performance Evaluation, Common Metric Used
+
 Assessing applications powered by Large Language Models (LLMs) holds pivotal importance in our technological landscape. These evaluations not only gauge performance but also address the myriad of challenges we endeavor to overcome (bias, overfitting, hallucination, attribution, staleness, revisions, accuracy on retrieving information).
 
 \subsection{Illustrations and Approaches}
 
 From the innovative OpenAI Evals platform to pioneering concepts like LLM-as-a-Judge, the spectrum of evaluation techniques continues to evolve. Additionally, emerging methodologies such as adversarial testing and bias analysis contribute to a comprehensive understanding of LLM capabilities and limitations.
 
-\newpage
-
-\section{The importance of tracking ML experiments}
-
-Tracking experiments in Machine Learning involves systematically saving the relevant metadata for each experiment and organizing these experiments. An ML experiment is a structured approach to testing a hypothesis, and its metadata include inputs (such as code, datasets or hyperparameters) and outputs (such as metrics and models) \cite{wandb2023}. This process is particularly crucial in the development of large language models (LLMs) and artificial intelligence applications, where experiments can be very complex and iterative.
-
-However, unlike traditional software development, which follows a well-defined set of product features, ML development revolves around continually experimenting with new datasets, models, software libraries, and tuning parameters to optimize metrics such as model accuracy. This process is highly dependent on input data and training methods, making reproducibility essential throughout the ML development cycle.
-
-A significant part of the ML development process is devoted to model selection experiments, which involve training and tuning the models and their features. Data scientists often conduct these experiments in an ad hoc manner, without standardized methods for storing and managing data and experimental artifacts. As a result, results from different experiments may not be comparable, and replication of positive results can be tedious and time-consuming, especially in larger teams \cite{schelter2017automatically}. This problem is particularly evident in artificial intelligence applications, where the complexity of experiments increases significantly.
-
-Effective tracking of ML experiments solves these problems by providing a structured approach to managing the entire ML lifecycle, from development to deployment. It ensures that the metadata and provenance of artifacts produced in ML workloads are properly understood and recorded. This includes details such as who created the model, what hyperparameters were used, and what feature transformations were applied \cite{schelter2017automatically}.
-
-Tracking ML experiments is critical because slight changes in inputs can lead to completely different results. By organizing and recording inputs and outputs, data scientists can:
-
-\begin{itemize}
-    \item Maintain an overview of all experiments performed, helping to manage and monitor progress.
-    \item Guarantee detail and reproducibility, enabling replication of results and insight into what was done.
-    \item Facilitate comparison to identify what changes led to improvements and why.
-\end{itemize}
-
-One of the most reliable solutions is MLflow, an open-source ML analysis platform designed to address these lifecycle challenges, offering APIs for tracking experiments, reproducible runs, packaging, and distributing models. It provides a flexible interface that allows data scientists to insert their own training code, metrics and inference logic, while benefiting from a structured development process \cite{zaharia2018accelerating}. Similar to MLflow, lightweight metadata tracking systems can manage the path of artifacts produced, enabling regular automatic model comparisons and providing a basis for advanced meta-learning \cite{schelter2017automatically}. Another popular solution is the experiment tracker developed by Weights \& Biases (W\&B), which provides comprehensive solutions for tracking, organizing, and comparing experiments. This tool offers features such as automatic recording of inputs and outputs, centralized dashboards for managing experiments, and detailed analysis and comparison capabilities \cite{wandb2023}.
-
-However, a novel approach, MLtraq, has demonstrated better performance than other experiment tracking tools in several respects, including incredible tracking speed, extreme tracking and interoperability with native database types, and unparalleled flexibility and openness. These features enable MLtraq to handle high-frequency recordings, large complex objects, and seamless collaboration, setting it apart from other experiment tracking solutions. Because of these significant advantages, we will go into an in-depth analysis of MLtraq's capabilities.
-
-\subsection{Introduction to MLtraq: An Open-source Python Library}
-
-MLtraq is an open-source Python library specifically designed for ML and AI developers to design, execute, and share experiments efficiently. This library provides comprehensive capabilities for tracking, streaming, reproducing, collaborating, and resuming computation states, making it an invaluable tool for developers. \cite{mltraq2024}
-
-MLtraq offers several key advantages:
-
-\begin{itemize}
-    \item \textbf{Speed:} Recognized as the industry's fastest experiment tracing solution, MLtraq guarantees minimal initialization times and supports high-frequency logging, which are key elements for a smooth development experience and effective CI/CD processes. Its ability to efficiently and unrestrictedly track large and complex Python objects, such as datasets, time series, and media files, makes it a robust and powerful tool for ML and AI development. Relying solely on the filesystem as a database is a recipe for low performance. As stated on the SQLite website, relying on a single file to store the local copy of the database could be 35\% faster than a solution based on the filesystem \cite{sqlite2024}. Therefore, the higher cost of initializing a proper database pays for itself in scalability and reliability. Additionally, MLtraq offers the flexibility of choosing where to store objects with the Data store interface.
-    
-    \item \textbf{Extreme Traceability and Interoperability:} MLtraq excels in tracking and interoperability with its unique DATAPAK format, which provides efficient serialization and deserialization of different types of data. DATAPAK leverages open formats such as Arrow IPC for Pandas and Arrow tables, and NumPy NEP for NumPy arrays, to encode complex Python objects into easily manageable formats. This format, combined with the use of a secure subset of Pickle opcodes, enables seamless integration with native database types and provides robust management of complex objects, thereby enhancing collaboration and data sharing capabilities between local or remote SQL databases. Differently from MLtraq, the entity-attribute-value database model adopted by MLflow and FastTrackML requires a new record to be entered for each new plotted value, making it painfully slow. In addition, the tracked value type is fixed to the SQL column type, resulting in limited flexibility.
-    
-    \item \textbf{Promoting Collaboration:} MLtraq facilitates seamless collaboration by enabling teams to create, store, reload, mix, resume, and share experiments using any local or remote SQL database. The status of experiments is stored in the database in tables, enabling robust data management. Supported data types include native database types, base types, container types and complex types, all serialized with the DATAPAK format to ensure consistency. This ensures that experiments can be easily backed up, merged, and shared, thereby improving collaboration across environments and promoting efficient teamwork. Unless carefully implemented, solutions that adopt threading to incorporate streaming capabilities pay the hidden cost of IPC (Inter-Process Communication). In addition, the increased complexity leads to more I/O errors and reliability issues.
-    \item \textbf{Flexible and Open:} MLtraq allows interaction with experiments using Python, Pandas, and SQL, providing flexibility without the constraints of specific vendors. Most methods implement serialization of arrays and other complex non-scalar objects with custom text encodings, relying on uuencoding and JSON-like formats. However, compression is either absent or handled by creating ZIP files of the artifacts stored on the filesystem. Consequently, the process is slow, and support for complex types is limited or absent, with floating-point and timestamp precision often ignored. In contrast, Arrow IPC, native serialization, zero-copy writes, and secure pickling offer superior performance and portability, as demonstrated by MLtraq. \cite{mltraq2024}
-\end{itemize}
-
-\subsubsection{Key Features}
-
-MLtraq includes a range of features designed to enhance the experiment tracking process:
-
-\begin{itemize}
-    \item \textbf{Immediate:} Allows the design and execution of experiments with just a few lines of code and supports metric streaming.
-    \item \textbf{Collaborative:} Supports backing up, merging, sharing, and reloading experiments with their computation state anywhere.
-    \item \textbf{Interoperable:} Provides access to experiments through Python, Pandas, and SQL with native database types and open formats.
-    \item \textbf{Flexible:} Tracks native Python data types and structures, as well as NumPy, Pandas, and PyArrow objects.
-    \item \textbf{Lightweight:} A thin layer with minimal dependencies that can run anywhere and complement other components and services.
-\end{itemize}
-
-\subsubsection{Design Choices}
-
-MLtraq incorporates thoughtful design choices to optimize its functionality:
-
-\begin{itemize}
-    \item \textbf{Computation:} Uses joblib.Parallel for process-based parallelism in chained execution of steps. It also supports cluster-specific backends like Dask, Ray, and Spark, requiring step functions and run objects to be serializable with cloudpickle.
-    \item \textbf{Persistence:} Defaults to SQLite but can connect to any SQL database supported by SQLAlchemy. It supports a wide range of data types and provides a Data store interface for handling large objects. Compression is available but disabled by default.
-\end{itemize}
-
-\subsubsection{Performance Evaluation of Experiment Tracking Solutions}
-
-To evaluate the performance of different experiment tracking solutions two experiments were conducted. The evaluated solutions include MLtraq, Weights \& Biases (W\&B), Neptune, FastTrackML, Comet, Aim and MLflow. In particular, the experiments focused on initialization time and high-frequency tracking performance. \newline
-
-\textbf{Experiment 1: Initialization Time}
-
-This experiment measures the time it takes to start a new experiment and plot a single value. Initialization time is a critical factor because it affects the ability to experiment with hundreds of thousands of possible configurations. The main costs are dominated by threading and database management.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth]{images/mltraq/mltraq-Initialization-time.png}
-    \caption{Initialization time for tracking a single value across different experiment tracking solutions.}
-    \label{fig:init-time}
-\end{figure}
-
-The results, shown in Figure \ref{fig:init-time}, indicate the following:
-
-\begin{itemize}
-    \item \textbf{W\&B and MLflow:} These tools perform the worst due to threading and event management, costing up to 400 times more than the other methods.
-    \item \textbf{Aim:} Spends most of the time creating and managing its embedded key-value store.
-    \item \textbf{Comet:} The cost is primarily due to thread management.
-    \item \textbf{FastTrackML:} Remarkably fast in creating new runs due to its background server, which eliminates most of the database initialization cost.
-    \item \textbf{MLtraq:} Writing to SQLite is the primary cost.
-    \item \textbf{Neptune:} Performs best with no threading, no SQLite database, and simply writing the tracking data to files. \newline
-\end{itemize}
-
-\textbf{Experiment 2: High-Frequency Tracking}
-
-While efficient initialization is essential, the ability to monitor many values quickly is critical for any tracking solution. This experiment assesses the time required to track and store up to 10,000 values.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth]{images/mltraq/mltraq-high-frequency.png}
-    \caption{High-frequency tracking performance for up to 10,000 values across different experiment tracking solutions.}
-    \label{fig:high-freq}
-\end{figure}
-
-The results, illustrated in Figure \ref{fig:high-freq}, highlight the following:
-
-\begin{itemize}
-    \item \textbf{FastTrackML:} While efficient in creating new runs, inserting new tracking records is similarly expensive to MLflow due to their entity-attribute-value database model.
-    \item \textbf{Aim and W\&B:} Perform at a fraction of the cost compared to MLflow and FastTrackML.
-    \item \textbf{Neptune, Comet, and MLtraq:} These are the highest-performing methods, with MLtraq being the fastest, up to 100 times faster than W\&B.\newline
-\end{itemize}
-
-In summary, MLtraq stands out as a powerful and efficient tool for tracking ML and AI experiments. It outperforms other solutions in terms of initialization time and high-frequency tracking performance, demonstrating significant advantages in speed, flexibility, and ability to handle complex data structures. Its unique features, such as the DATAPAK format for serialization, flexible storage options, and robust support for collaborative efforts, make it an invaluable resource for developers. Careful design choices further enhance its functionality, making MLtraq the optimal choice for scalable and efficient tracking of experiments. Delving deeper into the analysis of this innovative approach, it becomes clear that MLtraq offers unparalleled performance and reliability, setting a new standard in the field of experiment tracking.
+% Possibilità di inserire MLtraq
 
 \newpage
 
 \section{State-of-the-art Models}
 Selection of state-of-the-art LLMs (GPT-4o, Claude 3.5, Gemini Pro, Mistral, Meta Llama 3,...) to compare their differences in performance, architecture, accessibility and cost for developing question-answering chatbot systems.
 
-\subsection{Challenges and Limitations}
+\subsection{Challenges and Best Practices}
+Overfitting
+Catastrophic Forgetting
+Mitigation Strategies
 Discussion on cost, carbon footprint and energy consumption and privacy concerns.
 
 \subsection{Beyond Transformers: the Mamba LLM Architecture}
