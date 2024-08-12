@@ -753,10 +753,35 @@ Further refining the RAG framework, Adaptive retrieval methods enable language m
 
 In summary, these advanced retrieval strategies—iterative, recursive, and adaptive retrieval—are crucial in addressing the limitations of traditional RAG systems. By refining how and when retrieval occurs, these methods significantly improve the depth, relevance, and accuracy of the information used in generating responses, making RAG systems more capable of handling complex, knowledge-intensive tasks.
 
+\subsection{Future Prospects of RAG Technology}
 
-Performance Evaluation, Common Metric Used
-% TruthfulQA: Measuring How Models Mimic Human Falsehoods
-% tutta la ricerca bibliografica già fatta per LLM Evaluator
+The field of Retrieval-Augmented Generation (RAG) has seen significant advancements, yet several challenges and opportunities for further research remain. This section discusses the future prospects of RAG technology, focusing on its potential developments and the challenges that must be addressed.
+
+\subsubsection{RAG and Long Contexts}
+
+As research into Large Language Models (LLMs) continues to evolve, the ability of these models to handle increasingly long contexts has improved dramatically. Modern LLMs can effectively handle contexts up to 32,000 tokens, with the industry now moving towards managing contexts of up to 128,000 tokens—equivalent to the length of a 250-page book \cite{ibm2023}. This capability raises questions about the continued relevance of RAG, particularly in tasks such as long-document question answering, where it might seem feasible to input entire documents directly into the model. However, RAG retains its value for several reasons. Firstly, providing an LLM with an excessive amount of context in a single prompt can severely impact inference speed, whereas chunked retrieval and on-demand input significantly enhance operational efficiency. Secondly, RAG-based generation allows for the quick location of original references, enabling users to verify the generated answers. The entire retrieval and reasoning process in RAG is transparent, unlike generation that relies solely on long contexts, which remains a black box. The expansion of context capabilities also opens new avenues for RAG, particularly in tackling complex integrative tasks that require synthesizing information from extensive material. Developing new RAG methods for super-long contexts represents a promising area of future research \cite{gao2023retrieval}.
+
+\subsubsection{Enhancing RAG Robustness}
+
+The presence of noise or contradictory information in the retrieved documents can negatively impact the quality of RAG outputs, leading to the adage that "misinformation can be worse than no information at all." Studies have shown that including irrelevant documents can paradoxically improve accuracy by over 30\%, contradicting the assumption that such inclusion would reduce quality. These findings highlight the need for specialized strategies that integrate retrieval with language generation models more effectively \cite{cuconasu2024power}. Addressing the robustness of RAG systems in the face of noisy or misleading data remains a critical challenge for future research.
+
+\subsubsection{Hybrid Approaches: Combining RAG with Fine-Tuning}
+
+Integrating RAG with fine-tuning techniques is emerging as a powerful strategy for improving model performance. Future research should explore the optimal ways to combine RAG and fine-tuning, whether through sequential, alternating, or end-to-end joint training approaches \cite{lin2023ra}. Another promising avenue is the incorporation of smaller, specialized language models (SLMs) within the RAG framework, where these models can be fine-tuned based on RAG outcomes. For instance, the CRAG model trains a lightweight retrieval evaluator to assess the overall quality of the retrieved documents, triggering different knowledge retrieval actions based on confidence levels \cite{yan2024corrective}. These hybrid approaches offer exciting possibilities for enhancing the efficiency and effectiveness of RAG systems.
+
+\subsubsection{Production-Ready RAG}
+
+The practical application of RAG technology in production environments presents several engineering challenges that must be addressed to enhance its adoption. Key areas of focus include improving retrieval efficiency, enhancing document recall in large knowledge bases, and ensuring data security—such as preventing the inadvertent disclosure of sensitive information by LLMs \cite{alon2022neuro}. The development of the RAG ecosystem is heavily influenced by advancements in its technical stack. Tools like LangChain and LLamaIndex have become integral components of the RAG landscape, offering extensive APIs and user-friendly interfaces. As RAG continues to evolve, there is a clear trend toward specialization, customization, and simplification of RAG tools and platforms.
+
+In chapter 4 of this thesis, I will delve into a case study of RAG application in a production environment by examining WISE, a proprietary chatbot developed by HPA. WISE utilizes the Retrieval-Augmented Generation (RAG) framework to significantly enhance its information retrieval capabilities, offering a sophisticated and efficient solution across various applications. This showcases the effectiveness and reliability of RAG solutions in today’s business landscape.
+
+\subsubsection{Multi-Modal RAG}
+
+RAG technology is rapidly evolving beyond text-based applications to incorporate multi-modal data, resulting in the creation of innovative models that integrate RAG concepts across various domains. In image processing, audio, video, and even code-related tasks, RAG is being used to enhance capabilities such as retrieval, generation, and automatic processing. This expansion into multi-modal domains marks a significant advancement in the development and application of RAG technology, broadening its impact and utility across diverse fields \cite{gao2023retrieval}.
+
+\newline
+
+The future prospects of RAG technology are both promising and complex. As RAG continues to evolve, it will be essential to address the challenges of robustness, scaling, and production readiness while exploring new frontiers in multi-modal applications. The ongoing development of hybrid approaches and the potential for breakthroughs in scaling laws offer exciting opportunities for advancing RAG systems. With continued research and innovation, RAG technology is poised to become an even more integral part of the AI landscape, enabling more efficient, accurate, and versatile applications across a wide range of domains.
 
 \section{Evaluation of LLMs}
 
@@ -804,9 +829,9 @@ The evaluation of NLG using LLMs is rapidly evolving, with new methods continuou
 
 In the context of RAG systems, evaluation extends beyond text generation to include the retrieval of relevant information from external sources. RAG systems are primarily evaluated on two fronts: retrieval quality and generation quality.
 
-Retrieval quality is assessed by evaluating the effectiveness of the context sourced by the retriever component of the RAG model. Metrics such as Hit Rate, Mean Reciprocal Rank (MRR), and Normalized Discounted Cumulative Gain (NDCG) are commonly used to determine how well the retrieved information aligns with the query and supports accurate and relevant answer generation \cite{chakrabarti2003mining}.
+Retrieval quality is assessed by evaluating the effectiveness of the context sourced by the retriever component of the RAG model. Standard metrics from the domains of search engines, recommendation systems, and information retrieval systems are employed to measure the performance of the RAG retrieval module \cite{chakrabarti2003mining}.
 
-Generation quality in RAG systems is evaluated based on the model’s ability to synthesize coherent and relevant answers from the retrieved context. Evaluation criteria include context relevance, answer faithfulness, and answer relevance. Context relevance measures the precision and specificity of the retrieved content, ensuring that the model focuses on pertinent information. Answer faithfulness ensures that the generated responses remain true to the retrieved context, avoiding hallucinations or contradictions. Answer relevance evaluates how directly the generated text addresses the user’s query, ensuring that the response is not only accurate but also pertinent to the question posed \cite{lewis2020retrieval}.
+Generation quality in Retrieval-Augmented Generation (RAG) systems is assessed based on the model’s ability to produce coherent and relevant answers derived from the retrieved context. This evaluation focuses on how well the generated content aligns with the retrieved data and addresses the user’s query. The critical aspects of this evaluation—context relevance, answer faithfulness, and answer relevance—are elaborated further in Section 4.2.1. These metrics ensure that the model prioritizes pertinent information, remains true to the provided context, and delivers responses that directly and accurately address the questions posed by the user.
 
 \subsection{Challenges in RAG Evaluation}
 
