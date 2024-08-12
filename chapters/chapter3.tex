@@ -470,20 +470,6 @@ In the context of LoRA, the concept of rank plays a pivotal role in determining 
 Despite the contributions of Hu et al. \cite{hu2021lora} primarily presents experiments in the field of NLP, the approach of low-rank adaptation is not limited to this domain and could be effectively employed in training various types of neural networks across different domains.
 
 \section{Prompt-based Learning}
-% PRELIMINARY WRITING
-Zero-Shot and Few-Shot Learning, Chain-of-Thought Reasoning
-
-Prompt-based learning in Large Language Models (LLMs) involves providing the model with a prompt or instruction that directs its text generation or predictions \cite{71}. Rather than fine-tuning the model with extensive labeled datasets, this method capitalizes on the model’s pre-existing knowledge, enabling it to generalize from the prompt to generate the desired output. By utilizing the model’s pre-trained weights—acquired during its initial training on a vast corpus of text—prompt-based learning guides the model’s response in a zero-shot or few-shot context. In these settings, the model produces responses without requiring additional training or with only minimal examples.
-
-LLMs exhibit adaptability to unfamiliar tasks and possess apparent reasoning abilities \cite{radford2019language, brown2020language}. However, realizing their full potential in specialized fields like medicine necessitates advanced training strategies. These strategies include direct prompting techniques like few-shot learning, where a few examples of a task at test time guide the model's responses, and zero-shot learning \cite{brown2020language, radford2019language}, which requires no prior specific examples.
-
-More sophisticated methods such as chain-of-thought prompting, encouraging the model to detail its reasoning process step-by-step, and self-consistency prompting, challenging the model to verify the consistency of its responses, are also critical \cite{wei2022chain}.
-
-An innovative technique, instruction prompt tuning, introduced by Lester et al. \cite{lester2021power}, provides a cost-effective solution to update the model's parameters, thereby improving performance in numerous downstream tasks. This method offers significant advantages over few-shot prompting, particularly for clinical applications, as demonstrated by Singhal et al. \cite{singhal2022large}. These techniques augment the core training processes of fine-tuned models, enhancing their alignment with specialized tasks, as shown in the Flan-PaLM model \cite{wei2022finetuned}. Understanding these training methodologies lays a strong foundation for discussing the current capabilities and future applications of LLMs.
-
-% OFFICIAL SECTION
-
-\subsection{Prompt-Based Learning}
 
 Prompt-based learning represents a significant shift in how LLMs are employed for natural language processing tasks. Instead of relying on extensive labeled datasets for training or fine-tuning, prompt-based learning uses textual prompts to guide the model in performing a specific task. This approach is particularly valuable in scenarios where the cost of annotating large datasets is prohibitive, such as in the development of AI chatbots for conversational AI \cite{madotto2021few}.
 
@@ -491,37 +477,350 @@ Prompt-based learning leverages the model's pre-trained knowledge by providing a
 
 \subsubsection{Prompt-Based Learning vs. Fine-Tuning}
 
-% go on reading from here
-The primary distinction between prompt-based learning and fine-tuning lies in the training process. Fine-tuning involves updating the model's weights based on a training set through a defined loss function. This requires a significant computational effort, as the entire model undergoes adjustments to optimize its performance for a specific task. In contrast, prompt-based learning bypasses the need for a training phase entirely. Instead of updating the model, it relies on pre-defined prompts that instruct the model on how to perform a task without altering its weights. This difference makes prompt-based learning particularly advantageous in contexts where computational resources are limited or where rapid adaptation to new tasks is required, as no retraining of the model is necessary \cite{madotto2021few}.
+The primary distinction between prompt-based learning and traditional fine-tuning lies in the training approach. While fine-tuning involves updating the model's weights based on a training set through a defined loss function, requiring substantial computational effort, prompt-based learning eliminates the need for this training phase altogether. Instead of modifying the model, prompt-based learning utilizes pre-defined prompts that instruct the model on how to perform a task without altering its weights. This makes prompt-based learning particularly advantageous in scenarios with limited computational resources or when rapid adaptation to new tasks is required, as it avoids the need for retraining \cite{madotto2021few}. 
 
-\subsubsection{Zero-Shot, One-Shot, and Few-Shot Prompts}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/llms/fine-tuning-vs-prompt-learning.png}
+    \caption{Comparison of traditional fine-tuning (left) and prompt-based learning (right). In traditional fine-tuning, the model's weights are updated based on a training set, while in prompt-based learning, the model uses pre-defined prompts without altering its weights. \textit{Source:} \cite{madotto2021few}}
+    \label{fig:fine_tuning_vs_prompt_learning}
+\end{figure}
 
-Prompt-based learning is often implemented using zero-shot, one-shot, or few-shot prompts, each offering varying levels of example-based guidance to the model:
+\subsection{Zero-Shot, One-Shot, and Few-Shot Learning}
 
-- **Zero-Shot Prompts:** In zero-shot learning, the model is given a prompt to perform a task without any additional examples. The model relies solely on its pre-trained knowledge to generate a response, making zero-shot prompts highly efficient in scenarios where no task-specific data is available.
+Prompt-based learning is often implemented using zero-shot, one-shot, or few-shot prompts, each offering varying levels of example-based guidance to the model.
 
-- **One-Shot Prompts:** One-shot learning involves providing the model with a single example in addition to the prompt. This example serves as a minimal guide, helping the model to generate responses that align more closely with the desired outcome.
+In Zero-Shot learning, the model is given a prompt to perform a task without any additional examples. The model relies solely on its pre-trained knowledge to generate a response, making zero-shot prompts highly efficient in scenarios where no task-specific data is available \cite{radford2019language}.
 
-- **Few-Shot Prompts:** Few-shot learning extends this approach by supplying the model with a small number of examples (typically more than one but fewer than what would be used in full training). These examples, provided in the context of the prompt, help the model understand the task better, allowing it to produce responses that are more accurate and contextually appropriate.
+One-Shot learning involves providing the model with a single example in addition to the prompt. This example serves as a minimal guide, helping the model to generate responses that align more closely with the desired outcome.
 
-The effectiveness of prompt-based few-shot learning has been demonstrated across a wide range of tasks, including dialogue response generation, knowledge-grounded response generation, and dialogue state tracking. In many cases, it achieves performance comparable to, or even exceeding, that of fully fine-tuned models, without the need for extensive retraining. This makes prompt-based learning a powerful tool in the deployment of conversational AI systems, where flexibility and efficiency are paramount.
+Few-Shot learning extends this approach by supplying the model with a small number of examples (typically more than one but fewer than what would be used in full training). These examples, provided in the context of the prompt, help the model understand the task better, allowing it to produce responses that are more accurate and contextually appropriate \cite{brown2020language}.
 
-In summary, prompt-based learning offers a compelling alternative to traditional fine-tuning by allowing LLMs to perform specific tasks with minimal or no retraining. By utilizing zero-shot, one-shot, and few-shot prompts, this approach maximizes the utility of pre-trained models, making them more adaptable and cost-effective in a wide variety of applications.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/llms/zero-one-few-shots.png}
+    \caption{Illustration of Zero-Shot, One-Shot, and Few-Shot learning in dialogue systems. Zero-Shot learning involves no additional examples, One-Shot learning provides a single example, and Few-Shot learning includes a small number of examples to guide the model's response generation. \textit{Source:} \cite{madotto2021few}}
+    \label{fig:zero_one_few_shot}
+\end{figure}
 
-\section{Augmented LLMs}
+As illustrated in Figure \ref{fig:zero_one_few_shot}, the effectiveness of prompt-based few-shot learning has been demonstrated across a wide range of tasks, including dialogue response generation, knowledge-grounded response generation, and dialogue state tracking. In many cases, it achieves performance comparable to, or even exceeding, that of fully fine-tuned models, without the need for extensive retraining. This makes prompt-based learning a powerful tool in the deployment of conversational AI systems, where flexibility and efficiency are paramount.
+
+In conclusion, prompt-based learning offers a compelling alternative to traditional fine-tuning by allowing LLMs to perform specific tasks with minimal or no retraining. By utilizing zero-shot, one-shot, and few-shot prompts, this approach maximizes the utility of pre-trained models, making them more adaptable and cost-effective in a wide variety of applications.
+
+\subsection{Chain of Thought Prompting}
+
+In recent years, more advanced techniques have emerged, with one particularly promising approach being Chain-of-Thought (CoT) prompting.
+
+Chain-of-Thought reasoning represents a methodology designed to enhance the reasoning capabilities of large language models by directing them to construct a sequence of intermediate steps that collectively culminate in a final answer. This approach emulates the natural human thought process when addressing complex tasks, such as multi-step mathematical problems, where the problem is decomposed into smaller, more tractable components before reaching a solution.
+
+As illustrated in Figure \ref{fig:cot_reasoning}, Chain of Thought reasoning allows language models to handle complex reasoning tasks more effectively by decomposing the problem into intermediate stages. For example, when solving a math word problem, a model might generate a sequence of logical steps that resemble the way a human might solve the problem step-by-step: “After Jane gives 2 flowers to her mom, she has 10 left… then after giving 3 to her dad, she will have 7… so the answer is 7.” This sequential reasoning helps the model arrive at the correct answer by focusing on each part of the problem individually.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/llms/cot-resoning.png}
+    \caption{Comparison of standard prompting and Chain-of-Thought (CoT) prompting. The CoT approach allows the model to break down problems into intermediate steps, leading to more accurate and interpretable outcomes.}
+    \label{fig:cot_reasoning}
+\end{figure}
+
+One of the significant advantages of Chain of Thought reasoning is its interpretability. By breaking down the reasoning process into a series of intermediate steps, CoT provides insights into how the model arrived at a particular answer. This not only helps in understanding the model’s decision-making process but also offers opportunities to identify and correct errors in the reasoning path.
+
+Moreover, Chain of Thought reasoning is versatile and can be applied to a variety of tasks that require complex reasoning, such as solving math word problems, engaging in commonsense reasoning, and performing symbolic manipulation. Essentially, it can be applied to any task where humans typically solve problems through language-based reasoning.
+
+Another notable benefit of Chain of Thought prompting is that it can be effectively elicited in large language models by incorporating examples of such reasoning into the few-shot prompting process. This means that without any additional fine-tuning, sufficiently large pre-trained models can generate these reasoning chains simply by being provided with relevant examples during the prompting phase \cite{wei2022chain}.
+
+In summary, Chain of Thought reasoning represents a powerful tool for enhancing the reasoning capabilities of language models. By breaking down complex problems into intermediate steps, it not only improves the accuracy of the model’s outputs but also provides a transparent and interpretable reasoning process that can be applied across a wide range of tasks.
+
+\subsection{Instruction Prompt Tuning}
+
+% ----------------------- Read from here  -----------------------
+
+An innovative technique, instruction prompt tuning, introduced by Lester et al. \cite{lester2021power}, provides a cost-effective solution to update the model's parameters, thereby improving performance in numerous downstream tasks. Instruction prompt tuning offers significant advantages over few-shot prompting, particularly for clinical applications, because it allows LLMs to be more effectively aligned with the specific requirements of the medical domain, as demonstrated by Singhal et al. \cite{singhal2022large}
+
+Prompt tuning is designed to improve the performance of frozen language models on specific downstream tasks by learning so-called "soft prompts". Unlike traditional discrete text prompts, which are manually selected or searched for, soft prompts are learned through backpropagation, allowing them to be fine-tuned based on labeled examples.
+
+At a high level, prompt tuning shifts the focus from tuning the entire model to tuning only the parameters of the prompts. This approach involves conditioning a frozen language model on these soft prompts to guide its output generation, thereby enhancing the model's ability to perform specific tasks. This is particularly important because it allows the use of large pre-trained models without the need to modify their core weights, making the approach both resource efficient and scalable.
+
+The concept of prompt tuning builds on the idea of conditioning models with additional information. Typically, in models such as GPT-3, prompts are added as additional tokens that the model uses to generate the desired output. However, these tokens are part of the model's fixed embedding space, which means that they cannot be directly optimized by training. Prompt tuning overcomes this limitation by introducing dedicated parameters for the prompts themselves, which can be updated during training.
+
+As a result, prompt tuning becomes increasingly competitive as the size of the language model grows. Remarkably, it can match the performance of full model tuning - where all model weights are adjusted - even when the model size reaches billions of parameters. This makes prompt tuning a powerful tool, especially for large models where fine-tuning all parameters is computationally expensive and impractical.
+
+In addition, prompt tuning has demonstrated advantages in robustness to domain transfer and offers the flexibility of "prompt ensembling," where multiple prompts can be combined to improve performance. This approach also simplifies the process of adapting a single frozen model to multiple downstream tasks, reducing the need to deploy and manage multiple fine-tuned models. \cite{lester2021power}
+
+In summary, prompt tuning is a highly effective method for improving the performance of large language models on specific tasks by learning and tuning soft prompts. This approach not only simplifies the tuning process, but also maintains the efficiency and scalability of using frozen, pre-trained models across different applications. 
+
+\section{Limitations of Large Language Models in Practical Applications}
+
 Review of recent literature on incorporating external knowledge into task-oriented dialogue systems.
 
-\subsection{Retrieval Augmented Generation Framework}
-Description of the retriever, generator, training, and decoding.
+After examining LLMs, their architecture, and the impact of model size on AI performance, as well as exploring various training and fine-tuning methods, including prompt-based learning techniques, it is essential to address the limitations of these models in practical applications.
 
-\section{Dataset Considerations}
-Importance of high-quality datasets
-Strategies for dataset creations
+One of the most significant limitations of LLMs is their lack of transparency in predictions. The models operate as black boxes, making it difficult to interpret the reasoning behind their outputs. This opacity is problematic, especially when LLMs are used in decision-making processes that require accountability and traceability \cite{rudin2019stop}.
 
-\section{Evaluating and Tracking Large Language Models}
+Another critical issue is the tendency of LLMs to produce “hallucinations”—statements that are plausible but factually incorrect. These hallucinations arise because LLMs generate text based on patterns learned from vast amounts of data, without a deep understanding of the world or the ability to fact-check their outputs \cite{maynez2020faithfulness}. This risk is exacerbated by the fluency and coherence of the generated text, which can mislead users into accepting false information as true.
+
+Bias is another well-documented limitation of LLMs. These models can inadvertently perpetuate and amplify biases present in the training data, leading to outputs that reinforce stereotypes or discriminate against certain groups \cite{bender2021dangers}. This bias is particularly concerning in applications like hiring, lending, or law enforcement, where fairness and impartiality are paramount.
+
+Additionally, LLMs face issues of staleness and revisions. Since these models are trained on static datasets, they cannot incorporate new information that emerges after their training, leading to outdated or incorrect responses \cite{dhingra2022time}. Furthermore, the accuracy of information retrieval is another challenge, as LLMs often struggle to retrieve specific, relevant information from their vast learned knowledge, leading to irrelevant or imprecise responses.
+
+The limitations mentioned above significantly undermine the reliability and value of LLMs in practical applications. When these models generate inaccurate or misleading outputs, the consequences can be severe, especially in critical fields where precision and factual correctness are essential.
+
+To address these limitations, one promising approach is Retrieval-Augmented Generation (RAG). RAG enhances the capabilities of LLMs by integrating an external retrieval mechanism that allows the model to access and utilize up-to-date and contextually relevant information during the generation process \cite{lewis2020retrieval}. This method mitigates issues related to staleness, hallucinations, and factual inaccuracies by grounding the model’s outputs in verifiable external sources, thereby improving the accuracy and reliability of its responses. As a result, RAG offers a viable solution to many of the challenges faced by LLMs in practical applications, making them more effective and trustworthy in real-world scenarios.
+
+\section{Retrieval-Augmented Generation (RAG)}
+
+To address the discussed challenges, Meta AI researchers introduced a method called Retrieval-Augmented Generation (RAG) \cite{lewis2020retrieval}. RAG is a powerful technique that enhances LLMs by integrating them with external knowledge sources, operating by retrieving relevant document chunks from an external knowledge base through semantic similarity calculations. By referencing external knowledge, RAG effectively reduces the occurrence of hallucinations and improves the factual accuracy of the generated content. This integration has led to widespread adoption of RAG, establishing it as a key technology in advancing AI applications like chatbots and enhancing the suitability of LLMs for real-world scenarios.
+
+The development of RAG technology has progressed rapidly, evolving through distinct stages. Initially, the inception of RAG coincided with the rise of the Transformer architecture, focusing on enhancing language models by incorporating additional knowledge through Pre-Training Models (PTM). This early stage was characterized by foundational work aimed at refining pre-training techniques \cite{arora2023gar, lewis2020retrieval, borgeaud2022improving}. 
+
+The subsequent arrival of models like ChatGPT marked a pivotal moment, showcasing powerful in-context learning (ICL) capabilities. RAG research shifted towards providing better information for LLMs to tackle more complex and knowledge-intensive tasks during the inference stage. As research progressed, RAG's enhancement was no longer limited to the inference stage but began to incorporate more with LLM fine-tuning techniques.
+
+A typical application of RAG is illustrated in Figure \ref{fig:rag_example}. In this example, a user poses a question to ChatGPT about a recent news event. Given that ChatGPT relies on pre-training data, it initially lacks the ability to provide updates on recent developments. RAG bridges this information gap by sourcing and incorporating knowledge from external databases. In this case, relevant news articles related to the user's query are retrieved and combined with the original question to form a comprehensive prompt, empowering the LLM to generate a well-informed answer.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/llms/rag-strategies.png}
+    \caption{A representative instance of the RAG process applied to question answering. It consists of three main steps: 1) Indexing, where documents are split into chunks, encoded into vectors, and stored in a vector database. 2) Retrieval, where the top-K chunks most relevant to the question are retrieved based on semantic similarity. 3) Generation, where the original question and the retrieved chunks are input together into the LLM to generate the final answer. \textit{Source:} \cite{gao2023retrieval}}
+    \label{fig:rag_example}
+\end{figure}
+
+As RAG continues to evolve, we can categorize its development into three stages: Naive RAG, Advanced RAG, and Modular RAG. Although RAG methods are cost-effective and surpass the performance of native LLMs, they also exhibit certain limitations. The development of Advanced RAG and Modular RAG represents a response to these specific shortcomings in the Naive RAG stage \cite{gao2023retrieval}.
+
+\subsubsection{Naive RAG}
+
+The Naive Retrieval-Augmented Generation (RAG) approach represents the foundational methodology in RAG systems and gained prominence following the widespread adoption of models like ChatGPT. Naive RAG follows a straightforward "Retrieve-Read" framework \cite{ma2023query}, which typically involves three critical phases: indexing, retrieval, and generation.
+
+\textbf{Indexing} is the initial phase where raw data from various formats, such as PDFs, HTML, Word documents, and Markdown files, are cleaned and converted into a uniform plain text format. Given the context limitations of language models, the text is then segmented into smaller, manageable chunks. These chunks are encoded into vector representations using an embedding model and stored in a vector database. This process is crucial as it lays the groundwork for efficient similarity searches during the retrieval phase.
+
+\textbf{Retrieval} begins when a user query is submitted. The system utilizes the same encoding model used during indexing to transform the query into a vector representation. The system then computes similarity scores between the query vector and the vectors of chunks within the indexed corpus. The top K chunks with the highest similarity scores are retrieved and used as the expanded context for the prompt.
+
+\textbf{Generation} involves synthesizing the user’s query with the retrieved documents to create a coherent prompt, which the large language model uses to generate a response. Depending on task-specific criteria, the model might draw on its parametric knowledge or restrict its response to the retrieved documents. However, Naive RAG faces several significant challenges, including issues with retrieval precision and recall, and the generation of content that may suffer from hallucinations, irrelevance, or bias \cite{gao2023retrieval}.
+
+\subsubsection{Advanced RAG}
+
+Advanced RAG builds on the foundational Naive RAG framework by introducing specific improvements designed to address the limitations observed in the earlier model. This approach enhances the quality of retrieval by implementing both pre-retrieval and post-retrieval strategies, focusing on refining the indexing process and optimizing how queries are handled.
+
+In the pre-retrieval phase, the emphasis is on optimizing the structure of the index and refining the original user query to improve retrieval quality. Strategies such as the sliding window approach, fine-grained text segmentation, and the incorporation of metadata are employed to enhance the granularity and relevance of the indexed content \cite{ilin2023advancedrag}. Additionally, query optimization techniques such as query rewriting, transformation, and expansion are used to ensure the query is well-suited for effective retrieval.
+
+The post-retrieval phase focuses on integrating the retrieved context more effectively with the user’s query. Key methods include re-ranking the retrieved chunks to prioritize the most relevant information and compressing the context to avoid information overload when feeding it into the language model. These strategies help address the generation challenges encountered in Naive RAG by ensuring that the final output is more focused, relevant, and coherent.
+
+Advanced RAG’s systematic enhancements to both the indexing and retrieval processes significantly improve the overall performance of RAG systems, making them more robust and capable of handling complex queries with greater accuracy \cite{gao2023retrieval}.
+
+\subsubsection{Modular RAG}
+
+Modular RAG represents the next evolution in the RAG paradigm, offering a more flexible and adaptable architecture that can be customized to meet the needs of a wide range of tasks and scenarios. This approach builds upon the foundational principles of Naive and Advanced RAG but introduces modular components that can be independently optimized and reconfigured.
+
+\textbf{New Modules} are a key feature of Modular RAG. This architecture incorporates specialized components designed to enhance retrieval and processing capabilities. For instance, the \textbf{Search module} allows for direct searches across diverse data sources, such as search engines, databases, and knowledge graphs, using LLM-generated code and query languages \cite{wang2023knowledgpt}. The \textbf{RAGFusion module} addresses the limitations of traditional search by employing a multi-query strategy that expands user queries into diverse perspectives, utilizing parallel vector searches and intelligent re-ranking to uncover both explicit and transformative knowledge \cite{ragfusion2023}. Additionally, the \textbf{Memory module} leverages the language model’s memory to guide retrieval, creating an unbounded memory pool that iteratively enhances the alignment between text and data distribution \cite{li2021memory}.
+
+The \textbf{Routing module} in Modular RAG optimizes query pathways by navigating through various information sources, selecting the most appropriate route for each query. This might involve summarization, specific database searches, or merging different information streams to provide a comprehensive response \cite{li2023classification}. The \textbf{Predict module} reduces redundancy and noise by generating context directly within the LLM, ensuring that the outputs are relevant and accurate \cite{yu2022generate}. Finally, the \textbf{Task Adapter module} tailors the RAG system to various downstream tasks, automating prompt retrieval for zero-shot inputs and creating task-specific retrievers through few-shot query generation \cite{cheng2023uprise}.
+
+\textbf{New Patterns} in Modular RAG provide remarkable adaptability by allowing for module substitution or reconfiguration to address specific challenges. Unlike the fixed structures of Naive and Advanced RAG, Modular RAG offers the flexibility to integrate new modules or adjust the interaction flow among existing ones, enhancing its applicability across different tasks. Innovations such as the \textbf{Rewrite-Retrieve-Read} model and the \textbf{Demonstrate-Search-Predict} (DSP) framework illustrate how Modular RAG can leverage LLMs capabilities to refine retrieval queries and improve task performance \cite{khattab2022demonstrate}.
+
+Modular RAG’s dynamic architecture not only simplifies the retrieval process but also significantly enhances the quality and relevance of the information retrieved. Its flexibility allows for the integration of other technologies, such as fine-tuning or reinforcement learning, further expanding its effectiveness and adaptability in diverse application scenarios.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/llms/naive-adv-modular-rag.png}
+    \caption{Comparison between the three paradigms of RAG. Naive RAG (left) consists of three parts: indexing, retrieval, and generation. Advanced RAG (middle) introduces multiple optimization strategies around pre-retrieval and post-retrieval, while Modular RAG (right) develops from the previous paradigms, showcasing greater flexibility with the introduction of multiple specific functional modules. \textit{Source:} \cite{gao2023retrieval}}
+    \label{fig:rag_paradigms}
+\end{figure}
+
+In summary, Modular RAG represents a significant advancement in the development of RAG systems, offering a highly adaptable and modular architecture that addresses the limitations of earlier models while providing the flexibility needed to tackle a wide range of complex tasks.
+
+\subsection{Key Considerations for Effective Retrieval in RAG Systems}
+
+In RAG systems, the efficient retrieval of relevant documents from external data sources is critical to ensuring the accuracy and relevance of generated outputs. Several important aspects influence the effectiveness of retrieval, including the source of the retrieval data, the granularity of the data retrieved, indexing optimization, query optimization, and embedding techniques.
+
+\subsection{Retrieval Source}
+
+RAG systems leverage external knowledge sources to enhance LLMs. The type of retrieval source and the granularity of retrieval units significantly impact the quality of the final output.
+
+For open-domain question-answering (ODQA) tasks, traditional unstructured text, such as Wikipedia or domain-specific data, remains the most common retrieval source. In addition to encyclopedic data, common unstructured data inlcudes cross-lingual text and domain specific-data \cite{li2023classification}.
+
+However, RAG systems are increasingly incorporating semi-structured data, that typically refers to data that includes both text and table elements, such as PDF files. Managing semi-structured data presents challenges for conventional RAG systems for two main reasons. First, the process of text splitting can unintentionally separate tables, leading to data corruption during retrieval. Second, integrating tables into the data complicates semantic similarity searches. One approach to handling semi-structured data is to utilize the coding capabilities of LLMs to execute Text-2-SQL queries on tables within databases, as seen in systems like TableGPT \cite{zha2023tablegpt}. Alternatively, tables can be converted into text format for further analysis using text-based methods \cite{luo2023augmented}. However, these methods are not without limitations, highlighting the need for further research in this area.
+
+Structured data, such as knowledge graphs (KGs), typically undergoes verification and can provide more precise information. For example, KnowledGPT \cite{wang2023knowledgpt} generates knowledge base search queries and stores knowledge in a personalized repository, enriching the RAG model’s information base. To address the limitations of LLMs in understanding and answering questions related to textual graphs, G-Retriever \cite{he2024g} integrates Graph Neural Networks (GNNs), LLMs, and RAG, thereby enhancing graph comprehension and question-answering capabilities through soft prompting. However, managing structured data requires considerable effort to build, validate, and maintain structured databases.
+
+\subsubsection{Retrieval Granularity}
+
+The granularity of the retrieved data - whether it is at the token, sentence, or document level - plays a crucial role in the retrieval process. Coarse-grained units might provide more context but can introduce irrelevant information, while fine-grained units increase retrieval precision but might lack necessary context. The choice of retrieval granularity should be tailored to the specific downstream tasks to ensure both relevance and coherence in the generated outputs \cite{gao2023retrieval}.
+
+\subsection{Indexing Optimization}
+
+Indexing is a crucial phase in the Retrieval-Augmented Generation (RAG) system, where documents are processed, segmented, and transformed into embeddings that are stored in a vector database. The quality and structure of the indexing process directly impact the effectiveness of subsequent retrieval operations, as they determine whether the correct and most relevant context can be retrieved when needed.
+
+\subsubsection{Chunking Strategy}
+
+A common method for indexing involves splitting the document into smaller segments or "chunks," typically based on a fixed number of tokens (e.g., 100, 256, or 512 tokens) \cite{teja2023chunk}. The choice of chunk size is a balancing act: larger chunks can capture more context, but they also introduce more noise, increasing processing time and computational costs. Conversely, smaller chunks reduce noise but may fail to fully convey the necessary context, potentially leading to incomplete or fragmented retrieval results.
+
+To address these challenges, various optimization strategies have been proposed. For example, recursive splitting and sliding window methods allow for layered retrieval, where globally related information is merged across multiple retrieval processes \cite{langchain2023recursive}. These techniques aim to preserve semantic completeness while accommodating the constraints of context length. However, even with these optimizations, striking the right balance between semantic integrity and context length remains a complex task. Recently, methods like Small2Big have been introduced, where sentences (small units) are used as the retrieval unit, and the preceding and following sentences are provided as (big) context to the LLMs \cite{yang2023smalltobig}. This approach helps in maintaining a coherent context while minimizing noise.
+
+\subsubsection{Metadata Attachments}
+
+In addition to chunking, attaching metadata to chunks can significantly enhance the retrieval process. Metadata may include information such as page numbers, file names, authors, categories, timestamps, and other contextual markers. By embedding this metadata within the index, retrieval can be filtered based on these attributes, narrowing the search scope and improving the relevance of the retrieved information. 
+
+For instance, assigning different weights to document timestamps during retrieval can enable time-aware RAG, ensuring the freshness of the knowledge and preventing the use of outdated information. Moreover, metadata can be artificially constructed. One innovative approach is Reverse HyDE, where hypothetical questions are generated using LLMs based on the document content. During retrieval, the system calculates the similarity between the original query and the hypothetical questions, thereby reducing the semantic gap between the user's question and the answers provided \cite{gao2023retrieval}.
+
+\subsubsection{Structural Indexing}
+
+Another effective method for optimizing indexing is the construction of a hierarchical structure for the documents. In a hierarchical index, documents are arranged in parent-child relationships, with individual chunks linked to these hierarchical nodes. Data summaries are stored at each node, which assists in the swift traversal of data and helps the RAG system determine which chunks to extract. This hierarchical approach not only speeds up the retrieval process but also mitigates issues such as data fragmentation and the illusion caused by block extraction \cite{gao2023retrieval}.
+
+In addition, Knowledge Graphs (KGs) can be integrated into the indexing structure to maintain consistency and enhance retrieval accuracy. KGs delineate the connections between different concepts and entities, reducing the potential for retrieval errors or hallucinations. For instance, the KGP method constructs an index between multiple documents using a KG, where nodes represent paragraphs or structures within documents (e.g., pages, tables), and edges indicate semantic or lexical similarities between these nodes \cite{wang2024knowledge}. This approach addresses challenges in knowledge retrieval and reasoning within a multi-document environment, ensuring that the retrieval process remains coherent and contextually accurate.
+
+Overall, optimizing the indexing phase in RAG systems is vital for ensuring that the retrieval process is efficient, accurate, and capable of delivering the most relevant information to support the generation tasks of large language models.
+
+\subsection{Query Optimization}
+
+One of the primary challenges in RAG systems is effectively leveraging the user's query to retrieve the most relevant information. Naive RAG systems often rely directly on the user’s original query, which may not always be well-formed, precise, or optimized for retrieval purposes. Query optimization involves enhancing the query to improve retrieval effectiveness, ensuring that the system retrieves the most relevant context for generating accurate and coherent responses. This optimization process can be broken down into several key strategies: query expansion, query transformation, and query routing.
+
+\subsubsection{Query Expansion}
+
+Query expansion enriches the original query by generating additional sub-queries, ensuring the retrieval process captures all necessary nuances. Techniques like \textbf{multi-query generation} expand the original query into multiple related queries, executed in parallel to provide a comprehensive context. Another strategy, \textbf{sub-query planning}, breaks down complex queries into simpler sub-queries, improving accuracy and completeness \cite{zhou2022least}. Additionally, \textbf{Chain-of-Verification (CoVe)} validates expanded queries to reduce hallucinations of LLMs, enhancing the reliability of the retrieved information \cite{dhuliawala2023chain}.
+
+\subsubsection{Query Transformation}
+
+Query transformation modifies the original query to improve retrieval suitability. \textbf{Query rewriting} rephrases queries for better compatibility with the retrieval system, while \textbf{hypothetical document embedding} (HyDE) uses LLMs to generate hypothetical documents, focusing retrieval on embedding similarity between generated and real documents \cite{gao2022precise}. \textbf{Step-back Prompting} abstracts the query to create a high-level concept question, combining it with the original query for more accurate results \cite{zheng2023take}.
+
+\subsubsection{Query Routing}
+
+Query routing directs queries through different retrieval pipelines based on their nature. \textbf{Metadata Routing/Filtering} uses extracted keywords to narrow the search scope, while \textbf{Semantic Routing} leverages the semantic content of the query to select the most appropriate retrieval pathway. In some cases, a hybrid approach combines both methods for enhanced routing.
+
+By optimizing queries through expansion, transformation, and routing, RAG systems can retrieve more accurate and contextually relevant information, resulting in higher quality outputs \cite{gao2023retrieval}.
+
+\subsection{Embedding Techniques}
+
+Embeddings play a central role in the retrieval process of RAG systems, as they represent the semantic content of queries and document chunks in a mathematical form that can be compared for similarity. The choice and optimization of embedding models are crucial for ensuring the accuracy and efficiency of the retrieval process. The two primary approaches to embeddings in RAG systems are sparse and dense embeddings, with recent advances introducing hybrid models and fine-tuning techniques to enhance performance.
+
+\subsubsection{Sparse vs. Dense Embeddings}
+
+Sparse embeddings, typically derived from traditional information retrieval models like BM25, represent documents as high-dimensional vectors where each dimension corresponds to a term in the vocabulary. These models excel in capturing term frequency and inverse document frequency (TF-IDF) relationships but may struggle with capturing the semantic nuances of language.
+
+Dense embeddings, on the other hand, are generated by neural models such as BERT, which transform text into dense, low-dimensional vectors that encapsulate the semantic meaning of the text. These embeddings are more effective at capturing the contextual relationships between words, making them well-suited for tasks requiring a deep understanding of language semantics.
+
+\textbf{Hybrid Retrieval Approaches} combine the strengths of both sparse and dense embeddings. In such systems, sparse embeddings are often used to provide an initial set of candidate documents, which are then re-ranked using dense embeddings to refine the retrieval results. This approach leverages the complementary strengths of both embedding types, improving the robustness and accuracy of the retrieval process. For instance, hybrid models have been shown to enhance the zero-shot retrieval capability of dense retrievers by providing a broader context through initial sparse retrievals \cite{gao2023retrieval}.
+
+\subsubsection{Fine-Tuning Embedding Models}
+
+Fine-tuning embedding models is essential in scenarios where the retrieval context significantly deviates from the pre-training corpus, particularly in specialized domains such as healthcare, legal practice, and other fields with proprietary jargon. Fine-tuning involves adjusting the embedding model on a domain-specific dataset to better capture the nuances and specialized knowledge required for effective retrieval in that domain.
+
+In addition to domain-specific fine-tuning, another key purpose of fine-tuning is to align the retriever and generator within the RAG system. This can be achieved by using the outputs of the language model (LM) as a supervision signal for fine-tuning, a process known as \textbf{LM-supervised Retriever} (LSR). This approach ensures that the embeddings generated by the retriever are closely aligned with the generative tasks of the LLM, leading to more coherent and contextually relevant outputs \cite{gao2023retrieval}.
+
+Recent advancements in embedding techniques, such as Reinforcement Learning from Human Feedback (RLHF), involve utilizing LM-based feedback to reinforce the retriever through reinforcement learning. This approach allows the retriever to continuously improve based on real-world feedback, further enhancing the robustness and accuracy of the retrieval process.
+
+Embedding techniques are foundational to the success of RAG systems. By carefully selecting, fine-tuning, and combining embedding models, RAG systems can achieve higher retrieval accuracy, better alignment with generative tasks, and ultimately more reliable and contextually appropriate outputs \cite{gao2023retrieval}.
+
+\subsection{Generation}
+
+After the retrieval phase in a RAG system, directly feeding all retrieved information into a large language model (LLM) for generating responses is generally not ideal. This section discusses the necessary adjustments from two perspectives: optimizing the retrieved content and fine-tuning the LLM itself.
+
+\subsubsection{Context Curation}
+
+Redundant information and overly long contexts can interfere with the LLM’s ability to generate accurate and relevant answers. This phenomenon, known as the “Lost in the middle” problem, occurs when LLMs, like humans, tend to focus primarily on the beginning and end of long texts while neglecting the middle portion. Therefore, it is essential to process the retrieved content effectively before feeding it to the LLM \cite{liu2024lost}.
+
+To address this issue, one effective strategy is reranking, which reorders document chunks to prioritize the most relevant information. By reducing the document pool to a manageable size, reranking enhances retrieval accuracy and refines the inputs for the LLM. This process can be achieved through rule-based methods using metrics like diversity and relevance, or by employing specialized reranking models, such as those from the BERT series or general LLMs like GPT \cite{gao2023chat}.
+
+However, simply reranking documents may not be enough to ensure optimal performance. In fact, contrary to the belief that more relevant documents lead to better results, adding too many documents can introduce noise and diminish the LLM’s focus on key information. To further refine the input, Context Compression techniques can be employed. These techniques use smaller language models (SLMs) to filter out unimportant tokens, transforming the context into a form optimized for LLM processing. This approach balances language integrity with compression efficiency. Additionally, reducing the number of documents in the prompt improves accuracy, as shown by the “Filter-Reranker” paradigm, which combines the strengths of SLMs and LLMs to enhance information extraction tasks. Furthermore, having the LLM critique retrieved content before generating an answer can further boost relevance and accuracy, as demonstrated in applications like Chatlaw \cite{gao2023retrieval, cui2023chatlaw}.
+
+\subsubsection{LLM Fine-tuning}
+
+While context curation is crucial for optimizing the input provided to the LLM, fine-tuning the LLM itself can yield even more significant improvements in performance. Fine-tuning LLMs based on specific scenarios and data characteristics allows for targeted adjustments that incorporate additional knowledge, adapt to particular data formats, and generate responses in a desired style \cite{du2022retrieval}.
+
+Moreover, aligning LLM outputs with human preferences or retriever preferences through reinforcement learning offers another layer of optimization. By manually annotating generated answers and using these annotations as feedback during reinforcement learning, the model can be further refined to better meet the needs of specific tasks. Additionally, when access to powerful proprietary models is limited, distillation methods can be employed to transfer knowledge from more advanced models (e.g., GPT-4) to less powerful ones, ensuring that even smaller models can benefit from the strengths of larger counterparts \cite{shi2023dual}.
+
+\subsection{Augmentation Process in RAG}
+
+The standard practice in Retrieval-Augmented Generation (RAG) often involves a single retrieval step followed by text generation. While this approach is straightforward, it can be insufficient for complex tasks that require multi-step reasoning, as it provides a limited scope of information \cite{yoran2023making}. To address this limitation, several augmentation strategies have been developed to enhance the retrieval process, offering more robust and contextually relevant outputs.
+
+As illustrated in Figure \ref{fig:rag_augmentation}, these augmentation strategies are categorized into three main types: Iterative Retrieval, Recursive Retrieval, and Adaptive Retrieval. Each method provides unique advantages that help improve the retrieval and generation process in RAG systems.
+
+\subsubsection{Iterative Retrieval}
+
+Iterative retrieval involves repeatedly searching the knowledge base based on the initial query and the text generated so far. This process enables the LLM to access a broader and more comprehensive knowledge base, which in turn improves the robustness of the generated responses by providing additional contextual references through multiple retrieval iterations. However, iterative retrieval may introduce challenges such as semantic discontinuity and the accumulation of irrelevant information.
+
+\subsubsection{Recursive Retrieval}
+
+To build upon the iterative approach, Recursive retrieval is employed to improve the depth and relevance of search results by iteratively refining search queries based on the outcomes of previous searches. This approach is particularly useful in complex scenarios where user needs are not fully clear or where the information sought is highly specialized. By incorporating a feedback loop, recursive retrieval gradually converges on the most pertinent information. Additionally, recursive retrieval can be combined with multi-hop retrieval techniques to process data hierarchically, summarizing sections of documents before refining the search further within the document \cite{gao2023retrieval}.
+
+\subsubsection{Adaptive Retrieval}
+
+Further refining the RAG framework, Adaptive retrieval methods enable language models to autonomously determine the optimal timing and content for retrieval, enhancing both the efficiency and relevance of the information sourced. This approach represents a shift towards more active judgment by the language models, where the models, like in Self-RAG \cite{asai2023self}, proactively decide when to initiate retrieval based on the confidence levels in the generated output. Techniques such as "reflection tokens" allow the model to introspect and trigger retrieval only when necessary, thus optimizing the retrieval cycle and ensuring that the model generates the most accurate and relevant responses possible.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/llms/augmentation-process.png}
+    \caption{In addition to the most common once retrieval, RAG also includes three types of retrieval augmentation processes. (Left) Iterative retrieval involves alternating between retrieval and generation, allowing for richer and more targeted context from the knowledge base at each step. (Middle) Recursive retrieval involves gradually refining the user query and breaking down the problem into sub-problems, then continuously solving complex problems through retrieval and generation. (Right) Adaptive retrieval focuses on enabling the RAG system to autonomously determine whether external knowledge retrieval is necessary and when to stop retrieval and generation, often utilizing LLM-generated special tokens for control. \textit{Source:} \cite{gao2023retrieval}}
+    \label{fig:rag_augmentation}
+\end{figure}
+
+In summary, these advanced retrieval strategies—iterative, recursive, and adaptive retrieval—are crucial in addressing the limitations of traditional RAG systems. By refining how and when retrieval occurs, these methods significantly improve the depth, relevance, and accuracy of the information used in generating responses, making RAG systems more capable of handling complex, knowledge-intensive tasks.
+
+
 Performance Evaluation, Common Metric Used
+% TruthfulQA: Measuring How Models Mimic Human Falsehoods
+% tutta la ricerca bibliografica già fatta per LLM Evaluator
 
-Assessing applications powered by Large Language Models (LLMs) holds pivotal importance in our technological landscape. These evaluations not only gauge performance but also address the myriad of challenges we endeavor to overcome (bias, overfitting, hallucination, attribution, staleness, revisions, accuracy on retrieving information).
+\section{Evaluation of LLMs}
+
+% inserire introduzione all'argomento, perché è importante e cosa centra con il resto
+
+This section delves into the evaluation of Large Language Models (LLMs) in the context of the two key areas addressed in this thesis: Natural Language Generation (NLG) and Retrieval-Augmented Generation (RAG). While NLG and RAG share certain evaluation methodologies, the unique objectives and demands of each task require tailored approaches and metrics. This section examines the evaluation techniques for both NLG and RAG, emphasizing their distinct challenges and the innovations that have been developed to address them.
+
+Evaluating NLG has traditionally relied on surface-level metrics such as BLEU \cite{papineni2002bleu} and ROUGE \cite{lin2004rouge}, which assess the n-gram overlap between the model-generated text and reference texts. These metrics have long been used due to their simplicity and ease of application. BLEU, for instance, measures the precision of n-grams in the generated text against a set of reference texts, while ROUGE focuses on recall, particularly in the context of summarization tasks. Despite their widespread use, these metrics have faced criticism for their inability to capture the deeper semantic quality of text, often leading to low correlation with human judgments \cite{sulem2018bleu}.
+
+\subsection{Model-Based Evaluation Metrics}
+
+With the advent of deep learning, more sophisticated evaluation metrics were introduced, such as BERTScore and BARTScore \cite{zhang2019bertscore, yuan2021bartscore}. These metrics leverage pre-trained language models to evaluate generated text by considering various aspects like fluency, coherence, and faithfulness. BERTScore, for example, computes the similarity between the embeddings of the generated and reference texts, offering a more nuanced assessment than n-gram overlap. BARTScore goes a step further by considering the conditional probability of the generated text given the source text, thus evaluating how likely the generated content would be produced by a high-quality language model.
+
+While these model-based metrics offer significant improvements over traditional methods, they are not without their limitations. Their reliance on reference texts limits their applicability in scenarios where references are unavailable. Additionally, these methods, though more aligned with human judgments, still struggle with certain aspects of text quality, such as robustness across different contexts and efficiency in computational resource usage \cite{he2022blind}.
+
+\subsection{LLM-Derived Metrics for NLG}
+
+The emergence of LLMs like InstructGPT \cite{ouyang2022training} has transformed the landscape of NLG evaluation. Researchers have begun to explore LLM-derived metrics, which leverage the inherent linguistic capabilities of these models for more effective evaluation. These metrics utilize the embeddings generated by LLMs to evaluate the semantic similarity between the target and reference texts. For example, the text-embedding-ada-002 model from OpenAI computes the similarity scores between texts, with higher scores indicating better alignment with the desired quality \cite{es2023ragas}.
+
+Another approach involves probability-based metrics, where the quality of generated text is assessed based on the conditional probabilities assigned by LLMs. GPTScore \cite{fu2023gptscore} uses tailored evaluation templates to guide multiple LLMs in evaluating various aspects of NLG, such as fluency and coherence. By calculating the likelihood of the generated text, these metrics offer a more dynamic and context-aware evaluation.
+
+Despite their advantages, LLM-derived metrics are not without challenges. Issues related to robustness, efficiency, and fairness have been identified. For instance, these metrics can lack robustness in attack scenarios, where adversarial inputs may expose blind spots that traditional metrics might overlook \cite{he2022blind}. Moreover, LLM-derived methods are computationally intensive, requiring significant resources, which can limit their applicability in large-scale evaluations. Fairness is another concern, as these metrics have been found to exhibit social biases, particularly across sensitive attributes like race, gender, and age, potentially leading to skewed evaluation outcomes \cite{sun2022bertscore}.
+
+\subsection{Prompting LLMs for NLG Evaluation}
+
+Building on the capabilities of LLMs, researchers have also explored the direct use of prompts to evaluate NLG outputs. This method involves crafting specific prompts that include task instructions, evaluation criteria, and the text to be evaluated, allowing LLMs to autonomously generate evaluation results. This approach has shown promise in replicating human-like evaluation processes \cite{gao2024llm}.
+
+Scoring and comparison are common methods in this approach. In scoring, LLMs rate the quality of the text on a scale, which has been shown to strongly correlate with human judgments across various NLG tasks, such as summarization and dialogue generation \cite{chiang2023can}. Comparison methods ask LLMs to choose between two generated texts, often proving more reliable than absolute scoring \cite{luo2023chatgpt}. Ranking extends this by having LLMs order multiple texts, providing a broader evaluation perspective \cite{ji2023exploring}.
+
+However, despite their potential, prompting LLMs for evaluation also faces several significant limitations. Studies have shown that these models are susceptible to position bias, where the order of the texts being compared can influence the evaluation outcome \cite{wang2023large}. Additionally, LLM evaluators tend to prefer longer, more verbose responses, and they often favor their own generated outputs \cite{zheng2024judging, liu2023g}. Moreover, LLMs have been found to rate responses with factual errors more favorably than shorter, grammatically correct ones \cite{wu2023style}. Furthermore, these models exhibit biases, particularly in scoring high-quality summaries and in non-Latin languages like Chinese and Japanese \cite{hada2023large}.
+
+\subsection{Human-LLM Collaborative Evaluation}
+
+Given the strengths and limitations of both LLMs and human evaluators, a collaborative approach has been proposed to leverage the best of both worlds. In this approach, LLMs generate initial evaluations, which are then reviewed and refined by human evaluators. This method has shown promise in reducing the workload of human evaluators while maintaining high accuracy \cite{li2023collaborative}.
+
+Techniques such as the COEVAL pipeline combine LLM-generated ideation with human scrutiny, resulting in more reliable and nuanced evaluations, particularly for complex or open-ended tasks \cite{zhang2021human}.
+
+However, this collaborative approach still requires human involvement, which limits its scalability and cost-effectiveness compared to fully automated methods.
+
+\newline
+
+The evaluation of NLG using LLMs is rapidly evolving, with new methods continuously being developed to address the limitations of traditional metrics. While LLM-derived metrics and prompting methods have introduced significant improvements, challenges such as bias, efficiency, and robustness remain. Fine-tuning LLMs and human-LLM collaboration offer promising solutions, though each comes with its own set of trade-offs. As research progresses, it will be crucial to develop unified benchmarks and explore new evaluation scenarios to fully realize the potential of LLMs in NLG evaluation.
+
+\subsection{RAG-Specific Evaluation Metrics}
+
+In the context of RAG systems, evaluation extends beyond text generation to include the retrieval of relevant information from external sources. RAG systems are primarily evaluated on two fronts: retrieval quality and generation quality.
+
+Retrieval quality is assessed by evaluating the effectiveness of the context sourced by the retriever component of the RAG model. Metrics such as Hit Rate, Mean Reciprocal Rank (MRR), and Normalized Discounted Cumulative Gain (NDCG) are commonly used to determine how well the retrieved information aligns with the query and supports accurate and relevant answer generation \cite{chakrabarti2003mining}.
+
+Generation quality in RAG systems is evaluated based on the model’s ability to synthesize coherent and relevant answers from the retrieved context. Evaluation criteria include context relevance, answer faithfulness, and answer relevance. Context relevance measures the precision and specificity of the retrieved content, ensuring that the model focuses on pertinent information. Answer faithfulness ensures that the generated responses remain true to the retrieved context, avoiding hallucinations or contradictions. Answer relevance evaluates how directly the generated text addresses the user’s query, ensuring that the response is not only accurate but also pertinent to the question posed \cite{lewis2020retrieval}.
+
+\subsection{Challenges in RAG Evaluation}
+
+Evaluating RAG systems presents unique challenges that are not typically encountered in traditional NLG evaluation. For instance, RAG systems must effectively handle noise in the retrieved documents, ensuring that irrelevant or misleading information does not compromise the quality of the generated responses. This requires robust noise management and the ability to reject negative or irrelevant information when the retrieved documents do not provide sufficient knowledge to answer a question \cite{guu2020retrieval}.
+
+Another critical aspect is information integration, where the RAG system must synthesize data from multiple documents to address complex questions effectively. This is particularly challenging in multi-hop question-answering scenarios, where the model must navigate and integrate information from various sources to construct a coherent and accurate response \cite{yang2018hotpotqa}. Additionally, counterfactual robustness is essential, as the model must recognize and disregard known inaccuracies within documents, even when these inaccuracies are presented as potential answers \cite{lewis2020retrieval}.
+
+\subsection{Conclusion and Future Directions}
+
+The evaluation of LLMs in both NLG and RAG systems is a rapidly evolving field, with significant advancements in methodologies and metrics. While traditional evaluation metrics have provided a foundation, the advent of LLM-derived metrics and prompting methods has introduced new possibilities for more accurate and human-aligned assessments. However, challenges remain, particularly in the areas of robustness, efficiency, and fairness, which are critical for both NLG and RAG evaluations.
+
+In the context of RAG, additional complexities such as noise management, information integration, and counterfactual robustness highlight the need for specialized evaluation metrics and tools. As research progresses, it will be essential to develop unified benchmarks that can accommodate the unique requirements of both NLG and RAG systems. Moreover, exploring new evaluation scenarios, particularly in low-resource languages and complex, multi-hop tasks, will be crucial in fully realizing the potential of LLMs in these domains.
+
+Future research should also focus on enhancing the collaborative evaluation frameworks that combine human judgment with LLM capabilities, ensuring that these systems can deliver accurate, fair, and contextually relevant evaluations across a broad range of applications.
 
 \subsection{Illustrations and Approaches}
 
@@ -532,14 +831,17 @@ From the innovative OpenAI Evals platform to pioneering concepts like LLM-as-a-J
 \newpage
 
 \section{State-of-the-art Models}
+% Per semplicità e ordine, scarterei questa sezione, ho già fatto vari riferimenti a questi modelli nelle altre sezioni
 Selection of state-of-the-art LLMs (GPT-4o, Claude 3.5, Gemini Pro, Mistral, Meta Llama 3,...) to compare their differences in performance, architecture, accessibility and cost for developing question-answering chatbot systems.
 
 \subsection{Challenges and Best Practices}
+% ci sta, ma ne parlo nella sezione prima della RAG, potrei fare un'unica sezione per parlare delle limitazioni
 Overfitting
 Catastrophic Forgetting
 Mitigation Strategies
 Discussion on cost, carbon footprint and energy consumption and privacy concerns.
 
 \subsection{Beyond Transformers: the Mamba LLM Architecture}
+% interessante e lo includerei, ma prima farei una sezione "future improvements" nella quale si introduce l'argomento dei progressi post transformer architecture
 Discover the power of Mamba LLM, a transformative architecture from leading universities, redefining sequence processing in AI.
 
