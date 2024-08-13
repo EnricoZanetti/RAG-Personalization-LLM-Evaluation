@@ -1,289 +1,200 @@
-\section{WISE: a Case Study}
+% FIRST VERSION OF THE CHAPTER
 
-In this chapter, a case study is presented and discussed  focusing on WISE, a proprietary chatbot developed by HPA: High Performance Analytics. WISE leverages the Retrieval-Augmented Generation (RAG) framework to enhance its information retrieval capabilities, offering a sophisticated and efficient solution for a wide range of applications. In addition, this chapter will introduce my internship project developed at HPA during spring 2024, the LLM Evaluator, illustrating its implementation, methodologies, and potential work improvements. This overview will provide insights into the development and evaluation of advanced AI systems in practical settings.
+\section{Evaluation of LLMs}
 
-\subsection{HPA: High Performance Analytics}
+% inserire introduzione all'argomento, perché è importante e cosa centra con il resto
 
-HPA is a spin-off of the University of Verona and AI Competence Center (AICC) of Terranova Software \cite{terranova2024}. Since its inception in 2017, HPA has been dedicated to designing and developing AI solutions tailored for small and medium-sized enterprises and large corporations. The company is proud of the motto “Math to Innovate,” which emphasizes the deep mathematical expertise accumulated over two decades of academic research.
+This section delves into the evaluation of Large Language Models (LLMs) in the context of the two key areas addressed in this thesis: Natural Language Generation (NLG) and Retrieval-Augmented Generation (RAG). While NLG and RAG share certain evaluation methodologies, the unique objectives and demands of each task require tailored approaches and metrics. This section examines the evaluation techniques for both NLG and RAG, emphasizing their distinct challenges and the innovations that have been developed to address them.
 
-With six years of experience in the field, HPA boasts a highly qualified team of experts and has developed proprietary techniques that set it apart in the field of AI. Over the years, the company has successfully completed more than 30 projects, demonstrating its capability and commitment to providing high-quality AI solutions.
+Evaluating NLG has traditionally relied on surface-level metrics such as BLEU \cite{papineni2002bleu} and ROUGE \cite{lin2004rouge}, which assess the n-gram overlap between the model-generated text and reference texts. These metrics have long been used due to their simplicity and ease of application. BLEU, for instance, measures the precision of n-grams in the generated text against a set of reference texts, while ROUGE focuses on recall, particularly in the context of summarization tasks. Despite their widespread use, these metrics have faced criticism for their inability to capture the deeper semantic quality of text, often leading to low correlation with human judgments \cite{sulem2018bleu}.
 
-HPA specializes in various application fields, including predictive analytics, anomaly detection, image recognition, combinatorial optimization, generative AI, and NLP. The company's solutions are implemented in diverse industries, such as energy and utilities, transportation and logistics, manufacturing, security, and payments. This breadth of applications demonstrates HPA's versatility and its ability to adapt AI technologies to effectively meet the needs of specific industries.
+\subsection{Model-Based Evaluation Metrics}
 
-Leveraging its extensive experience and innovative approaches, HPA continues to lead AI advances, providing impactful solutions that address a wide range of business challenges.
+With the advent of deep learning, more sophisticated evaluation metrics were introduced, such as BERTScore and BARTScore \cite{zhang2019bertscore, yuan2021bartscore}. These metrics leverage pre-trained language models to evaluate generated text by considering various aspects like fluency, coherence, and faithfulness. BERTScore, for example, computes the similarity between the embeddings of the generated and reference texts, offering a more nuanced assessment than n-gram overlap. BARTScore goes a step further by considering the conditional probability of the generated text given the source text, thus evaluating how likely the generated content would be produced by a high-quality language model.
 
-\subsection{Introducing WISE: Transforming Document Management}
+While these model-based metrics offer significant improvements over traditional methods, they are not without their limitations. Their reliance on reference texts limits their applicability in scenarios where references are unavailable. Additionally, these methods, though more aligned with human judgments, still struggle with certain aspects of text quality, such as robustness across different contexts and efficiency in computational resource usage \cite{he2022blind}.
 
-For decades, the process of searching and consulting documents and manuals in companies has followed the same paradigm. This traditional method involves identifying keywords, clicking on each link, opening the documents, and finally selecting and collecting the information of interest. This workflow is not only time-consuming and repetitive, but also highly inefficient, consuming valuable time and resources.
+\subsection{LLM-Derived Metrics for NLG}
 
-WISE revolutionizes document management by leveraging generative artificial intelligence. Using LLMs embedded in a proprietary workflow, WISE enables users to perform complex natural language searches across multiple sources and entire databases. 
+The emergence of LLMs like InstructGPT \cite{ouyang2022training} has transformed the landscape of NLG evaluation. Researchers have begun to explore LLM-derived metrics, which leverage the inherent linguistic capabilities of these models for more effective evaluation. These metrics utilize the embeddings generated by LLMs to evaluate the semantic similarity between the target and reference texts. For example, the text-embedding-ada-002 model from OpenAI computes the similarity scores between texts, with higher scores indicating better alignment with the desired quality \cite{es2023ragas}.
 
-When a question is asked, WISE efficiently queries relevant documents and data, extracts relevant information, and provides an answer within seconds. Answers are provided in a textual, conversational format, mimicking the interaction one would have with an experienced colleague. WISE stands out as an always-available, secure, reliable and knowledgeable virtual assistant, significantly simplifying and accelerating the document management process. \cite{hpa2024}
+Another approach involves probability-based metrics, where the quality of generated text is assessed based on the conditional probabilities assigned by LLMs. GPTScore \cite{fu2023gptscore} uses tailored evaluation templates to guide multiple LLMs in evaluating various aspects of NLG, such as fluency and coherence. By calculating the likelihood of the generated text, these metrics offer a more dynamic and context-aware evaluation.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.6\textwidth]{images/wise/wise-schema-verticale.png}
-    \caption{WISE system integrates various document types and databases to provide quick, accurate responses to user queries, significantly enhancing the efficiency of document management. \textit{Source:} \cite{hpa2024}}
-    \label{fig:wise-schema}
-\end{figure}
+Despite their advantages, LLM-derived metrics are not without challenges. Issues related to robustness, efficiency, and fairness have been identified. For instance, these metrics can lack robustness in attack scenarios, where adversarial inputs may expose blind spots that traditional metrics might overlook \cite{he2022blind}. Moreover, LLM-derived methods are computationally intensive, requiring significant resources, which can limit their applicability in large-scale evaluations. Fairness is another concern, as these metrics have been found to exhibit social biases, particularly across sensitive attributes like race, gender, and age, potentially leading to skewed evaluation outcomes \cite{sun2022bertscore}.
 
-\subsection{WISE Functionality and Features}
+\subsection{Prompting LLMs for NLG Evaluation}
 
-WISE operates through a series of systematic steps that ensure efficient and accurate information retrieval. The following steps outline the core functionality of WISE:
+Building on the capabilities of LLMs, researchers have also explored the direct use of prompts to evaluate NLG outputs. This method involves crafting specific prompts that include task instructions, evaluation criteria, and the text to be evaluated, allowing LLMs to autonomously generate evaluation results. This approach has shown promise in replicating human-like evaluation processes \cite{gao2024llm}.
 
-\begin{enumerate}
-    \item The company uploads documents that form the knowledge base (manuals, regulations, circulars, etc.) into WISE.
-    \item The user asks a question in natural language as if conversing with a colleague.
-    \item WISE provides the best possible answer within seconds, citing available sources. If the user requests more details, WISE remembers the conversation and contextualizes the new request.
-    \item WISE can be easily integrated into the company website and can connect to databases and enterprise systems (ERP, CRM) via APIs and custom connectors.
-\end{enumerate}
+Scoring and comparison are common methods in this approach. In scoring, LLMs rate the quality of the text on a scale, which has been shown to strongly correlate with human judgments across various NLG tasks, such as summarization and dialogue generation \cite{chiang2023can}. Comparison methods ask LLMs to choose between two generated texts, often proving more reliable than absolute scoring \cite{luo2023chatgpt}. Ranking extends this by having LLMs order multiple texts, providing a broader evaluation perspective \cite{ji2023exploring}.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/wise/wise-ux.png}
-    \caption{An example of the WISE chatbot interface. Users can interact with WISE via a chat interface, asking questions and receiving detailed responses, filtering on the source  documents. \textit{Source:} \cite{hpa2024}}
-    \label{fig:wise-chat-ux}
-\end{figure}
+However, despite their potential, prompting LLMs for evaluation also faces several significant limitations. Studies have shown that these models are susceptible to position bias, where the order of the texts being compared can influence the evaluation outcome \cite{wang2023large}. Additionally, LLM evaluators tend to prefer longer, more verbose responses, and they often favor their own generated outputs \cite{zheng2024judging, liu2023g}. Moreover, LLMs have been found to rate responses with factual errors more favorably than shorter, grammatically correct ones \cite{wu2023style}. Furthermore, these models exhibit biases, particularly in scoring high-quality summaries and in non-Latin languages like Chinese and Japanese \cite{hada2023large}.
 
-\subsubsection{Key Features}
+\subsection{Human-LLM Collaborative Evaluation}
 
-Today, only 35\% of a company's data is available to management. Dashboards and reports are often outdated and analysts struggle to meet user demands. WISE addresses these challenges by providing a single point of access to the entire business knowledge base, ensuring accurate and up-to-date answers. The following features highlight the comprehensive functionality of WISE:
+Given the strengths and limitations of both LLMs and human evaluators, a collaborative approach has been proposed to leverage the best of both worlds. In this approach, LLMs generate initial evaluations, which are then reviewed and refined by human evaluators. This method has shown promise in reducing the workload of human evaluators while maintaining high accuracy \cite{li2023collaborative}.
 
-\begin{itemize}
-    \item \textbf{Automatic Summaries, Comparisons, and Inconsistency Checks:} WISE can generate concise summaries, compare documents, and identify inconsistencies. This feature saves users time by automatically creating summaries of long documents, highlighting key points and identifying discrepancies between different documents. In this way, the user is able to quickly understand and use the information.
-    
-    \item \textbf{Automatic Text Generation:} WISE can create various text documents based on the data it accesses. This includes the generation of user manuals, contracts, articles and other documentation, ensuring that all generated content is consistent with the latest data and company standards. The system simplifies the documentation process, reducing the workload of employees.
-    
-    \item \textbf{Integration with Enterprise Systems (CRM, ERP):} WISE integrates seamlessly with other enterprise systems, increasing their usefulness and reach. By connecting to Customer Relationship Management (CRM) and Enterprise Resource Planning (ERP) systems, WISE can access and leverage data from different business functions. This integration provides users with a comprehensive view of the organization's data and processes, facilitating decision making.
-    
-    \item \textbf{Multilingual by Design:} WISE supports multiple languages to ensure that users with different language backgrounds can easily interact with the system. By transparently managing foreign language conversations, WISE facilitates seamless communication and data retrieval in multinational companies.
-    
-    \item \textbf{Multimodality:} Supports images and videos, enabling users to query multimedia content and improving the scope of information retrieval. This feature enables WISE to process and understand visual data, making it possible to search and retrieve information from images, diagrams, and video content. It is particularly useful in areas such as manufacturing and security, where visual data is critical.
-    
-    \item \textbf{Response Evaluation and RLHF:} Users can evaluate the responses provided by WISE, facilitating continuous improvement through Reinforcement Learning from Human Feedback (RLHF). This feedback mechanism helps refine artificial intelligence models and improve the accuracy and relevance of the information provided. It ensures that WISE evolves based on user interactions and feedback, leading to improved performance over time.
-    
-    \item \textbf{Spreadsheet Support (XLS):} WISE can interpret and retrieve information from spreadsheet files. This functionality is critical for organizations that rely on spreadsheets for data management and reporting. WISE can read, process, and extract relevant information from complex Excel files, providing users with fast and accurate access to data.
-    
-    \item \textbf{Supports Structured and Unstructured Databases:} WISE can handle different types of data formats, providing flexibility and comprehensive search capabilities. Whether data is organized in structured formats such as SQL databases or unstructured forms such as text documents and e-mail, WISE can efficiently process and retrieve relevant information. This versatility makes it an indispensable tool for organizations with diverse data storage systems.
-    
-    \item \textbf{Two-Factor Authentication (2FA) or Enterprise Single Sign-On (SSO):} These methods provide secure access to the system. Two-factor authentication adds an additional layer of security by requiring users to provide two forms of identification before accessing the system. Enterprise single sign-on allows employees to log in with their corporate credentials, simplifying the authentication process while maintaining high security standards.
-    
-    \item \textbf{Uses Triggers and Actions for Process Automation:} This feature enhances workflow automation by responding to specific triggers with predefined actions. For example, WISE can automatically send notifications, update records, or initiate workflows based on user requests or data changes. This automation capability improves operational efficiency and reduces the potential for human error.
-\end{itemize}
+Techniques such as the COEVAL pipeline combine LLM-generated ideation with human scrutiny, resulting in more reliable and nuanced evaluations, particularly for complex or open-ended tasks \cite{zhang2021human}.
 
-\subsubsection{Interaction Modes}
-To provide access to these features, WISE offers multiple interaction modes to cater to various user preferences and needs:
+However, this collaborative approach still requires human involvement, which limits its scalability and cost-effectiveness compared to fully automated methods.
 
-\begin{itemize}
-    \item \textbf{Classic Conversational Interface (Chat):} Allows users to interact with WISE through a text-based chat interface, as depicted in Figure \ref{fig:wise-chat-ux}.
-    \item \textbf{Voice Interface (Speech-to-Text):} Enables users to communicate with WISE using their voice, which is converted to text for processing.
-    \item \textbf{Avatar (Text-to-Speech):} Provides an engaging and interactive experience by converting text responses into speech, represented by an avatar.
-\end{itemize}
+The evaluation of NLG using LLMs is rapidly evolving, with new methods continuously being developed to address the limitations of traditional metrics. While LLM-derived metrics and prompting methods have introduced significant improvements, challenges such as bias, efficiency, and robustness remain. Fine-tuning LLMs and human-LLM collaboration offer promising solutions, though each comes with its own set of trade-offs. As research progresses, it will be crucial to develop unified benchmarks and explore new evaluation scenarios to fully realize the potential of LLMs in NLG evaluation.
 
-\subsection{WISE Technology Stack}
+\subsection{RAG-Specific Evaluation Metrics}
 
-The WISE technology stack integrates several components to provide a robust and efficient system for document management and information retrieval. WISE is built using the LangChain \cite{langchain2024} framework, which provides a powerful and flexible platform for developing applications involving complex language understanding and generation tasks.
+In the context of RAG systems, evaluation extends beyond text generation to include the retrieval of relevant information from external sources. RAG systems are primarily evaluated on two fronts: retrieval quality and generation quality.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/wise/wise-stack-updated.jpg}
-    \caption{The technology stack of WISE, showcasing its integration with large language models via APIs, its backend architecture, and its use of various databases for storing documents, embeddings, files, user permissions, and chat history. \textit{Source:} \cite{hpa2024}}
-    \label{fig:wise-stack}
-\end{figure}
+Retrieval quality is assessed by evaluating the effectiveness of the context sourced by the retriever component of the RAG model. Standard metrics from the domains of search engines, recommendation systems, and information retrieval systems are employed to measure the performance of the RAG retrieval module \cite{gao2023retrieval}.
 
-Designed to be flexible, scalable and efficient, the WISE technology stack shown in the figure \ref{fig:wise-stack}, leverages the power of LLMs and robust backend infrastructure. Key components include:
+Generation quality in Retrieval-Augmented Generation (RAG) systems is assessed based on the model’s ability to produce coherent and relevant answers derived from the retrieved context. This evaluation focuses on how well the generated content aligns with the retrieved data and addresses the user’s query. The critical aspects of this evaluation—context relevance, answer faithfulness, and answer relevance—are elaborated further in Section 4.2.1. These metrics ensure that the model prioritizes pertinent information, remains true to the provided context, and delivers responses that directly and accurately address the questions posed by the user.
 
-\begin{itemize}
-    \item \textbf{Integration of large language models}. WISE integrates with commercial and open-source LLMs, including GPT (Azure), Claude (Anthropic), Gemini (Google), Gemma (Google), NeMo (Mistral), and Llama (Meta). This enables the chatbot to use advanced artificial intelligence capabilities for natural language understanding and generation, providing flexibility in choosing the most appropriate model for different tasks.
+\subsubsection{Challenges in RAG Evaluation}
 
-    \item \textbf{API Interface:} The API interface facilitates communication between the user and the WISE backend. Users interact with WISE through this API, which processes requests and retrieves relevant information from the backend.
+Evaluating RAG systems presents unique challenges that are not typically encountered in traditional NLG evaluation. For instance, RAG systems must effectively handle noise in the retrieved documents, ensuring that irrelevant or misleading information does not compromise the quality of the generated responses. This requires robust noise management and the ability to reject negative or irrelevant information when the retrieved documents do not provide sufficient knowledge to answer a question \cite{gao2023retrieval}.
 
-    \item \textbf{WISE Backend:} The backend consists of the WISE engine, which is responsible for processing user requests, retrieving information, and generating responses. It acts as the central component that integrates the various databases and LLMs to provide accurate and timely information.
-\end{itemize}
+Another critical aspect is information integration, where the RAG system must synthesize data from multiple documents to address complex questions effectively. This is particularly challenging in multi-hop question-answering scenarios, where the model must navigate and integrate information from various sources to construct a coherent and accurate response \cite{luo2023divide}. Additionally, counterfactual robustness is essential, as the model must recognize and disregard known inaccuracies within documents, even when these inaccuracies are presented as potential answers \cite{lewis2020retrieval}.
 
-\textbf{Database Systems:} 
+\subsubsection{Conclusion and Future Directions}
 
-\begin{itemize}
-    \item \textbf{Database: } Used to store documents, embeddings, and vector databases. This allows WISE to efficiently manage and retrieve document data and associated embeddings for semantic search.
-    \item \textbf{AWS S3 Bucket:} Used to store document files. This provides scalable and durable storage for large volumes of document data.
-    \item \textbf{Postgres SQL Database:} Used to manage user data, permissions, and chat history. This relational database provides secure and efficient management of user-specific information and interactions. \cite{hpa2024}
-\end{itemize}
+The evaluation of LLMs in both NLG and RAG systems is a rapidly evolving field, with significant advancements in methodologies and metrics. While traditional evaluation metrics have provided a foundation, the advent of LLM-derived metrics and prompting methods has introduced new possibilities for more accurate and human-aligned assessments. However, challenges remain, particularly in the areas of robustness, efficiency, and fairness, which are critical for both NLG and RAG evaluations.
 
-This comprehensive technology stack enables WISE to provide high-performance document management and information retrieval services, ensuring scalability, security and flexibility to meet the diverse needs of different industries.
+In the context of RAG, additional complexities such as noise management, information integration, and counterfactual robustness highlight the need for specialized evaluation metrics and tools. As research progresses, it will be essential to develop unified benchmarks that can accommodate the unique requirements of both NLG and RAG systems. Moreover, exploring new evaluation scenarios, particularly in low-resource languages and complex, multi-hop tasks, will be crucial in fully realizing the potential of LLMs in these domains.
 
-\subsection{Advantages of WISE}
+Future research should also focus on enhancing the collaborative evaluation frameworks that combine human judgment with LLM capabilities, ensuring that these systems can deliver accurate, fair, and contextually relevant evaluations across a broad range of applications.
 
-WISE offers several key advantages that make it a valuable tool for companies. These advantages mean that WISE not only meets an organization's immediate needs, but also provides long-term value through continuous improvement and adaptability:
+% SECOND VERSION OF THE CHAPTER
 
-\begin{itemize}    
-    \item \textbf{No hallucination}. WISE provides only deterministic, accurate and consistent answers. It bases its knowledge solely on official documents provided by the company, eliminating the risk of generating incorrect or misleading information. This reliability is critical to maintaining trust and ensuring that users can rely on WISE to always provide accurate information.
-    
-    \item \textbf{Always updated}. Thanks to automatic document updating and formatting procedures, WISE always accesses the latest version of documents. This feature is especially important in areas where information changes frequently, such as legal, medical, or regulatory. By ensuring access to the most up-to-date data, WISE helps organizations remain compliant and make informed decisions based on the latest information.
-    
-    \item \textbf{Security of data and access:} Data security is a top priority for WISE. All data is encrypted and access to documents is managed through strict security policies at both group and user levels. In addition, WISE can be integrated with corporate single sign-on (SSO) systems, ensuring secure and seamless access for employees. These security measures protect sensitive information from unauthorized access and ensure compliance with data protection regulations.
-    
-    \item \textbf{Efficiency and scalability 24/7:} WISE is designed to handle thousands of requests in seconds, making it highly efficient and scalable. It runs 24/7, ensuring that users have access to information whenever they need it. The pay-per-use model offers maximum flexibility and scalability, allowing companies to increase or decrease usage based on demand without incurring unnecessary costs.
-    
-    \item \textbf{Fast deployment:} WISE's API-based cloud architecture, which is API agnostic to the specific LLM used, ensures reduced implementation time. This means that companies can quickly deploy WISE and start taking advantage of its benefits without lengthy configuration processes. The flexibility of the cloud-based system also makes it easy to upgrade and integrate with existing IT infrastructure, further simplifying the implementation process. \cite{hpa2024}
-\end{itemize}
 
+\section{Evaluating the Performance of AI Chatbots Leveraging LLMs and RAG}
 
-\subsection{Industry Applications}
+The rapid evolution of AI chatbots, particularly those that utilize Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) frameworks, has revolutionized the way machines interact with humans. These advanced systems are now capable of generating highly coherent and contextually relevant responses, making them indispensable in various applications, from customer support to content creation. However, with this increased capability comes the pressing need for rigorous and comprehensive evaluation methodologies to ensure these chatbots meet the high standards expected in real-world applications.
 
-WISE and its underlying technologies, including NLP and generative AI, have a wide range of applications in various fields. The following sections highlight some of the key areas where WISE offers significant benefits:
+Evaluating the performance of AI chatbots that leverage LLMs and RAG involves a multi-faceted approach, as these systems must be assessed not only on their ability to generate natural language but also on their retrieval of accurate information, handling of diverse inputs, and adherence to ethical guidelines. This chapter explores the critical aspects of chatbot evaluation, focusing on what to evaluate, where to evaluate, and how to evaluate these systems, followed by a discussion on the challenges and future opportunities in this domain.
 
-\begin{itemize}
-    \item \textbf{Insurance:} In the insurance industry, WISE supports telephone operators in customer service, helping them provide accurate and timely information to customers. Using NLP and generative AI, WISE can automatically analyze insurance claims, generate summaries of complex regulations, and assist operators in consulting policy texts and circulars. This improves operational efficiency and customer satisfaction, simplifying and speeding up the consulting work of insurance consultants.
-    \item \textbf{Banks:} WISE assists financial advisors in proposing potential investment plans and supports branch operators in assisting customers. In banking, NLP and generative AI are used to improve customer service through intelligent software agents. These agents help with procedures, automated claims analysis, and synthesis of complex account and policy regulations. This technology optimizes the advisory work of bankers, improving operational efficiency and customer satisfaction.
-    Generative artificial intelligence can also be used for consulting regulations, rules, and circulars through a conversational interface, making it easier for bank employees to access and understand relevant information.
-    \item \textbf{Energy:} In the energy sector, WISE supports customers in inquiring about consumption data reported on bills and assists energy managers in consulting consumption data. NLP and generative AI improve customer interaction through intelligent chatbots that answer frequently asked questions, automate service requests, and provide service updates. In addition, these technologies can analyze customer feedback from social media and other platforms to optimize services.
-    Generative AI in energy management applications allows users to access documents and data through a conversational interface, providing personalized recommendations for energy savings based on consumption patterns.
-    \item \textbf{Manufacturing:} In the manufacturing industry, WISE supports maintenance operators in accessing product technical manuals. NLP and generative AI automate technical documentation and maintenance reports by creating texts based on specific input data. This automation improves the efficiency of customer feedback analysis, identifying areas for product improvement.  \cite{hpa2024}
-\end{itemize}
+\subsection{Natural Language Processing Tasks}
 
-In summary, WISE offers versatile solutions in different areas, improving operational efficiency, customer satisfaction, and regulatory compliance.
+The development of large language models (LLMs) was initially driven by the goal of enhancing performance on various natural language processing (NLP) tasks, including both the understanding and generation of text. Within the context of AI chatbots, the evaluation of these NLP tasks is critical to ensuring that the chatbots can effectively engage in meaningful interactions with users. This section focuses on the evaluation of specific NLP tasks relevant to AI chatbots, particularly in the areas of dialogue generation and question answering.
 
+\textbf{Natural Language Generation (NLG):} The evaluation of NLG capabilities in LLMs is essential for assessing how well these models can generate specific texts in response to user inputs. NLG encompasses a range of tasks including summarization, dialogue generation, machine translation, and open-ended text generation. In the context of AI chatbots, the focus is primarily on dialogue generation and question answering, as these tasks are fundamental to the chatbot’s ability to interact with users in a natural and informative manner.
 
+\textbf{Dialogue Generation:} Evaluating dialogue generation is crucial for the development of more intelligent and natural dialogue systems. It involves assessing the model’s ability to understand context, generate coherent responses, and maintain a conversation over multiple turns. Studies have shown that models like Claude and ChatGPT generally outperform earlier versions such as GPT-3.5 in dialogue tasks, with Claude demonstrating slight advantages in specific configurations  . Research has also highlighted the importance of fine-tuning LLMs for specific tasks, as fine-tuned models often surpass general-purpose models like ChatGPT in task-oriented and knowledge-based dialogue contexts . The availability of comprehensive datasets, such as the LMSYS-Chat-1M, further supports the evaluation and advancement of dialogue systems by providing a robust resource for benchmarking .
 
-\subsection{Future Works and Improvements}
+\textbf{Question Answering (QA):} QA is another critical task for AI chatbots, particularly in applications like search engines, intelligent customer service, and specialized QA systems. The accuracy and efficiency of a chatbot in answering questions are key indicators of its performance. Recent evaluations have shown that models like InstructGPT davinci v2 (175B) excel in accuracy, robustness, and fairness across various QA scenarios . While ChatGPT has made significant strides in improving its QA capabilities compared to earlier models like GPT-3.5, it still faces challenges in specific benchmarks such as CommonsenseQA and Social IQA, where its cautious approach sometimes leads to withholding answers when information is insufficient  . Nonetheless, fine-tuned models continue to demonstrate exceptional performance in QA tasks, highlighting the importance of task-specific optimization in achieving high accuracy and relevance  .
 
-Although WISE provides a robust and efficient solution for document management and information retrieval, several areas of work and improvement have been identified to further enhance its capabilities:
+In summary, the evaluation of NLP tasks, particularly dialogue generation and question answering, is vital for ensuring that AI chatbots can effectively engage with users. As LLMs continue to evolve, the ability to accurately assess and improve these capabilities will be crucial for the development of more advanced and reliable chatbot systems.
 
-\begin{itemize}
-    \item \textbf{Integration of AI agents:} Future developments could include the integration of AI agents to automate more complex tasks and workflows. Multi-agent systems (MAS) have been widely recognized for their ability to solve complex problems by breaking them down into smaller tasks assigned to autonomous agents. Each agent can decide on the correct actions based on multiple inputs, such as historical actions, interactions with neighboring agents, and its own goals. Despite their wide applicability in areas such as complex systems modeling, intelligent networks, and computer networks, MAS face challenges such as coordination among agents, security, and task assignment. By addressing these challenges, integrating artificial intelligence agents into WISE could significantly improve its functionality, providing users with a more interactive and automated experience. This approach would enable WISE to handle more complex workflows and improve overall efficiency. \cite{dorri2018multi}
+\subsection{Factuality Evaluation}
 
-    \item \textbf{Bias Mitigation:} Developing techniques to detect and mitigate biases in the LLMs used by WISE will improve the fairness and accuracy of its responses. Addressing these biases requires a holistic approach involving diverse and representative datasets, increased transparency and accountability in AI systems, and the exploration of alternative AI paradigms that prioritize equity and ethical considerations. \cite{ferrara2023fairness}
+In the context of Large Language Models (LLMs), factuality refers to the extent to which the information or responses generated by the model align with real-world truths and verifiable facts. This aspect of LLM performance is particularly critical in applications that rely heavily on the accuracy and reliability of information, such as question answering (QA) systems, dialogue systems, information extraction, text summarization, and automated fact-checking. Ensuring that LLMs maintain a high degree of factual accuracy is essential for building trust and ensuring the effective use of these models in practical applications.
 
-    \item \textbf{Efficient use of resources:} Optimizing the computational efficiency of WISE by exploiting smaller models, such as DistilBERT, can significantly reduce processing cost and time. Transfer learning from large-scale pre-trained models is increasingly popular in NLP, but running these large models at the edge or under limited computational budgets remains a challenge. DistilBERT is a small, general-purpose language representation model that can be tuned to perform well across a wide range of tasks, similar to its larger counterparts. Using knowledge distillation during the pre-training phase, DistilBERT achieves a 40\% reduction in model size while maintaining 97\% of BERT's language comprehension capabilities and being 60\% faster. This approach not only makes the model cheaper to pre-train, but it is also suitable for on-device calculations, improving the accessibility and affordability of WISE for a wider range of organizations. \cite{sanh2019distilbert}
-\end{itemize}
+Factuality evaluation is crucial because errors in the information provided by LLMs can lead to misunderstandings, misinformation, and potentially harmful consequences. This evaluation involves assessing the model’s ability to stay consistent with known facts, avoid generating misleading or false information—commonly referred to as "factual hallucination"—and effectively learn and recall factual knowledge.
 
-WISE represents a cutting-edge approach to document management and information retrieval, leveraging advanced artificial intelligence technologies to deliver efficient, accurate and context-aware solutions. WISE stands out for its ability to solve the inefficiencies of traditional document retrieval methods. The integration of LLM and the RAG framework allows users to interact with a sophisticated virtual assistant that can understand natural language queries and provide accurate and relevant answers from extensive knowledge bases. Moreover, WISE's extensive capabilities, including multilingual support, multimodal capabilities, and secure access features, make it a versatile and indispensable tool for modern businesses.
+Various methodologies have been proposed to measure and improve the factuality of LLMs. For instance, Wang et al. conducted an assessment of several large models, including InstructGPT, ChatGPT-3.5, GPT-4, and BingChat, by examining their ability to answer open questions based on datasets such as Natural Questions and TriviaQA. Their study, which involved human evaluation, revealed that while GPT-4 and BingChat provided correct answers for over 80\% of the questions, there remained a significant gap of over 15\% to achieve complete accuracy. This indicates that while LLMs have made substantial progress, there is still room for improvement in ensuring factual correctness.
 
-Looking ahead, the areas identified for future work, such as AI agent integration, bias mitigation, and resource efficiency, highlight the ongoing efforts to improve WISE's capabilities. These enhancements will further strengthen WISE's position as a leader in AI-driven document management, ensuring that it continues to meet the evolving needs of its users and maintain its competitive edge in the marketplace.
+Other research efforts have focused on improving the evaluation methodologies themselves. For example, Honovich et al. reviewed current factual consistency evaluation methods and pointed out the lack of a unified comparison framework. To address this, they transformed existing fact consistency tasks into binary labels that assess whether there is a factual conflict with the input text. This approach, which does not consider external knowledge, has shown that methods based on natural language inference (NLI) and question generation answering can effectively complement each other in assessing factuality.
 
-\newpage
+Additionally, Pezeshkpour proposed a novel metric based on information theory to evaluate the inclusion of specific knowledge within LLMs. This metric, which measures the factuality by examining the probability distribution of responses generated by LLMs, demonstrated an accuracy improvement of over 30% compared to traditional ranking methods.
 
-\section{LLM Evaluator}
+Gekhman et al. also contributed to the field by developing a method to evaluate fact consistency in summarization tasks. They trained student NLI models using summaries generated by multiple models and annotated by LLMs to ensure fact consistency, thereby improving the evaluation of summarization tasks.
 
-The LLM Evaluator is an evaluation system designed and developed during my internship at HPA in the spring of 2024 to evaluate the performance of chatbot-based applications leveraging Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) technology. The primary objective was to create a comprehensive framework for evaluating WISE, with the goal of measuring its performance using a set of metrics to improve its capabilities and accuracy in information retrieval and response generation. This project involved several steps, including a review of the literature, implementation of evaluation metrics, visualization of the results, and extensive testing. The following sections will discuss these aspects in detail.
+Another interesting approach by Manakul et al. explored how LLMs generate factual or hallucinated responses. They proposed using various formulas, such as BERTScore and MQAG, to evaluate factuality, and employed alternative LLMs to gather token probabilities for black-box language models. The study found that calculating sentence likelihood or entropy was effective in validating the factuality of responses.
 
-\subsection{Evaluation Methodology and Implementation}
+Finally, the TruthfulQA dataset, introduced by Lin et al., has become a widely used tool for evaluating the factuality of LLMs. This dataset is specifically designed to challenge models by providing situations where factual answers are difficult to produce, thereby testing the models' ability to remain truthful. The findings from experiments using TruthfulQA suggest that merely scaling up model sizes does not necessarily improve truthfulness, highlighting the need for more nuanced training approaches.
 
-\subsubsection{Prompt Engineering}
+In summary, the evaluation of factuality in LLMs is a complex but essential task, with significant implications for the reliability and trustworthiness of AI systems that leverage these models. As research continues, refining these evaluation methods will be crucial to ensuring that LLMs can consistently provide accurate and truthful information across various applications.
 
-One of the key feature of the LLM Evaluator was developed using the “LLM-as-a-Judge” methodology \cite{zheng2024judging}, an innovative approach in AI research that leverages LLMs to evaluate the responses of an AI assistant by comparing them with human-generated truth responses. The prompt created by Zheng et al. \cite{zheng2024judging}, shown in Figure \ref{fig:llme-prompt}, for reference-driven comparison of generated answers was adapted in the LLM Evaluator to evaluate the response of a single AI assistant. The adapted prompt instructs an LLM to act as an impartial judge, compare the AI chatbot's response with a reference response, provide reasons and corrections, evaluate the response, and suggest improvements if necessary. This methodology ensures that WISE's responses meet high-quality standards for information retrieval and interaction.
+\subsection{Robustness and Trustworthiness Evaluation}
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/llme/zheng-prompt-original.png}
-    \caption{The original evaluation prompt presented by Zheng et al. (2024) for reference-guided pairwise comparison. This prompt was adapted in the LLM Evaluator to compare the answer of a single AI assistant against a reference human-generated answer. \textit{Source:} \cite{zheng2024judging}}
-    \label{fig:llme-prompt}
-\end{figure}
+\textbf{Robustness.} The robustness of AI chatbots that leverage Large Language Models (LLMs) is a critical area of evaluation, focusing on how well these systems handle unexpected or out-of-distribution (OOD) inputs, as well as adversarial prompts. Robustness studies examine the stability of a system when it encounters inputs that deviate from the norm, which is essential for ensuring the reliability of LLMs in real-world applications. Evaluations of robustness often involve testing the system's performance against established benchmarks such as AdvGLUE, ANLI, and DDXPlus, which assess both OOD and adversarial robustness. For example, Wang et al. conducted an early evaluation of ChatGPT and other LLMs, highlighting potential security risks when these models are exposed to adversarial inputs or manipulated through visual input \cite{zhu2023robustness}. Additionally, adversarial robustness has been further explored through comprehensive evaluations using benchmarks like PromptBench, revealing that contemporary LLMs are still vulnerable to adversarial text attacks at various levels, from character to semantic \cite{wang2023robustness}. These findings underscore the importance of developing more resilient models that can maintain performance and security across diverse and potentially malicious inputs.
 
- The LLM Evaluator was designed to allow the selection of different Large Language Models as a "judge" to perform the evaluation, providing flexibility in valuating chatbot performance using different models.
+\textbf{Trustworthiness.} Trustworthiness in AI chatbots, especially those that combine LLMs with information retrieval (RAG), is another critical aspect of evaluation. Trustworthiness encompasses the model's ability to provide accurate, ethical, and unbiased responses, which is paramount in maintaining user trust and ensuring ethical AI deployment. Studies such as DecodingTrust have expanded the evaluation of LLMs to include various dimensions of trustworthiness, such as toxicity, stereotype bias, adversarial robustness, and fairness \cite{wang2023decodingtrust}. These evaluations have revealed that while advanced models like GPT-4 may exhibit improved trustworthiness compared to earlier versions, they are still susceptible to certain vulnerabilities, including susceptibility to attacks and ethical inconsistencies. Further research has shown that LLMs can avoid common cognitive errors, but their consistency in judgment can wane when disrupted by questioning, negation, or misleading cues, raising concerns about their reliability in real-world scenarios \cite{hagendorff2023trustworthiness}. Evaluating and improving trustworthiness is essential, as it directly impacts the model's reliability and the ethical implications of its deployment in sensitive applications.
 
-\subsubsection{RAGAS Metrics}
-Following a thorough literature review, the architecture of the evaluation system was designed to incorporate a versatile range of metrics to comprehensively evaluate different dimensions of model performance. The key evaluation metrics used in the system were integrated from the Retrieval Augmented Generation Assessment (RAGAS) framework \cite{es2023ragas}:
+\textbf{Ethics and Bias.} Evaluating the ethical implications and biases of AI chatbots that use LLMs is crucial for responsible AI deployment. LLMs have been found to internalize and perpetuate harmful biases present in their training data, which can manifest as offensive language, hate speech, or stereotypes related to gender, race, religion, and other demographic characteristics. These biases not only affect the fairness of the system but also pose significant risks when the chatbot is used in sensitive or high-stakes environments. Recent studies have systematically evaluated the presence of such biases in models like ChatGPT, finding that despite advancements, these models still exhibit toxic and biased content \cite{zhuo2023systematic}. Moreover, role-playing scenarios have been shown to exacerbate these biases, leading to increased toxicity and biased outputs toward specific entities \cite{deshpande2023bias}. Beyond social biases, LLMs have also been evaluated for political and moral biases, with findings indicating a propensity for certain political views or personality traits, which can influence the responses generated by the chatbot \cite{ferrara2023politicalbias}. These ethical concerns highlight the need for ongoing evaluation and mitigation strategies to ensure that AI chatbots provide equitable and non-discriminatory interactions, fostering trust and minimizing potential harm to users.
 
-\begin{itemize}
-    \item \textbf{Answer Correctness:} Evaluates the accuracy of the assistant's responses against the reference answers. This evaluation involves gauging the accuracy of the generated answer compared to the ground truth, with scores ranging from 0 to 1. Higher scores indicate better correctness, encompassing both semantic and factual similarity.
+\section{Evaluation Benchmarks}
 
-    \item \textbf{Faithfulness:} Assesses whether the information provided by the assistant is factually correct and aligns with the source content. The generated answer is considered faithful if all claims made can be inferred from the given context. The faithfulness score is given by:
+The evaluation of AI chatbots that leverage Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) systems requires comprehensive benchmarks that assess their performance across a variety of tasks. This section introduces the benchmarks used for general tasks, specific downstream tasks such as question answering, and multi-modal tasks, which are essential for evaluating the holistic performance of these models.
 
-    \[
-    \text{Faithfulness score} = \frac{\left| \text{\# claims in the generated answer inferred from context} \right|}{\left| \text{Total \# claims in the generated answer} \right|}
-    \]
+\subsection{Benchmarks for General Tasks}
 
-    \item \textbf{Context Recall:} Measures the extent to which the assistant's response includes relevant information from the provided context. It is computed based on the ground truth (GT) and the retrieved context, with values ranging from 0 to 1, indicating better performance with higher values. The formula for context recall is:
+LLMs are designed to handle a wide array of tasks, making it crucial to evaluate their performance across multiple dimensions. Benchmarks like Chatbot Arena and MT-Bench play a significant role in this regard. Chatbot Arena offers a platform where users can interact with anonymous chatbot models, casting votes based on their experiences. This real-world engagement allows for the assessment of chatbot models in practical settings, providing valuable insights into their strengths and limitations. Similarly, MT-Bench focuses on evaluating LLMs in multi-turn dialogues, which are essential for simulating realistic conversational scenarios. This benchmark is particularly useful for understanding how well a chatbot can manage extended interactions, a critical aspect of natural language processing (NLP) tasks.
 
-    \[
-    \text{Context recall} = \frac{\left| \text{GT sentences that can be attributed to context} \right|}{\left| \text{Number of sentences in GT} \right|}
-    \]
+Additionally, benchmarks such as HELM and DynaBench provide a broader evaluation of LLMs across various NLP tasks, including language comprehension and robustness to adversarial inputs. HELM offers a comprehensive assessment of LLMs' language understanding capabilities, while DynaBench supports dynamic benchmark testing, exploring the effects of distributional shifts and model robustness in interactive settings. These benchmarks contribute to a more nuanced understanding of LLM performance, especially in diverse and challenging scenarios.
 
-    \item \textbf{Context Precision:} Evaluates whether all the ground-truth relevant items present in the contexts are ranked higher. Ideally, all relevant chunks should appear at the top ranks. This metric is computed as follows:
+\subsection{Benchmarks for Specific Downstream Tasks}
 
-    \[
-    \text{Context Precision@K} = \frac{\sum_{k=1}^{K} (\text{Precision@k} \times v_k)}{\text{Total number of relevant items in the top } K \text{ results}}
-    \]
+While general benchmarks provide an overarching view of LLM performance, specific downstream tasks require more focused evaluation. Question-answering benchmarks, such as MultiMedQA and FRESHQA, are crucial for assessing how effectively a chatbot can retrieve and generate accurate answers. MultiMedQA, for instance, focuses on medical questions, evaluating a model's clinical knowledge and ability to handle complex queries in the healthcare domain. FRESHQA, on the other hand, tests the chatbot's ability to incorporate up-to-date information from current world knowledge, ensuring relevance and accuracy in dynamic environments.
 
-    Where,
-    \[
-    \text{Precision@k} = \frac{\text{true positives@k}}{(\text{true positives@k} + \text{false positives@k})}
-    \]
+For more complex dialogue and reasoning tasks, benchmarks like Dialogue CoT and ARB provide targeted assessments. Dialogue CoT evaluates LLMs' capabilities in conducting coherent and contextually relevant conversations, while ARB probes their performance in advanced reasoning tasks that span multiple domains. These benchmarks are instrumental in understanding how well LLMs can perform in specialized and challenging tasks that go beyond basic question answering.
 
-    \( K \) is the total number of chunks in \textit{contexts} and \( v_k \in \{0,1\} \) is the relevance indicator at rank \( k \).
+\subsection{Benchmarks for Multi-modal Tasks}
 
-    \item \textbf{Harmfulness:} Assesses whether the response contains any harmful content. Evaluations are binary, indicating whether the submission aligns with the aspect of being harmless.
-    \item \textbf{Maliciousness:} Evaluates the potential for the assistant's response to be used in a malicious manner. This critique is also binary, indicating whether the submission aligns with the aspect of being non-malicious.
-    \item \textbf{Coherence:} Measures the logical flow and understandability of the response.
-    \item \textbf{Conciseness:} Evaluates the brevity and directness of the response, ensuring it is free from unnecessary information. \cite{es2023ragas}
-\end{itemize}
+In the evolving landscape of AI, chatbots are increasingly required to handle multi-modal inputs, such as images, text, and even audio. Evaluating these capabilities necessitates benchmarks specifically designed for multi-modal tasks. MME and MMBench are two such benchmarks that rigorously assess the perceptual and cognitive abilities of Multi-modal Large Language Models (MLLMs). MME uses instruction-answer pairs to evaluate models under controlled conditions, while MMBench offers a comprehensive dataset for evaluating vision-language models.
 
-\subsubsection{Similarity Score and Sentiment Analysis}
+These benchmarks ensure that MLLMs are not only capable of understanding and generating text but can also effectively interpret and respond to visual inputs. As MLLMs continue to evolve, benchmarks like SEED-Bench further extend their evaluation to cover a wide range of tasks, including pattern recognition in images and videos, providing a holistic assessment of multi-modal language models.
 
-In addition, the Similarity Score metric was implemented to calculate the similarity between reference and the generated answers using embeddings from OpenAI models. This method quantifies textual similarity through cosine similarity scores, providing a quantitative measure of how closely the generated text matches the reference response. Incorporating this score was useful in providing a quantitative evaluation metric to complement the other LLM-based metrics.
+\subsection{Conclusion}
 
-To further enhance the evaluation, subjectivity, polarity, and sentiment analysis were also implemented. The LLM evaluator incorporates these assessments to provide a deeper understanding of the responses. Using the TextBlob library, the system evaluates subjectivity (a measure of personal opinion, emotion, or judgment) and polarity (a measure of the orientation of sentiment from negative to positive) of text items. The langdetect library ensures that these ratings are applied only to texts detected as English, since these methods are designed to work only with the English language. This addition helps to understand the emotional and subjective tone of AI-generated responses, adding another layer of qualitative analysis to the overall evaluation framework.
+The development of robust and comprehensive benchmarks is essential for advancing the evaluation of AI chatbots that utilize LLMs and RAG systems. These benchmarks enable researchers and developers to systematically assess and improve the performance of chatbots across general tasks, specific downstream tasks, and multi-modal tasks. As AI technology continues to progress, these benchmarks will play a critical role in ensuring that chatbots can meet the diverse and complex demands of real-world applications.
 
-\subsection{Testing and Visualization}
+\subsection{How to Evaluate}
 
-Each module of the evaluation system was tested to ensure its robustness and accuracy. Results were visualized in a simple way, using bar graphs and tables to graphically represent performance metrics. Output formats were refined to improve clarity and accessibility, ensuring that the data were easy to interpret.
+Evaluating the performance of AI chatbots that leverage Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) systems is a complex process that requires both automated and human evaluation methods. Each approach offers distinct advantages and challenges, and the choice between them often depends on the specific aspects of performance being assessed.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/llme/llm-performance-average-metrics.png}
-    \caption{Evaluation Report: This chart displays the average scores for numeric metrics. The visualization provides an overview of the model's performance across different dimensions, highlighting areas where the AI chatbots excels and areas that may require improvement.}
-    \label{fig:llm-performance-average-metrics}
-\end{figure}
+\subsubsection{Automatic Evaluation Methods}
 
-The visualizations presented in figures \ref{fig:llm-performance-average-metrics}, \ref{fig:metrics-comparison} and \ref{fig:assistant-performance-table} provide a comprehensive overview of the AI model's performance. To produce these results, a dataset composed by correct and wrong generated answers was used to assess that the LLM Evaluator behaves as expected. GPT-4, recognized as the most advanced LLM available at the time, was chosen for the evaluation role. Its superior understanding and generative capabilities made it extremely effective in simulating human-like evaluative judgments and producing nuanced feedback.
+Automatic evaluation is widely regarded as a cornerstone in the assessment of LLMs and RAG systems due to its efficiency, scalability, and objectivity. This method employs standard metrics and automated tools to evaluate model performance across various tasks. The primary advantage of automatic evaluation is that it minimizes human intervention, thereby reducing potential biases and allowing for the rapid assessment of large volumes of data.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/llme/metrics-comparison.png}
-    \caption{Metrics Comparison: This graph compares various performance metrics for each instance. The comparison helps in understanding the consistency of the model's performance across different instances and provides insights into specific cases where the chatbot's performance may vary significantly.}
-    \label{fig:metrics-comparison}
-\end{figure}
+Some of the most common metrics used in automatic evaluation include accuracy, calibration, fairness, and robustness. Accuracy is often measured using metrics like Exact Match (EM), F1 score, and ROUGE, which assess how well the model's output aligns with a reference answer. Calibration, on the other hand, pertains to the model’s confidence levels, ensuring that the predicted probabilities reflect the actual likelihood of correctness. Fairness metrics such as Demographic Parity Difference (DPD) and Equalized Odds Difference (EOD) evaluate whether the model's performance is consistent across different demographic groups, mitigating potential biases. Lastly, robustness metrics, including Attack Success Rate (ASR) and Performance Drop Rate (PDR), assess the model's resilience to adversarial inputs and out-of-distribution data.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/llme/assistant-performance-table-2.png}
-    \caption{Assistant Performance Table: This table provides a detailed breakdown of the performance metrics for each instance. Subjectivity, polarity and sentiment analysis display null results due to the entries in Italian language. The table helps in identifying strengths and weaknesses in the assistant responses, facilitating a comprehensive evaluation of the model's performance.}
-    \label{fig:assistant-performance-table}
-\end{figure}
+The increasing sophistication of LLMs has led to the development of advanced automatic evaluation techniques. For instance, tools like LLM-EVAL and PandaLM offer multidimensional evaluation frameworks, enhancing the thoroughness and reproducibility of automated assessments. These tools are often integrated into benchmarks such as MMLU, HELM, and C-Eval, further standardizing the evaluation process across different tasks and domains.
 
-Figure \ref{fig:llm-performance-average-metrics} presents the average scores of key numerical metrics, providing a high-level summary of the chatbot's overall performance. This visualization helps to quickly identify areas where the model performs well and those that need further improvement.
+\subsubsection{Human Evaluation Methods}
 
-Figure \ref{fig:metrics-comparison} shows a detailed comparison of metrics across instances. This graph is useful for assessing the consistency of AI chatbot performance and for identifying specific instances where model performance deviates significantly from the average. This information is valuable for making targeted improvements and for understanding the conditions under which the model performs best.
+While automatic evaluation provides valuable insights, certain tasks require the nuanced understanding that only human evaluation can offer. Human evaluation is particularly crucial for open-ended generation tasks, where the subjective quality of the text, including fluency, relevance, and alignment with human values, must be assessed. In these cases, embedded similarity metrics like BERTScore may fall short, making human judgment indispensable.
 
-The figure \ref{fig:assistant-performance-table} provides a detailed breakdown of each instance, highlighting various performance metrics. This table is useful for identifying specific areas where AI responses are strong or weak.
+Human evaluation involves experts, researchers, or lay users assessing the outputs of LLMs and RAG systems based on criteria such as accuracy, relevance, fluency, transparency, safety, and human alignment. Accuracy ensures that the generated content is factually correct, while relevance checks if the output is pertinent to the context or query. Fluency evaluates the readability and coherence of the text, and transparency examines how clearly the model’s decision-making process is communicated. Safety focuses on avoiding harmful or inappropriate content, and human alignment ensures that the output respects societal norms and user expectations.
 
-Together, these visualizations provide a framework for evaluating the performance of the LLM, ensuring that it meets the standards required for effective information retrieval and quality of interaction.
+However, human evaluation is not without its challenges. It is often resource-intensive, time-consuming, and susceptible to variability due to cultural and individual differences among evaluators. Ensuring a representative number of evaluators and defining clear evaluation criteria are essential to mitigate these challenges. Furthermore, the expertise level of the evaluators plays a critical role in the reliability of the evaluation, particularly in domain-specific tasks where deep subject knowledge is required.
 
-The project culminated in the creation of a proprietary Python package that encapsulates LLM's evaluation pipeline. This package automates the evaluation process, ensuring accessibility and ease of use for future evaluations. It enables the HPA to consistently apply rigorous standards to the evaluation of the AI Assistant, WISE and other AI-based solutions, improving the scalability of AI deployment strategies.
+In practice, a combination of automatic and human evaluation methods is often employed to achieve a more comprehensive assessment of chatbot performance. This hybrid approach allows for the strengths of both methods to be harnessed, providing a more balanced and thorough evaluation of AI chatbots that use LLMs and RAG technologies.
 
-\subsection{Limitations}
+\subsection{Success and Failure Cases of LLMs}
 
-Although the LLM Evaluator provides a solid framework for evaluating the performance of chatbots, some limitations need to be recognized:
+Large Language Models (LLMs) have demonstrated remarkable capabilities across a wide range of tasks, yet they are not without limitations. Understanding both their strengths and weaknesses is essential for evaluating the performance of AI chatbots, particularly in generating dialogue and answering questions.
 
-\begin{itemize}
-    \item \textbf{Language Constraints:} Evaluator sentiment analysis functions, including subjectivity and polarity evaluation, are limited to English texts due to dependence on the TextBlob and langdetect libraries. This limitation reduces the evaluator's applicability in multilingual environments, particularly in the Italian context in which HPA primarily operates.
-    \item \textbf{Model Baselines:} Evaluation metrics and results are affected by the biases inherent in the LLM models used (e.g., GPT-4). These biases can affect the accuracy and fairness of assessments, especially in diverse and sensitive contexts.
-    \item \textbf{Cost and performance overhead:} Because of the significant costs associated with the use of advanced LLMs such as GPT-4, most of the tests during system development were conducted with a minimal number of instances and smaller models, such as GPT-3.5. As a result, the use of resource-intensive LLMs may result in higher computational expenses and longer processing times, potentially limiting the feasibility of the system for all organizations.
-    \item \textbf{Static Reference Responses:} The evaluator relies on static reference responses for comparison, which do not always reflect the dynamic and evolving nature of real-world information. This can limit the ability to adapt to new information or changes in context.
-\end{itemize}
+\subsubsection{Success Cases of LLMs}
 
-\subsection{Future Work and Improvements}
+LLMs have shown significant proficiency in several key areas, which has fueled their widespread adoption in various applications. One of the primary strengths of LLMs lies in their ability to generate text with a high degree of fluency and precision. This capability is evident in tasks such as machine translation, text generation, and question answering, where LLMs consistently produce coherent and contextually appropriate responses  .
 
-To address these limitations and improve the capabilities of the LLM Evaluator, several future directions of work are proposed:
+In addition to text generation, LLMs excel in language understanding tasks. They perform impressively in sentiment analysis, text classification, and handling factual input, showcasing their ability to comprehend and process natural language effectively  . Furthermore, LLMs demonstrate robust arithmetic and logical reasoning capabilities, making them well-suited for tasks that require complex calculations or structured data inference  . Their proficiency extends to temporal reasoning, where they can accurately interpret and manage time-related information .
 
-\begin{itemize}
-    \item \textbf{Multilingual Support:} Expanding sentiment analysis capabilities to support multiple languages using advanced NLP libraries or multilingual LLMs will enhance the evaluator's applicability across different language environments, aligning with WISE's multilingual capabilities. \cite{abdullah2021multilingual}
-    \item \textbf{Bias Mitigation:} As mentioned in the WISE section, developing techniques to detect and mitigate biases in the LLMs will improve the fairness and accuracy of assessments. This includes incorporating bias detection tools or using unbiased models. \cite{ferrara2023fairness}
-    \item \textbf{Efficient Use of Resources:} Similar to the improvements suggested for WISE, optimizing the evaluator's computational efficiency by leveraging lighter models for preliminary evaluations can reduce processing costs and time. Examples of lighter models include DistilBERT, ALBERT, and TinyBERT, which offer significant reductions in size and computational requirements while maintaining strong performance. \cite{sanh2019distilbert} \cite{lan2019albert} \cite{jiao2019tinybert}
-    \item \textbf{Dynamic Updating of References:} Implementing mechanisms to dynamically update reference responses based on the latest information and changing contexts will enhance the relevance and accuracy of assessments. To address the challenge of integrating dynamically created reference responses by humans, an automated system could be developed. This system would leverage AI to monitor and gather the latest relevant data from trusted sources and then generate updated reference responses. Additionally, incorporating a human-in-the-loop approach ensures that these AI-generated updates are verified for accuracy and relevance before being used in evaluations. \cite{wu2022survey}
-\end{itemize}
+The robust contextual comprehension of LLMs enables them to generate responses that are not only accurate but also align well with the input provided, making them effective in dialogue systems and conversational AI .
 
-By addressing these limitations and exploring these future directions of work, the LLM Evaluator can be further refined to provide even more reliable, fair, and context-aware evaluations of AI-based solutions.
+\subsubsection{Failure Cases of LLMs}
 
-HPA's LLM-Evaluator provides a comprehensive and robust framework for evaluating chatbot performance, leveraging advanced methodologies and metrics to ensure high standards of information retrieval and interaction quality. By incorporating sophisticated evaluation techniques and a user-friendly visualization, the system enhances HPA's ability to evaluate and improve its AI-based solutions, ensuring the continued development and deployment of high-quality AI applications.
+Despite these strengths, LLMs also exhibit several notable limitations that can affect their performance in certain contexts. One of the primary challenges LLMs face is in tasks requiring nuanced understanding, such as Natural Language Inference (NLI). Here, they struggle to accurately represent human disagreements and may perform poorly in discerning subtle semantic similarities between events  . This limitation extends to abstract reasoning, where LLMs often encounter confusion or errors, particularly in complex or ambiguous contexts  .
+
+LLMs also demonstrate suboptimal performance when processing linguistic contexts that involve non-Latin scripts or are resource-constrained. Their ability to generate accurate and contextually relevant outputs diminishes significantly in these scenarios, highlighting a gap in their linguistic capabilities across diverse languages and writing systems  .
+
+Moreover, LLMs are not immune to the biases and toxic content embedded in the vast datasets on which they are trained. They can inadvertently assimilate and propagate offensive or biased language, which poses significant ethical concerns, particularly in sensitive applications such as social media moderation or customer service  .
+
+Another critical limitation of LLMs is their difficulty in incorporating real-time or dynamic information. This makes them less effective in tasks that require up-to-date knowledge or the ability to rapidly adapt to changing circumstances . Additionally, LLMs are particularly vulnerable to adversarial prompts, which can exploit weaknesses in their training and result in incorrect or harmful outputs .
+
+Understanding these success and failure cases is crucial for effectively deploying LLMs in real-world applications. By recognizing where LLMs excel and where they fall short, developers and researchers can better design evaluation frameworks that ensure AI chatbots perform reliably and ethically across a wide range of tasks.
+
+\subsection{Grand Challenges and Opportunities for Future Research}
+
+The ongoing evolution of Large Language Models (LLMs) presents a unique set of challenges and opportunities for the field of AI evaluation. As LLMs continue to advance, there is a pressing need to rethink and redesign evaluation methodologies to accurately reflect their true capabilities. Current evaluation protocols, while foundational, fall short in fully capturing the breadth and depth of LLMs' abilities. This section outlines several grand challenges that must be addressed to elevate evaluation to a central discipline within AI research, ensuring that it drives the continued success of LLMs and other AI models.
+
+\subsubsection{Complete Behavioral Evaluation}
+
+A comprehensive evaluation of Artificial General Intelligence (AGI) should extend beyond standard benchmarks and encompass evaluations of complete behavior in open environments. This means that LLMs should be assessed not only on their ability to perform well in controlled tasks but also on their behavior in real-world scenarios. For instance, treating LLMs as the central controllers in robotics could allow for the testing of their decision-making and adaptability in dynamic, real-life situations. Such evaluations would include multi-modal dimensions, making them complementary to traditional benchmarks. The integration of complete behavioral evaluations with standard AGI benchmarks would offer a more holistic understanding of LLM performance, pushing the boundaries of current testing methodologies and contributing to the development of truly intelligent systems.
+
+\subsubsection{Robustness Evaluation}
+
+Robustness is a critical factor in the deployment of LLMs, particularly as they become more deeply integrated into everyday applications. The ability of LLMs to handle a wide variety of inputs—ranging from slight variations in grammar to entirely different expressions—without compromising the quality of their output is essential. However, current LLMs, including widely used models like ChatGPT, often generate diverse responses to similar prompts, revealing a lack of robustness. While existing research has made strides in this area, there remains significant room for improvement. Future research should focus on expanding the diversity of evaluation sets, exploring new aspects of robustness, and developing more efficient methods to test these capabilities. Additionally, as concepts of robustness evolve, it is important to continually update evaluation systems to address emerging concerns, particularly those related to ethics and bias.
+
+\subsubsection{Dynamic and Evolving Evaluation}
+
+The static nature of most current evaluation protocols presents another significant challenge in the assessment of LLMs. As LLMs rapidly develop, their capabilities may outgrow the static benchmarks traditionally used for evaluation. Furthermore, the potential for LLMs to memorize these benchmarks introduces the risk of training data contamination, where models perform well simply because they have seen the evaluation data before. To address these issues, it is crucial to develop dynamic and evolving evaluation systems that can adapt to the continuous advancements in LLM capabilities. Such systems would provide a more accurate and fair assessment of LLMs, ensuring that their evaluation keeps pace with their development and offering a more realistic measure of their performance in real-world applications.
