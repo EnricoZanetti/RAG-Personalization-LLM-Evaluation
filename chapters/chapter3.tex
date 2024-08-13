@@ -1,191 +1,211 @@
+Rapid advances in artificial intelligence, particularly in the field of large language models (LLMs), have had a significant impact on the development of AI chatbots. These models, powered by complex architectures and vast datasets, have demonstrated remarkable natural language processing capabilities, enabling more sophisticated, human-like interactions. However, the evolution of these models is not without challenges, particularly with regard to scalability, training, and application in different contexts.
+
+This chapter reviews the technical foundations and advances that have shaped the current state of LLMs, with a specific emphasis on the Transformer architecture, which has been instrumental in the success of these models. The chapter examines the evolution of LLMs, their architectural components, and the impact of model size on performance. In addition, the chapter examines the training processes underlying these models, including the pre-training and tuning techniques that have become essential to optimizing their performance in specific tasks.
+
+In addition, the chapter addresses the Retrieval-Augmented Generation (RAG) paradigm, which enhances the capabilities of AI chatbots by integrating information retrieval processes. This approach not only improves the factual accuracy of generated content, but also facilitates the personalization of responses based on external knowledge sources.
+
+The final section of the chapter will examine the limitations of contemporary LLMs in practical applications, analyzing the shortcomings of these models and their implications for real-world use. Finally, the chapter will examine the future prospects of LLMs, particularly in the context of evolution beyond the Transformer architecture. It will introduce new and promising models, such as Mamba and BASED, which aim to solve the inherent limitations of Transformers and pave the way for the next generation of AI.
+
 \section{Large Language Models}
 
-When we talk about Large Language Models (LLMs), we refer to advanced software designed to communicate in a human-like manner. These models possess the remarkable ability to understand complex contexts and generate consistent, human-like content. If you have ever interacted with a chatbot or AI virtual assistant, you may have used an LLM without realizing it. LLMs are used in various applications such as text generation, machine translation, sentiment analysis and document summarization, among others. They have become an essential part of the artificial intelligence (AI) landscape. This section delves into their history and evolution, including an analysis of the architecture of the transformer.
+In the context of LLMs, the term refers to sophisticated software designed to emulate human communication in a way that is perceived as natural and conversational. These models demonstrate an exceptional ability to understand intricate contextual nuances and generate content that is coherent and reminiscent of human expression. It is possible that anyone who has previously interacted with a chatbot or AI virtual assistant has used an LLM without being aware of it. LLMs are used in a multitude of applications, including text generation, machine translation, sentiment analysis, document summarization, and many others. They have become a key part of the AI ecosystem. This section presents a comprehensive analysis of the historical development and architectural evolution of transformers.
 
-LLMs refer to large, general-purpose language processing models that are pre-trained on large datasets to learn the fundamental structures and semantics of human language. The term “large” indicates both the significant amount of data needed for training and the billions or even trillions of parameters these models contain. Pre-training enables LLMs to handle common language tasks such as text classification, question answering and document summarization. After pre-training, these models are typically fine-tuned to smaller, specialized datasets for specific domains, improving their accuracy and efficiency. \cite{researchgraph2024}
+LLMs are defined as large, general-purpose language processing models that undergo pre-training on large datasets with the goal of learning the fundamental structures and semantics of human language. The term "large" indicates both the considerable amount of data required for training and the billions or even trillions of parameters that these models possess. Pre-training enables LLMs to perform a number of common linguistic tasks, including text classification, question answering and document summarization. After the pre-training phase, models are typically tuned on smaller, domain-specific datasets, thereby improving their accuracy and efficiency \cite{researchgraph2024}.
+
+To fully understand the progress of LLMs and their current capabilities, it is essential to trace their origins and elucidate the evolutionary trajectory that led from the earliest rule-based systems to the sophisticated architectures currently in use.
 
 \subsection{Evolution of Large Language Models}
 
 \subsubsection{Early Days: Chatbots and Rule-Based Systems (1960s)}
 
-The journey of LLMs began in the 1960s with ELIZA, an early natural language processing computer program created by Joseph Weizenbaum \cite{weizenbaum1966eliza}. ELIZA was able to simulate a conversation by searching for key words and using programmed responses. Following ELIZA, SHRDLU, developed by Terry Winograd in the early 1970s \cite{winograd1972understanding}, was an advanced program capable of understanding and manipulating a virtual block world through natural language commands. This marked a significant step toward machine understanding of context and intentions.
+The journey of LLMs in the 1960s with the advent of ELIZA, an early natural language processing computer program created by Joseph Weizenbaum \cite{weizenbaum1966eliza}. ELIZA was designed to simulate a conversation through keyword search and the use of programmed responses. Subsequent to ELIZA, SHRDLU, developed by Terry Winograd in the early 1970s \cite{winograd1972understanding}, was an advanced program capable of understanding and manipulating a virtual block world through natural language commands. This marked a significant step in the ability of machines to understand context and intentions.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/llms/llms-timeline.png}
+    \includegraphics[width=0.9\textwidth]{images/llms/llms-timeline.png}
     \caption{Timeline of Large Language Models (LLMs) development.}
     \label{fig:llms-history}
 \end{figure}
 
 \subsubsection{Rise of Recurrent Neural Networks (1980s)}
 
-In the late 20th century, recurrent neural networks (RNNs), inspired by the interconnected neurons of the human brain, were born. Introduced in 1986, RNNs gained popularity for their ability to remember previous inputs and process sequential data, making them suitable for NLP tasks. However, RNNs have had limitations with long sentences, often suffering from the gradient vanishing problem \cite{elman1990finding}.
+Recurrent neural networks (RNNs), inspired by the interconnected neurons of the human brain, were developed in the late 20th century. Introduced in 1986, RNNs gained popularity due to their ability to retain previous inputs and process sequential data, making them suitable for NLP tasks. However, RNNs have shown limitations in processing long sentences, often encountering the vanishing gradient problem \cite{elman1990finding}.
 
 \subsubsection{Rise of Long Short-Term Memory (1990s)}
 
-Long short-term memory (LSTM), a specialized type of RNNs, was introduced in 1997 to address the limitations of RNNs. LSTMs are capable of remembering information over long sequences, overcoming the short-term memory limitations of RNNs. Their unique architecture, with input, forgetting, and output gates, allowed LSTMs to retain relevant information in memory, making them more efficient for capturing long-term dependencies in sentences \cite{hochreiter1997long}.
+In 1997, long short-term memory (LSTM), a specialized type of RNN, was introduced to address the limitations of RNNs. LSTMs are able to retain information for prolonged sequences, thus overcoming the short-term memory limitations of RNNs. The unique architectural configuration of LSTMs, which includes input, forgetting and output gates, enables them to retain relevant information within the memory system, thus improving the efficiency of capturing long-term dependencies in sentences \cite{hochreiter1997long}.
 
 \subsubsection{Gated Recurrent Units (2010s)}
 
-In 2014, Gated Recurrent Units (GRUs) were introduced to solve problems similar to LSTMs, but with a simpler structure. GRUs use only two ports: an update port and a reset port, making them more computationally efficient, while maintaining the long-term dependencies in the sentences \cite{cho2014learning}.
+In 2014, Gated Recurrent Units (GRUs) were introduced, a means of addressing similar problems to those encountered with LSTM units, but with a simpler architectural configuration. GRUs use a simpler approach, comprising only two ports: an update gate and a reset gate. This architectural simplicity allows for greater computational efficiency while preserving the long-term dependencies inherent in the sentences \cite{cho2014learning}.
 
 \subsubsection{Rise of Attention Mechanism (2014)}
 
-The introduction of the attention mechanism on paper on neural machine translation \cite{bahdanau2014neural} in 2014 marked a paradigm shift in sequence modeling. Unlike RNNs, which process sentences with a context vector of fixed size, attention mechanisms allowed models to dynamically select relevant parts of the source sequence, ensuring that crucial information was not lost, especially in longer sequences.
+The introduction of the attention mechanism in neural machine translation in 2014 marked a paradigm shift in sequence modeling. Unlike RNNs, which process sentences with a context vector of fixed size, attention mechanisms allowed models to dynamically select relevant parts of the source sequence, thus avoiding the loss of crucial information, especially in longer sequences \cite{bahdanau2014neural}.
 
 \subsubsection{The Invention of Transformers Architecture (2017)}
 
-Transformers, introduced in 2017 by Vaswani et al. in the paper “Attention is All You Need” \cite{vaswani2017attention}, relied on an attention mechanism to process sequences. The processors featured an encoder-decoder architecture with multiple layers of self-attention and feed-forward neural networks. The multi-layered attention mechanism allowed the processors to simultaneously focus on different parts of the input sentence, capturing various contextual nuances. Processors could also process sequences in parallel, rather than sequentially, leading to the development of sophisticated LLMs such as BERT and GPT. Given its importance and influence in the AI field, the transformer architecture will be discussed in more depth in later sections.
+In their 2017 paper, "Attention is All You Need", Vaswani et al. \cite{vaswani2017attention} revolutionized sequence modeling by introducing the Transformers architecture, which fundamentally shifted the field by leveraging an attention mechanism to process sequences with unprecedented efficiency and flexibility. The processors were built with an encoder-decoder architecture that includes multiple levels of self-attention and feed-forward neural networks. The multilevel attention mechanism allowed the processors to simultaneously focus on different elements of the input sentence, thus capturing a multitude of contextual subtleties. In addition, processors were able to process sequences in parallel, rather than sequentially. This paved the way for the development of sophisticated LLMs, such as BERT and GPT. Given the central role and pervasive impact of transformer architecture in the field of artificial intelligence, a fuller examination of this topic will be undertaken in subsequent sections.
 
 \subsubsection{Emergence of Large Language Models (2018-Onwards)}
 
-With the success of transformers, scaling these models became the next logical step. Google's BERT model, released in 2018, processed text bidirectionally, setting new performance standards in various benchmarks \cite{devlin2018bert}. OpenAI's GPT-2, released in 2019, and GPT-3 in 2020, demonstrated the capabilities of generative models in performing a wide range of tasks \cite{radford2019language}. OpenAI continued to advance the GPT series with GPT-3.5 in 2022, GPT-4 in 2023 and GPT-4o in 2024. ChatGPT, based on GPT-3.5, became the fastest growing consumer application in history after its release in November 2022.
+In light of the remarkable success of Transformers, it became evident that scaling these models was a logical next step. Google's BERT model, released in 2018, processed text bidirectionally, thereby setting new performance standards in a number of benchmarks \cite{devlin2018bert}. The release of OpenAI's GPT-2 in 2019 and GPT-3 in 2020 demonstrated the capabilities of generative models in performing a wide range of tasks \cite{radford2019language}. OpenAI continued to further develop the GPT series with the introduction of GPT-3.5 in 2022, GPT-4 in 2023, and GPT-4o in 2024. After its release in November 2022, ChatGPT, which is based on GPT-3.5, became the fastest growing consumer application in history.
 
-Other major players in the technology industry and academia have also contributed to the development of LLMs. Google's PaLM (Pathways Language Model) was released in March 2023, followed by PaLM 2 in May 2023 \cite{chowdhery2023palm}. In December 2023, Google unveiled Gemini, a multimodal model capable of processing different forms of information. Meta AI released the LLaMA (Large Language Model Meta AI) series in 2023, offering open-source models for research and commercial use \cite{touvron2023llama}. Anthropic introduced the Claude series in 2023, prioritizing the universal benefits and security of AI \cite{anthropic2024claude}. \newline
+In addition, other prominent entities in the technology industry and academia have contributed significantly to the progress of LLMs. In March 2023, Google released PaLM (Pathways Language Model), followed by the release of PaLM 2 in May 2023 \cite{chowdhery2023palm}. In December 2023, Google revealed Gemini, a multimodal model capable of processing different forms of information \cite{team2023gemini}. In 2023, Meta AI released the LLaMA (Large Language Model Meta AI) series, which offers open-source models for research and commercial use \cite{touvron2023llama}. In the same year, Anthropic introduced the Claude series, focusing on the universal benefits and security of AI \cite{anthropic2024claude}.
 
-The evolution of language models from simple rule-based systems to complex intelligence models means significant progress in artificial intelligence technology. Today, LLMs are more than just tools for improving text-based applications; they are increasingly capable of understanding and communicating with humans. Moreover, multimodal LLMs are able to handle not only text, but also images, sounds and videos, integrating various forms of data to comprehensively understand and analyze different contexts. These models are transforming the way we interact with technology, making it more accessible and responsive to human needs. In essence, LLMs are becoming powerful partners for humans, helping us tackle multiple tasks and simplifying our lives in various ways. \cite{researchgraph2024}
+The advancement of language models from initial rule-based structures to current sophisticated forms represents a substantial step forward in the field of artificial intelligence. Currently, LLMs are not only tools for improving text-based applications, but are progressively demonstrating the ability to understand and interact with humans. Moreover, multimodal LLMs are able to handle not only text, but also images, sounds and videos, integrating different forms of data to comprehensively understand and analyze different contexts. These models are transforming the way humans interact with technology, making it more accessible and responsive to human needs. In essence, LLMs are becoming valuable partners for humans, assisting us in completing numerous tasks and simplifying our daily lives in many ways \cite{researchgraph2024}.
 
-\section{Transformer Architecture}
+To fully understand the impact and capabilities of modern LLMs, it is essential to understand the underlying architecture that powers them. The advent of the Transformer architecture was a pivotal moment in the evolution of these models, providing the foundation for their remarkable advancement and wide applicability.
 
-As mentioned in the previous section, a key breakthrough in language modeling, central to all modern state-of-the-art LLMs, was the introduction of transform architecture and the self-attention mechanism in 2017. This advance was presented in the seminal paper “Attention is All You Need” by Vaswani et al. \cite{vaswani2017attention}, which revolutionized natural language processing (NLP) field by enabling models to capture long-range dependencies much more efficiently than previous architectures.
+\section{The Transformer Architecture}
+
+As mentioned in the previous section, pivotal breakthrough in the evolution of LLMs was the introduction of the Transformer architecture in 2017, as detailed in the seminal paper by Vaswani et al. \cite{vaswani2017attention}. This architecture, along with the self-attention mechanism, has since become central to all modern state-of-the-art LLMs, revolutionizing the field of natural language processing (NLP) by enabling models to capture long-range dependencies with far greater efficiency than previous architectures allowed.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.6\textwidth]{images/llms/transformer-architecture.png}
-    \caption{The general architecture of the transformer, composed of an encoder and a decoder. The encoder takes the input sequence and converts it into continuous representations, while the decoder generates the output sequence from these representations. \textit{Source:} \cite{vaswani2017attention}}
+    \caption{The general architecture of the Transformer, composed of an encoder and a decoder. The encoder processes the input sequence into continuous representations, while the decoder generates the output sequence from these representations. \textit{Source:} \cite{vaswani2017attention}}
     \label{fig:transformer-architecture}
 \end{figure}
 
-The self-attention mechanism is a key component of the transformer, enabling models to weigh the importance of different elements in a sequence by measuring the similarity between elements and determining the amount of attention each element should pay to the others. This mechanism enables the model to grasp complex relationships and dependencies in the entire input sequence, enhancing its ability to understand and generate coherent, context-aware outputs. In NLP, the self-attention mechanism effectively models the relationships between all words in a sentence, facilitating better understanding and generation of text.
+At the heart of the Transformer architecture is the self-attention mechanism, which enables the model to assess the relative importance of different elements within a sequence. This mechanism performs a similarity calculation between elements, thus allowing each element to direct its attention to others as needed. As a result, the model is able to understand complex relationships and dependencies in the entire input sequence, greatly enhancing its ability to generate consistent and contextually appropriate outputs. In the field of NLP, this self-attention mechanism is particularly effective in modeling the relationships between words in a sentence, thereby improving the model's ability to understand and generate nuanced, context-aware text.
 
-The great advantage of the transformer architecture of being highly parallelizable makes it computationally efficient and able to handle input sequences of varying lengths. The ability to process all elements of a sequence simultaneously, rather than sequentially, significantly reduces training time for large data sets. This parallelism, combined with the effectiveness of the self-attention mechanism, has made the transformer the basis for state-of-the-art models in machine translation, text generation and many other NLP tasks.
+One of the strengths of the Transformer architecture is its high degree of parallelization, which contributes to its computational efficiency and its ability to handle input sequences of varying lengths. Unlike traditional architectures, which process sequences sequentially, Transformers process all elements simultaneously. The Transformer's parallel processing capability greatly reduces training time, particularly for large datasets. This makes the Transformer the basis for state-of-the-art models in machine translation, text generation and numerous other NLP tasks.
 
-As illustrated in Figure \ref{fig:transformer-architecture}, the overall transformer architecture consists of an encoder and a decoder, with each component playing a crucial role in processing and sequence generation. The transformative impact of this architecture continues to drive advances in NLP and AI. The key elements of this architecture, such as positional encoding, multi-headed attention, feed-forward neural networks, norm step addition, residual connections, layer normalization, and linear and softmax final layers, will be discussed in the subsequent sections to provide a more detailed understanding of these components.
+As shown in Figure \ref{fig:transformer-architecture}, the Transformer architecture is composed of two main components: an encoder and a decoder. The encoder converts the input sequence into continuous representations, while the decoder generates the output sequence from these representations. The following sections will delve deeper into the key components of the Transformer, including positional encoding, multi-head attention, feed-forward neural networks, and other elements that contribute to its powerful performance in NLP and AI.
 
 \subsection{Positional Encoding}
 
-In the field of natural language processing (NLP), transformer models have radically changed our approach to sequence-sequence tasks. Unlike traditional recurrent neural networks (RNNs) or convolutional neural networks (CNNs), transformers process tokens in parallel and have no intrinsic awareness of token order. Positional encodings are a key technique for incorporating transformer models with an understanding of sequence order, enabling them to effectively process and understand input sequences. \cite{li2023transformer}
+Unlike traditional recurrent neural networks (RNNs) and convolutional neural networks (CNNs), transformers process tokens in parallel and have no intrinsic understanding of the sequence of tokens. The incorporation of positional encodings is a key technique for integrating transformer models with sequence order understanding, thus facilitating efficient processing and understanding of input sequences \cite{li2023transformer}.
 
-Positional encodings play a key role in transformer models for several reasons:
+Positional encoding plays a key role in transformer models for several reasons:
 
 \begin{itemize}
-    \item \textbf{Preserve sequence order:} Transformer models handle tokens in parallel and have no intrinsic information about token order. Positional encodings provide this information, allowing the model to distinguish tokens based on their position. This is essential for tasks where word order is important, such as language translation and text generation.
+    \item \textbf{Preserve sequence order:} Transformers process tokens in parallel and have no intrinsic knowledge of the sequence of tokens. The use of positional encodings allows the model to discern between tokens based on their respective positions. This is critical for tasks where word order is a significant factor, such as language translation and text generation.
     
-    \item \textbf{Maintaining Contextual Information:} In NLP tasks, the meaning of a word often depends on its position within the sentence. For example, the word “cat” in “The cat sat on the carpet” has a different meaning than “The carpet sat on the cat.” Positional encodings help maintain this contextual information, allowing the model to understand the correct meaning based on word order.
+    \item \textbf{Maintaining Contextual Information:} In the context of NLP tasks, the interpretation of a word often depends on its position within the sentence. For example, the word "cat" in the sentence "The cat sat on the carpet" has a different meaning than the sentence "The carpet sat on the cat". The use of positional encodings serves to facilitate the retention of contextual information by allowing the model to ascertain the precise meaning based on the sequence of words.
     
-    \item \textbf{Improving generalization}. By incorporating positional information, transformer models can better generalize between sequences of different lengths. This is especially important for tasks where the length of the input sequence varies, such as summarizing documents or answering questions. Positional encodings allow the model to handle input sequences of different lengths without compromising performance.
+    \item \textbf{Improving generalization:} The incorporation of positional information allows transformer models to generalize better between sequences of different lengths. This is especially important for tasks where the length of the input sequence is variable, such as summarizing documents or question answering. Using positional encoding allows the model to process input sequences of different lengths without any decrease in performance.
     
-    \item \textbf{Mitigate symmetry:} Without positional encodings, the self-attention mechanism of transformational models treats tokens symmetrically, which can lead to ambiguous representations. Positional encodings introduce asymmetry, ensuring that tokens in different positions are treated distinctly, thus improving the model's ability to capture long-range dependencies \cite{geeksforgeeks2024-pe}.
+    \item \textbf{Mitigate symmetry:} In the absence of positional encoding, the self-attention mechanism of transformational models treats tokens symmetrically, which can lead to the generation of ambiguous representations. The introduction of positional encoding introduces asymmetry, whereby tokens in different positions are treated distinctly. This improves the ability of the model to capture long-range dependencies \cite{geeksforgeeks2024-pe}.
 \end{itemize}
 
-The original transformer paper by Vaswani et al. \cite{vaswani2017attention} introduced sinusoidal positional encodings. The idea is to produce unique encodings for each position that can be added to token embeddings, allowing the model to distinguish the position of each token in a sequence. For position \( p \) and size \( i \), the positional encoding is calculated as:
+These enhancements not only allow the model to generalize more effectively across sequences of varying lengths but also address the inherent symmetry problem in self-attention mechanisms.
+
+The original Transformer paper by Vaswani et al. \cite{vaswani2017attention} introduced sinusoidal positional encodings to incorporate positional information into token embeddings. This enables the model to distinguish the position of each token within a sequence. For position \( p \) and dimension \( i \), the positional encoding is calculated as:
+
 \begin{equation}
     PE(p, 2i) = \sin\left(\frac{p}{10000^{2i/d}}\right)
 \end{equation}
 
 \begin{equation}
-    PE(p, 2i + 1) = \cos\left(\frac{p}{10000^{2i/d}}\right)
+PE(p, 2i + 1) = \cos\left(\frac{p}{10000^{2i/d}}\right)
 \end{equation}
 
-where \( d \) is the dimensionality of embeddings. These sinusoidal functions ensure that positional encodings are unique and can convey position-related information that can be used by attention mechanisms. Each dimension of the positional encoding aligns with a sine or cosine function of different wavelengths, creating a geometric progression from \( 2\pi \) to \( 10000 \times 2\pi \). For any fixed offset \( k \), \( PE(p+k) \) can be expressed as a linear function of \( PE(p) \).
+where \( d \) is the dimensionality of the embeddings. These sinusoidal functions provide unique positional encodings that can be used by the attention mechanism to understand token order. Each dimension of the positional encoding corresponds to a sine or cosine function with a different wavelength, creating a range of frequencies from \( 2\pi \) to \( 10000 \times 2\pi \). This allows the model to capture relative positions between tokens in a sequence effectively \cite{vaswani2017attention}.
 
-Kazemnejad \cite{kazemnejad2019:pencoding} emphasizes the ability of this encoding scheme to capture positional information in a way that satisfies several important criteria: it must produce a unique encoding for each time-step, maintain consistent distances between time-steps in sentences of different lengths, generalize to longer sentences, and remain deterministic.
 
-In more recent large language models (LLMs), positional encoding often uses learned rather than sinusoidal encodings. In this approach, positional encodings are randomly initialized model parameters learned during training, similar to token encodings. The size of the learned positional encoding vector is related to the maximum sequence length that the model can handle. For example, the BERT model \cite{devlin2018bert} employs a positional encoding size of \( 768 \times 512 \), limiting BERT to a maximum input length of 512 tokens. Although the fixed maximum input length is a disadvantage of learned positional encodings, they can adapt during training, allowing the model to learn positional representations better suited to the training data, unlike static sinusoidal encodings.
+Kazemnejad \cite{kazemnejad2019:pencoding} emphasizes the ability of this encoding scheme to capture positional information in a way that satisfies several important criteria: it must produce a unique encoding for each time step, maintain consistent distances between time steps in sentences of different lengths, generalize to longer sentences, and remain deterministic.
+
+In more recent LLMs, positional encoding often uses learned encodings rather than sinusoidal encodings. In this approach, positional encodings are randomly initialized model parameters learned during training, similar to token encodings. The size of the learned positional encoding vector is related to the maximum sequence length that the model can handle. Although the fixed maximum input length is a disadvantage of learned positional encodings, they can adapt during training, allowing the model to learn positional representations better suited to the training data, unlike static sinusoidal encodings. These advancements in positional encoding are foundational to the ability of transformers to understand the order of tokens in a sequence, but they work hand-in-hand with another crucial element: the self-attention mechanism.
+
 
 \subsection{Self-attention mechanism}
 
-The self-attention mechanism is a key component of the transformer architecture, enabling the model to dynamically evaluate the relative importance of different words in a sequence. Initially introduced in the seminal article “Attention is All You Need” by Vaswani et al. \cite{vaswani2017attention}, self-attention is essential for understanding the context and relationships between words, thus enhancing the model's ability to capture long-range dependencies.
+The self-attention mechanism is a fundamental component of Transformer architecture, allowing the model to dynamically determine the relative importance of different words within a sequence. This capability is crucial for capturing context and understanding relationships between words, which significantly enhances the model's ability to learn long-range dependencies and generate coherent, context-aware outputs. Unlike previous architectures that struggled with processing long sequences, the self-attention mechanism allows each token in a sequence to consider the entire sequence, thereby enabling a more integrated understanding of context across tasks like translation, summarization, and question answering \cite{vaswani2017attention}.
 
-In the self-attention mechanism, each token of an input sequence \( X \) with tokens \( x_1, x_2, \ldots, x_n \) is transformed into three vectors:
+In the self-attention mechanism, each token in an input sequence \( X \), consisting of tokens \( x_1, x_2, \ldots, x_n \), is mapped to three vectors:
+
 \begin{itemize}
-    \item \textbf{Query (Q):} It represents the token in question.
-    \item \textbf{Key (K):} Represents all tokens against which the query is compared.
-    \item \textbf{Value (V):} Contains the information of the tokens.
+    \item \textbf{Query (Q):} Represents the focus of the model at a specific token.
+    \item \textbf{Key (K):} Represents all tokens in the sequence that the query will be compared against.
+    \item \textbf{Value (V):} Contains the actual information that could be relevant to the query.
 \end{itemize}
 
-These vectors are derived from the embeddings of the input tokens through learned weight matrices \( W_Q \), \( W_K \) and \( W_V \). The self-attention mechanism involves the following steps for each token:
+These vectors are derived from the embeddings of the input tokens via learned weight matrices \( W_Q \), \( W_K \), and \( W_V \). The self-attention mechanism processes each token through the following steps:
 
 \begin{enumerate}
-    \item \textbf{Calculate attention scores:}. This is done by taking the dot product of the Query vector with the Key vectors of all tokens.
+    \item \textbf{Compute attention scores:} The Query vector of the current token is multiplied by the Key vectors of all tokens in the sequence, yielding attention scores that indicate the relevance of each token to the query.
+
     \begin{equation}
         \text{score}(Q, K) = Q \cdot K^T
     \end{equation}
     
-    \item \textbf{Softmax normalization:} The scores are rescaled - usually by dividing them by the square root of the depth of the Key vectors, \( \sqrt{d_k} \) - and passed through a softmax function to obtain the attention weights.
+    \item \textbf{Apply Softmax normalization:} These attention scores are then normalized using a softmax function, which converts them into a probability distribution, ensuring that the sum of the attention weights across all tokens is equal to 1. This process usually involves scaling by the square root of the Key vector's dimensionality, \( \sqrt{d_k} \), to maintain numerical stability.
+
     \begin{equation}
         \text{Attention}(Q, K) = \text{softmax}\left(\frac{Q \cdot K^T}{\sqrt{d_k}} \right)
     \end{equation}
     
-    \item \textbf{Calculation of output:} The attention weights are used to make a weighted sum of the Value vectors, giving the contextual representation of the token.
+    \item \textbf{Generate the output:} The resulting attention weights are then used to compute a weighted sum of the Value vectors, which produces the final output for the token. This output is a contextually enriched representation that captures the relationships and dependencies within the sequence \cite{vaswani2017attention}.
+
     \begin{equation}
         \text{Output} = \text{Attention}(Q, K) \cdot V
     \end{equation}
 \end{enumerate}
 
-This self-attention mechanism allows the model to dynamically weigh the importance of different elements in the sequence, facilitating better understanding and generation of the text. The detailed operation of the self-attention mechanism includes calculating attention scores, applying softmax normalization, and obtaining context-aware representations, thus capturing complex relationships and dependencies in the entire input sequence. \cite{geeksforgeeks2024-sa}
+Through this mechanism, the Transformer can effectively focus on the most relevant parts of the input sequence, enabling a comprehensive understanding of complex dependencies and improving the model's overall performance in generating accurate and contextually appropriate responses. The self-attention mechanism's ability to integrate and contextualize information from across the entire sequence is a key factor in the success of Transformer-based models \cite{geeksforgeeks2024-sa}.
+
+Building on this foundational concept, the Transformer architecture further refines its attention capabilities through the use of multi-head attention, which allows the model to capture multiple aspects of the input data simultaneously and enhances its ability to understand complex patterns and relationships.
 
 \subsection{Multi-Head Attention}
 
-The multi-head attention mechanism enhances the basic self-attention by enabling the model to capture different aspects of the input data more effectively. Instead of performing self-attention once, the transformer executes it multiple times in parallel. This involves multiple sets of weight matrices, allowing the model to learn different representations of the input data.
+The multi-head attention mechanism builds upon the basic self-attention mechanism, significantly enhancing the model's ability to capture various aspects of the input data. Instead of relying on a single execution of self-attention, the transformer applies this operation multiple times in parallel, each time using a different set of learned weight matrices. This parallelism allows the model to learn and represent different features of the input data simultaneously, providing a richer and more diverse understanding of the input sequence.
 
-In multi-head attention, there are \( h \) sets of weight matrices \( W_Q \), \( W_K \), and \( W_V \). Each head independently performs self-attention and produces an output. These outputs are then concatenated and passed through a linear transformation using a learned weight matrix \( W_O \) to produce the final output of the multi-head attention layer:
-
-\begin{equation}
-    \text{MultiHeadOutput} = \text{Concat}(\text{head}_1, \text{head}_2, \ldots, \text{head}_h) \cdot W_O
-\end{equation}
-
-The learned weight matrix \( W_O \) is optimized during the training process. For models like GPT-4, these weight matrices and other parameters are learned through optimization on a large corpus of training data.
-
-The primary advantage of multi-head attention is that different heads can focus on different parts or aspects of the input data. For instance, in processing a sentence, one head might focus on the grammatical structure, another on the semantics, and yet another on the tone or sentiment. This parallel attention mechanism allows the model to capture a richer and more diverse set of relationships within the input data, leading to more nuanced and accurate outputs \cite{geeksforgeeks2024-sa}.
+In multi-head attention, there are \( h \) distinct sets of weight matrices: \( W_Q \), \( W_K \), and \( W_V \). Each head independently performs the self-attention operation and produces its output. The results from all heads are then concatenated and passed through a final linear transformation using a learned weight matrix \( W_O \) to generate the final output of the multi-head attention layer:
 
 \begin{equation}
-    \text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \text{head}_2, \ldots, \text{head}_h)W_O
+    \textit{MultiHeadOutput} = \textit{Concat}(\textit{head}_1, \textit{head}_2, \ldots, \textit{head}_h) \cdot W_O
 \end{equation}
 
-The multi-head attention mechanism, along with other components of the transformer architecture, significantly advances the field of NLP, enabling the development of powerful language models capable of performing a wide range of tasks with high accuracy and efficiency.
+This approach allows each attention head to focus on different aspects or relationships within the input data. For instance, when processing a sentence, one head might focus on syntactic structures, another on semantic meaning, and yet another on sentiment or tone. The combination of these different perspectives leads to a more comprehensive and nuanced representation of the input sequence.
+
+The advantage of multi-head attention lies in its ability to capture a broader range of relationships and interactions within the data, which is crucial for generating more accurate and contextually appropriate outputs. This capability makes the transformer architecture, and by extension, multi-head attention, particularly powerful for natural language processing (NLP) tasks such as translation, summarization, and text generation \cite{geeksforgeeks2024-sa}.
+
+\begin{equation}
+    \textit{MultiHead(Q, K, V)} = \textot{Concat}(\textit{head}_1, \textit{head}_2, \ldots, \textit{head}_h) \cdot W_O
+\end{equation}
+
+By enabling the model to attend to different parts of the input sequence simultaneously through multiple heads, the multi-head attention mechanism is a crucial component of the transformer architecture. It plays a key role in advancing the state-of-the-art in NLP, contributing to the development of sophisticated language models that excel in a wide range of applications \cite{vaswani2017attention}.
 
 \subsection{Feed-Forward Neural Networks}
 
-In the transformer architecture, after the multi-headed attention mechanism processes the input, each position in the input sequence passes independently through a feed-forward neural network (FFNN). This network is identical for each position, meaning that the same weights and biases are applied regardless of position in the sequence.
+In the transformer architecture, after processing of the input sequence by the multi-headed attention mechanism, each position in the sequence is passed independently through a feed-forward neural network (FFNN). The network is identical for each position, with the same weights and biases applied to all inputs, regardless of their position within the sequence.
 
-The FFNN within the transformer comprises two linear transformations with a ReLU activation function in between:
+The FFNN comprises two linear transformations, with a ReLU (Rectified Linear Unit) activation function applied between them:
 
 \begin{itemize}
-    \item \textbf{First linear layer}: The input is first multiplied by a weight matrix \( W_1 \) and then a bias is added \( b_1 \), producing a transformed version of the input.
-    \item \textbf{ReLU activation}: The output of the first linear layer is then passed through a ReLU (Rectified Linear Unit) activation function. The ReLU function is defined as follows:
+    \item \textbf{First Linear Transformation}: The initial step involves multiplying the input by a weight matrix \( W_1 \) and adding a bias \( b_1 \), resulting in a transformed version of the input data.
+    \item \textbf{ReLU Activation Function}: The transformed input then passes through a ReLU activation function, which introduces non-linearity into the model, enabling it to capture complex patterns within the data. The ReLU function is mathematically defined as:
     \begin{equation}
         \text{ReLU}(x) = \max(0, x)
     \end{equation}
-    This introduces nonlinearity into the model, allowing it to capture more complex patterns in the data.
-    \item \textbf{Second linear layer}: The activated output is then passed through another linear layer, multiplying it with a weight matrix \( W_2 \) and adding a bias \( b_2 \). This produces the final output of the FFNN.
+    \item \textbf{Second Linear Transformation}: After the ReLU activation, the output is passed through a second linear transformation, where it is multiplied by another weight matrix \( W_2 \) and a bias \( b_2 \) is added, producing the final output of the FFNN.
 \end{itemize}
 
-Given an input \( x \), the FFNN can be represented as:
+The entire process of the FFNN, given an input \( x \), can be summarized by the following equation:
 \begin{equation}
     \text{FFN}(x) = \text{ReLU}(x \cdot W_1 + b_1) \cdot W_2 + b_2
 \end{equation}
 
 Where:
 \begin{itemize}
-    \item \( x \) is the input of the FFNN.
-    \item \( W_1 \) and \item \( W_2 \) are weight matrices.
-    \item \( b_1 \) and \item \( b_2 \) are bias vectors.
+    \item \( x \) represents the input to the FFNN.
+    \item \( W_1 \) and \( W_2 \) are the weight matrices for the first and second linear transformations, respectively.
+    \item \( b_1 \) and \( b_2 \) are the corresponding bias vectors.
 \end{itemize}
 
-All parameters \( W_1 \), \( W_2 \), \( b_1 \) and \( b_2 \) are learnable parameters, optimized during (pre)training.
+All of these parameters—\( W_1 \), \( W_2 \), \( b_1 \), and \( b_2 \)—are learnable and are optimized during the training process.
 
-While the multi-headed attention mechanism allows the model to focus on different parts of the input sequence, FFNN further transforms the attention output. It can be considered an additional level of data abstraction or transformation. The combination of attention and feed-forward mechanisms allows the transformer model to handle a wide range of sequence transduction tasks, such as text synthesis, named entity recognition, or question answering.
-
-\cite{pires2023one} provides an in-depth analysis of the role of FFNNs in transformational models. The authors found that although FFNNs consume a significant portion of the model parameters, they exhibit a significant degree of redundancy. By sharing a single FFNN on all layers of the encoder and removing the FFNN from the decoder, the model achieves substantial parameter savings and faster inference speed, with only a slight decrease in accuracy. The study also explores increasing the amplitude of the shared FFNN, which leads to significant improvements in both accuracy and latency, highlighting the potential for optimizing the use of FFNN in transformer models.
+The multi-headed attention mechanism allows the Transformer model to focus on different elements of the input sequence, while the FFNN applies further transformation to the attention output. This combination of attention and feed-forward processes enables the Transformer to perform effectively across a wide range of sequence transduction tasks, such as text generation, named entity recognition, and question answering, by providing an additional layer of abstraction and data transformation \cite{vaswani2017attention}.
 
 \subsection{Stabilizing Transformer Layers: Add \& Norm Step}
 
-After the multi-headed attention mechanism and feed-forward neural network layer process the inputs in the transformer architecture, the output is stabilized using the add \& norm step. This step is crucial for maintaining model stability and efficiency during training, enabling the architecture to support the deep, multilayer structures common in advanced models. The add \& norm step comprises two main components: the residual connection and layer normalization.
+After the input processing by the multi-headed attention mechanism and feed-forward neural network layer in the transformer architecture, the output is stabilized through the application of the add \& norm step. This step is of great importance in maintaining the stability and efficiency of the model during training, enabling the architecture to support the deep, multilayer structures common in advanced models. The add \& norm step consists of two main components: residual connection and layer normalization.
 
-\subsubsection{Residual Connections for Stability (Add)}
+\subsubsection{Residual Connections for Enhanced Stability (Add)}
 
-Residual connection (or “skip”) provides a shortcut, allowing a sublayer's input to be added directly to its output. This allows the network to effectively learn identity functions; if the best action for a particular layer is to leave the input unchanged, the residual connection layer facilitates this. The weights of the sublayer can be reduced almost to zero, making its output negligible, therefore \(\text{SubLayer}(X) \approx 0\). Adding this data to the original input \(X\) through the residual connection yields an output close to \(X\), resulting in an identity mapping. This mechanism not only increases the performance of the model, but also improves the stability of training. Mathematically, it is represented as:
+Residual connections, also known as "skip connections," serve as a shortcut by adding the input of a sublayer directly to its output. This mechanism allows the network to effectively learn identity mappings when the optimal action for a particular layer is to leave the input largely unchanged. In such cases, the weights of the sublayer can be minimized to near zero, making its output negligible (\(\text{SubLayer}(X) \approx 0\)). By adding this output to the original input \(X\) through the residual connection, the resultant output closely approximates \(X\), effectively preserving the original input. This identity mapping not only enhances model performance but also significantly stabilizes the training process. The operation is mathematically expressed as:
 
 \begin{equation}
     Z = X + \text{SubLayer}(X)
@@ -193,90 +213,97 @@ Residual connection (or “skip”) provides a shortcut, allowing a sublayer's i
 
 Where:
 \begin{itemize}
-    \item \(X\) is the input to the sublayer.
-    \item \(\text{SubLayer}(X)\) signifies the transformations applied by the sublayer to the input \(X\).
-    \item \(Z\) is the final output after the residual connection.
+    \item \(X\) represents the input to the sublayer.
+    \item \(\text{SubLayer}(X)\) denotes the transformations applied by the sublayer to \(X\).
+    \item \(Z\) is the output after the residual connection is applied.
 \end{itemize}
 
-Residual connections are critical in mitigating the vanishing gradient problem. In deep neural networks with many layers, gradients can decrease during backpropagate, causing the first layers to receive minimal gradient updates, slowing learning or stopping it altogether. Residual connections allow gradients to flow directly through the addition operation without decreasing, ensuring that deep layers also receive substantial gradient updates and solving the vanishing gradient problem.
+Residual connections are crucial for mitigating the vanishing gradient problem, a common issue in deep neural networks with many layers. As gradients are backpropagated, they may diminish, leading to minimal updates in the early layers, which can hinder or completely stop learning. By allowing gradients to bypass the sublayer via the addition operation, residual connections ensure that substantial gradients reach the earlier layers, thereby addressing the vanishing gradient issue and facilitating the training of deep networks.
 
-\subsubsection{Layer Normalization for Consistency (Norm)}
+\subsubsection{Layer Normalization for Stable Activation Scaling (Norm)}
 
-After residual connection, the transformer applies layer normalization to standardize the activations of each feature that has passed through the multi-headed attention layers and FFNNs. This normalization, based on the calculated mean and variance of the activations, scales them so that they have a mean of zero and a standard deviation of one. This normalization ensures that the scale of the activations is consistent, regardless of the layer or input into the transformer.
+After applying residual connections, the Transformer model utilizes layer normalization to standardize the activations for each feature as they move through the multi-head attention and feed-forward network layers. This normalization technique adjusts the activations based on their computed mean and variance, ensuring they are rescaled to have a mean of zero and a unit variance, regardless of the input or the layer within the Transformer.
 
-Given \( Z \) as the input to layer normalization, the mean \( \mu_Z \) and variance \( \sigma_Z^2 \) are computed as:
+Given an input \( Z \) to the layer normalization, the mean \( \mu_Z \) and variance \( \sigma_Z^2 \) are calculated as:
+
 \begin{equation}
 \mu_Z = \frac{1}{d} \sum_{i=1}^{d} Z_i \quad \text{and} \quad \sigma_Z^2 = \frac{1}{d} \sum_{i=1}^{d} (Z_i - \mu_Z)^2
 \end{equation}
-where \( d \) denotes the feature dimension of \( Z \). Subsequently, the normalized output \( \hat{Z} \) for each feature is calculated as:
+
+where \( d \) is the dimension of the feature vector \( Z \). The normalized value \( \hat{Z}_i \) for each feature is then derived by:
+
 \begin{equation}
 \hat{Z}_i = \frac{Z_i - \mu_Z}{\sqrt{\sigma_Z^2 + \epsilon}}
 \end{equation}
 
-Here, \( \epsilon \) is a small constant added for numerical stability. After normalization, the activations are scaled and shifted using learnable parameters:
+Here, \( \epsilon \) is a small constant included for numerical stability. Once the normalization is complete, the activations are further adjusted by applying learnable scaling and shifting parameters:
+
 \begin{equation}
 \text{Norm}(Z)_i = \gamma \hat{Z}_i + \beta
 \end{equation}
 
-where \( \gamma \) and \( \beta \) are learnable scaling and shifting parameters, respectively, with the same dimensionality as \( Z \).
+where \( \gamma \) and \( \beta \) are the learnable parameters that scale and shift the normalized activations, respectively, with dimensions corresponding to those of \( Z \).
 
-Maintaining the activations at a consistent scale across different layers, layer normalization ensures that gradients do not diminish exponentially as they backpropagate through many layers. Consequently, both residual connections and layer normalization address the vanishing (or exploding) gradient problem, enabling the effective training of deep transformer models.
+Layer normalization ensures that the activations remain consistent in scale across different layers, thereby preventing gradients from either diminishing or exploding as they propagate through the model. This, in combination with residual connections, effectively addresses the vanishing and exploding gradient issues, facilitating the training of deep Transformer architectures.
+
+Together, these mechanisms contribute to the robust performance of the Transformer, allowing it to effectively manage deep networks and maintain stable learning.
 
 \subsection{Encoder and Decoder Stacks}
 
-The transformer architecture used in state-of-the-art LLMs like GPT-4 \cite{achiam2023gpt} and LLaMA 2 \cite{touvron2023llama} models consists of stacks of encoder and/or decoder blocks. Each block contains multi-head attention and feedforward neural network layers. The stacking of multiple such blocks allows for increased representational power, enabling the model to learn complex patterns and relationships within the data.
+The transformer architecture consists of a series of encoding and decoding blocks, arranged in a stack configuration. Each block consists of both multi-headed attention layers and feedforward neural network layers. Stacking multiple blocks allows for increased representation power, enabling the model to learn complex patterns and relationships within the data.
 
-The transformer encoder processes the input sequence and transforms it into a series of continuous representations. Each layer of the encoder has a multi-headed self-attention mechanism followed by a fully connected position-based feed-forward network. This design allows the encoder to effectively capture and understand various aspects of the input sequence.
+The transforming encoder is responsible for processing the input sequence and transforming it into a series of continuous representations. Each layer of the encoder employs a multi-headed self-attention mechanism, followed by a fully connected position-based feed-forward network. This architecture allows the encoder to effectively capture and understand the different elements of the input sequence.
 
-In contrast, the decoder produces the output sequence from the continuous representations provided by the encoder. Similar to the encoder, each layer of the decoder contains a multi-headed self-attention mechanism and a feed-forward network. In addition, the decoder incorporates an attention mechanism between encoder and decoder, which allows it to focus on relevant parts of the input sequence during output generation. This attention mechanism ensures that the output sequence remains contextually consistent with the input sequence.
+The decoder, on the other hand, is responsible for generating the output sequence, using the continuous representations provided by the encoder. Similarly, each layer of the decoder is composed of a multi-headed self-attention mechanism and a feed-forward network, similar to those in the encoder. In addition, the decoder incorporates an attention mechanism between the encoder and the decoder, which allows it to focus on relevant aspects of the input sequence during output generation. This attention mechanism ensures that the generated sequence is contextually consistent with the input sequence \cite{vaswani2017attention}.
 
 \subsection{Final Linear and Softmax Layer}
 
-The decoder output goes through a final linear layer and then a softmax layer to create a probability distribution over the target vocabulary. In the context of an NLP task using a transformer model, the target vocabulary includes all possible words, tokens or symbols that the model can generate \cite{jozefowicz2016exploring}. The linear layer converts the high-dimensional representations produced by the decoding stack to a dimensionality that corresponds to the size of the target vocabulary. Next, the softmax function is applied to these raw scores, converting them into probabilities such that the total probability of all vocabulary tokens is equal to one. The resulting probability distribution reflects the model's prediction of the probability that each target vocabulary token is the next token in the sequence, thus enabling operations such as translation and text generation.
+The decoder output goes through a final linear layer and then a softmax layer to create a probability distribution over the target vocabulary. In the context of an NLP task using a transformer model, the target vocabulary includes all possible words, tokens, or symbols that the model can generate \cite{jozefowicz2016exploring}. The linear layer converts the high-dimensional representations produced by the decoding stack to a dimensionality that corresponds to the size of the target vocabulary. Next, the softmax function is applied to these raw scores, converting them into probabilities such that the total probability of all vocabulary tokens is equal to one. The resulting probability distribution reflects the model's prediction of the probability that each target vocabulary token is the next token in the sequence, thus enabling operations such as translation and text generation.
+
+These final layers are crucial for transforming the abstract representations learned by the Transformer into actionable outputs, ultimately enabling the model to perform complex tasks such as language translation, summarization, and text generation. By synthesizing the outputs of the preceding layers into a coherent probability distribution, the final linear and softmax layers encapsulate the model's learned knowledge and allow it to generate meaningful and contextually appropriate sequences. This final step underscores the power of the Transformer architecture, tying together its multi-layered processing capabilities and making it one of the most effective and versatile models in modern natural language processing.
 
 \section{Impact of Model Size on AI Performance}
 
-The size of a neural network model, especially in the field of artificial intelligence and natural language processing, is a determining factor in its performance and capabilities. Model size, typically quantified by the number of parameters, affects the model's ability to learn and represent complex data models. Larger models can encapsulate more detailed relationships, resulting in increased accuracy and robustness in various tasks. However, increasing model size also brings challenges, such as increased computational demands, increased memory usage and longer training times.
+The size of a neural network model, particularly in the domains of AI and NLP, is a key determinant of its performance and capabilities. The ability of a model to learn and represent complex data depends on its size, typically quantified in terms of the number of parameters. A larger model is able to encapsulate more detailed relationships, which in turn leads to greater accuracy and robustness in a variety of tasks. However, increasing model size also brings complications, including increased computational needs, increased memory usage and longer training periods.
 
 \subsection{Evolution of Parameter Sizes in AI Neural Networks}
 
-The development of AI neural networks over the years has been characterized by an increase in the number of parameters. In the early days of artificial intelligence, models such as simple feed-forward neural networks and early convolutional neural networks (CNNs) had a relatively modest number of parameters. In fact, before the 2000s, language models were relatively simple and small due to computational limitations. For example, LeNet-5, an early CNN developed by LeCun et al. \cite{lecun1998gradient} in 1998, had about 60,000 parameters. 
+The progress of AI neural networks over time has been characterized by a significant increase in the number of parameters. In the early stages of AI development, models such as simple FFNNs and nascent convolutional neural networks (CNNs) had relatively small numbers of parameters. In fact, before the 2000s, language models were relatively simple and limited in scope due to computational power constraints. For example, LeNet-5, an early CNN developed by LeCun et al. \cite{lecun1998gradient} in 1998, had about 60,000 parameters. 
 
-As computational capabilities and data availability improved, researchers were able to create larger and more complex models. In particular, the advent of deep learning and the hardware advances of the 2010s led to the emergence of deeper architectures, such as VGGNet and ResNet, which significantly increased parameter sizes. VGG-16, for example, has about 138 million parameters \cite{simonyan2014very}, while ResNet-50 has about 25 million parameters \cite{he2016deep}.
+As computational capabilities and data availability improved, researchers were able to create larger and more complex models. In particular, the advent of deep learning and hardware advances in the 2010s led to the emergence of deeper architectures, such as VGGNet and ResNet, which significantly increased parameter sizes. For example, VGG-16 includes about 138 million parameters \cite{simonyan2014very}, while ResNet-50 has about 25 million parameters \cite{he2016deep}.
 
-The shift toward larger models has continued with the introduction of transformers and large language models. BERT, introduced by Devlin et al. \cite{devlin2018bert} in 2018, has 110 million parameters in its basic version and 340 million in the larger version. OpenAI's GPT-3 (2020), with 175 billion parameters \cite{brown2020language}, and GPT-4 (2023) with 1.76 trillion parameters \cite{achiam2023gpt} have demonstrated rapid growth in the size of LLM models, establishing new benchmarks in various NLP tasks.
+The progression to larger models has continued with the advent of transformers and LLMs. In 2018, Devlin et al. \cite{devlin2018bert} presented BERT, a transformer model with 110 million parameters in the basic version and 340 million in the larger version. OpenAI's GPT-3 (2020), with 175 billion parameters, and GPT-4 (2023), with 1.76 trillion parameters, demonstrated a significant increase in the size of LLM models, setting new benchmarks in various NLP tasks \cite{brown2020language, achiam2023gpt}.
 
-The number of parameters in LLM models significantly affects their ability to capture complex, high-dimensional relationships in data. In general, increasing the number of parameters increases the complexity of the model, which often results in improved performance in various NLP tasks. However, larger models also tend to be more prone to overfitting and require significant computational resources \cite{zhao2023survey, villalobos2022machine, wei2022emergent}.
+The number of parameters in LLMs has a significant impact on their ability to discern intricate and highly dimensional relationships within data sets. In general, an increase in the number of parameters results in greater model complexity, which often leads to improved performance in a range of NLP tasks. However, larger models are more susceptible to overfitting and require significant computational resources \cite{zhao2023survey, villalobos2022machine, wei2022emergent}.
 
-In addition, the number of parameters of LLMs is related to the volume of their training datasets. Complex models require large and diverse texts to effectively capture the intricate nuances of language. The size of these training datasets is typically measured in tokens, the basic units that LLMs use for text processing and generation. Depending on the tokenization algorithm employed, the tokens may represent individual characters, syllables, words or segments of sentences \cite{brown2020language}.
+Moreover, the number of parameters in LLMs depends on the volume of data used during training. The effectiveness of complex models in capturing the intricate nuances of language depends on the availability of large and diverse textual data. The size of these training datasets is typically expressed in terms of tokens, which represent the basic units used by LLMs for text processing and generation. The specific tokenization algorithm employed can produce tokens representing a variety of linguistic units, including single characters, syllables, words or even sentence segments \cite{brown2020language}.
 
 \subsection{Recent Trends in AI development}
 
-The importance of model size has been further emphasized by recent trends in the development of artificial intelligence, where training computation has emerged as a critical factor. Models with a training computation greater than 10 floating-point operations (FLOP) are depicted in Figure \ref{fig:large-scale-models}. This threshold defines models as "large-scale models," which typically involve training costs of hundreds of thousands of dollars or more. For example, AI Index estimates that OpenAI's GPT-4 used about \$78 million in computation for training, while Google's Gemini Ultra cost \$191 million in computation. \cite{epoch2024trackinglargescaleaimodels,maslej2024ai} 
+The importance of model size has been further emphasized by recent developments in the field of AI, where training computation has emerged as a critical factor. Figure \ref{fig:large-scale-models} shows models with a training computation greater than 10 floating-point operations (FLOP). This threshold defines models which typically involve training costs of hundreds of thousands of dollars or more. For example, the AI Index estimates that OpenAI's GPT-4 used about \$78 million USD in computational resources for training, while Google's Gemini Ultra required an investment of \$191 million USD in computational resources \cite{epoch2024trackinglargescaleaimodels, maslej2024ai}.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.9\textwidth]{images/llms/large-scale-models-by-domain-and-date.png}
-    \caption{Large-scale models by domain and publication date. The graph displays the training calculation (in FLOP) of various models in different domains over time. \textit{Source:} \cite{epoch2024trackinglargescaleaimodels}}
+    \includegraphics[width=0.9\textwidth]{images/llms/large-scale-models-by-domain-and-date.jpg}
+    \caption{Large language models by domain and publication date. The graph displays the training calculation (in FLOP) of various models in different domains over time. \textit{Source:} \cite{epoch2024trackinglargescaleaimodels}}
     \label{fig:large-scale-models}
 \end{figure}
 
-In 2020, only 11 models were trained that exceeded the 10\textsuperscript{23} FLOP, but by 2024 the number had risen to 81, indicating a rapid acceleration in the release of large-scale models. Most of these models are linguistic models, while others are multimodal or image processing models. This trend highlights the predominance of language and image generation tasks in AI development since 2021 \cite{epoch2024trackinglargescaleaimodels}.
+In 2020, only 11 models were trained that exceeded the threshold of 10\textsuperscript{23} FLOP, but by 2024 the number had risen to 81, indicating a rapid acceleration in the release of LLMs. Most of these models are linguistic in nature, while others are multimodal or image processing models. This trend underscores the prominence of linguistic and image generation tasks in AI development from 2021 \cite{epoch2024trackinglargescaleaimodels}.
 
-The rapid advancement of the computational frontier is driven by the exponential increase in ML R\&D investment and hardware performance. Recent trends indicate a growth rate of 4-5 times per year for remarkable models between 2010 and May 2024. For language models in particular, there has been an overall growth rate of up to 9 times per year, attributed to the industry approaching the frontier of artificial intelligence. The continued increase in training computation further underscores the need for efficient hardware and innovative training techniques to support the growth of large-scale AI models \cite{epoch2024trainingcomputeoffrontieraimodelsgrowsby45xperyear}.
+The exponential growth in research and development (R\&D) investment and hardware performance in the AI field is driving the rapid advancement of the computational frontier. Recent trends indicate a growth rate of 4-5 times per year for remarkable models between 2010 and May 2024. In the case of linguistic models, the overall growth rate has reached 9 times per year, which can be attributed to the industry's moving closer to the AI frontier. The sustained increase in training calculations highlights the need for efficient hardware and new training techniques to cope with the expansion of large-scale AI models \cite{epoch2024trainingcomputeoffrontieraimodelsgrowsby45xperyear}.
 
-A significant portion of large-scale models have been developed in the United States, but China has also contributed an increasing share. The leading organizations with the most confirmed large-scale models are Google, Meta, DeepMind, Hugging Face, and OpenAI. In addition, developers include several companies, universities, and government institutions. When considering unconfirmed models, organizations such as Anthropic and Alibaba also occupy a prominent position. Most of the large-scale models are produced by industry rather than academia, some are the result of industry-university collaborations, and a couple are developed by government institutions. Notably, almost half of the large-scale models have downloadable and publicly available weights, mainly trained with calculations between 10\textsuperscript{23} and 10\textsuperscript{24}. FLOP. However, larger proprietary models often use much higher computational resources and do not disclose training details.
+A substantial portion of LLMs have been developed in the United States, but China has also made significant contributions in recent times. The organizations that have developed the predominant LLMs are Google, Meta, DeepMind, Hugging Face and OpenAI. In addition, developers include numerous companies, academic institutions and government agencies. In the context of unconfirmed models, it is noteworthy that organizations such as Anthropic and Alibaba also occupy a prominent position. Most of the LLMs were developed by industry, while a smaller number were the result of industry-university collaborations and some were developed by government institutions. Interestingly, about half of the LLMs have downloadable and publicly available weights, which were trained primarily with calculations between 10\textsuperscript{23} and 10\textsuperscript{24} FLOP per second. However, larger proprietary models often require significantly greater computational resources and do not disclose the details of their training procedures.
 
-However, the growth frontier has shown signs of slowing due to potential obstacles such as data scarcity, willingness to invest, data center power restrictions, or the inability to scale chip production. These factors may have an impact on the exponential growth of computing resources required for training advanced AI models \cite{epoch2024trainingcomputeoffrontieraimodelsgrowsby45xperyear}.
+Despite these considerations, the growth frontier has shown signs of deceleration, which can be attributed to prospective impediments such as data scarcity, investment propensity, data center power limits and the inability to expand chip production. These factors can have an impact on the exponential growth of computing resources needed for training advanced AI models \cite{epoch2024trainingcomputeoffrontieraimodelsgrowsby45xperyear}.
 
-In conclusion, model size plays a key role in the performance of AI neural networks. The trend toward larger models has led to significant advances in AI capabilities, especially in the field of NLP. However, it also requires a careful balance between performance and practical considerations, such as computational efficiency and resource demands. The continued increase in training computation and associated challenges highlight the need for innovative approaches to maintain the trajectory of AI progress.
+In conclusion, model size is a critical factor affecting the performance of AI neural networks. The increasing deployment of larger models has led to significant advances in AI capabilities, particularly in the field of NLP. However, it also requires a careful balance between performance and practical considerations, such as computational efficiency and resource demands. The continued increase in training computations and associated challenges underscore the need for novel approaches to ensure the continued progress of AI.
 
 \section{Training Process}
 
-Training large language models (LLMs) is a complex process comprising a series of discrete stages, each of which is designed to enhance the model's capabilities in a gradual and systematic manner. The training of these sophisticated models, which include billions of parameters, has been made possible by recent advances in computing power and architectural innovations. The training process is comprised of three distinct phases: pre-training, fine-tuning, and prompt-based learning. Each phase contributes uniquely to the development and refinement of the model (Figure \ref{fig:training-process}).
+Training LLMs is a complex process involving a series of discrete steps, each designed to improve the model's capabilities in a gradual and systematic manner. Training these sophisticated models, which include billions of parameters, has been made possible by recent advances in computing power and architectural innovations. The training process has three distinct phases: pre-training, fine-tuning, and prompt-based learning. Each stage of the training process contributes to the development and refinement of the model in a particular way (see Figure \ref{fig:training-process}).
 
-Large language models undergo an initial phase of pre-training, during which the model is trained on a substantial unlabeled dataset, which frequently encompasses a significant portion of internet text. This phase enables the LLM to develop a foundational comprehension of language structures and patterns through the recognition and learning from the input data. Following the completion of the pre-training phase, the models are then subjected to a fine-tuning process utilising smaller, task-specific datasets. The objective of this tuning process is to adapt the model's capabilities to perform specialized tasks, such as translation, question answering, or chatbot functionality. Prompting entails engaging with an optimized model through the use of specific questions or statements, referred to as prompts, with the objective of eliciting the desired response from the model. The following sections will examine these three essential elements of LLM training and the methodologies employed to train LLMs for question-answering chatbot applications.
-
+LLMs undergo an initial pre-training phase, during which the model is trained on a substantial unlabeled dataset, which often includes a significant portion of internet text. This phase allows the LLM to develop a fundamental understanding of language structures and patterns through recognition and learning from the input data. Then, at the end of the pre-training phase, the models undergo a fine-tuning process using smaller, task-specific datasets. The goal of this tuning process is to adapt the model's capabilities to perform specialized tasks, such as translation, question answering, or chatbot functionality. The act of prompting involves engaging with an optimized model through the use of specific questions or statements, called prompts, with the goal of eliciting the desired response from the model. The following sections will examine these three essential elements of LLM training and the methodologies used to train LLMs for question-answering chatbot applications.
 
 \begin{figure}[h!]
     \centering
@@ -285,19 +312,19 @@ Large language models undergo an initial phase of pre-training, during which the
     \label{fig:training-process}
 \end{figure}
 
-\subsection{Pre-training}
+\section{Pre-training}
 
-The pre-training phase is a critical component in the development of LLMs, enabling them to understand and generate human language. This phase is a self-supervised process in which the model is trained on a large corpus of unlabeled data, such as Internet texts, Wikipedia, Github code, social media posts, and BooksCorpus. Some models also incorporate proprietary datasets containing specialized texts such as scientific articles \cite{brown2020language, devlin2018bert}.
+The pre-training phase represents a crucial stage in the development of LLMs, as it facilitates their ability to understand and generate human language. This stage is a self-supervised process in which the model is trained on a substantial corpus of unlabeled data, including internet texts, Wikipedia, GitHub code, social media posts, and BooksCorpus. In addition, some models incorporate proprietary datasets that include specialized texts, such as scientific articles \cite{brown2020language, devlin2018bert}.
 
-The primary objective during the pre-training phase is to predict the subsequent word in a sentence. This is a computationally demanding task that entails converting the text into tokens prior to entering them into the model proposed by Radford et al. \cite{radford2019language}. This phase yields a rudimentary model that, while capable of generating general language, is unable to perform tasks requiring nuance.
+The main goal of the pre-training phase is to predict the next word in a sentence. This is a computationally demanding task that involves converting the text into tokens before entering them into the model. This phase produces a rudimentary model that, although capable of generating general language, lacks the sophistication needed to handle tasks that require subtlety and nuance \cite{radford2019language}.
 
 The two principal methods for pre-training are Autoregressive Language Modeling (ALM) and Masked Language Modeling (MLM). Both approaches have had a significant impact on the development of state-of-the-art LLMs, enhancing their capacity to comprehend and produce texts that are akin to those produced by humans.
 
-\subsubsection{Autoregressive Language Modeling (ALM)}
+\subsection{Autoregressive Language Modeling (ALM)}
 
-In the context of natural language processing, autoregressive language modeling represents a generative approach whereby the model is tasked with predicting the subsequent word in a sequence, given the preceding words. Autoregressive language models, exemplified by GPT (Generative Pre-trained Transformer), have attracted considerable attention due to their remarkable proficiency in generating high-quality text and executing a diverse range of language-related tasks. These models employ a transformer architecture to facilitate the sequential processing of textual data. The autoregressive mechanism enables the generation of coherent and contextually relevant text by sampling from the learned probability distribution over the vocabulary. This has been demonstrated in previous studies, including those by Radford et al. (2018, 2019) and Achiam (2023), which used GPT as a case study \cite{radford2018improving, radford2019language, achiam2023gpt}.
+In the context of NLP, Autoregressive Language Modeling (ALM) represents a generative approach in which the model is tasked with predicting the next word in a sequence given the previous words. Autoregressive language models, exemplified by PT (Generative Pre-trained Transformer), have attracted considerable attention for their remarkable ability to generate high-quality text and perform a wide range of language-related tasks. These models use a transformer architecture to facilitate sequential processing of text data. The autoregressive mechanism enables the generation of coherent and contextually relevant texts as it samples from the probability distribution learned about vocabulary. This has been demonstrated in previous studies, including those by Radford et al. (2018, 2019) and Achiam (2023), who used GPT as a case study \cite{radford2018improving, radford2019language, achiam2023gpt}.
 
-All autoregressive models developed by OpenAI have employed a semi-supervised learning approach, which combines elements of both supervised and unsupervised learning. Specifically, OpenAI introduced a methodology involving unsupervised pre-training followed by supervised fine-tuning, which addresses the high costs associated with the creation of labeled datasets for language tasks.
+All the autoregressive models developed by OpenAI have used a semi-supervised learning approach, which combines elements of supervised and unsupervised learning. In particular, OpenAI introduced a methodology involving unsupervised pre-training followed by supervised tuning, which addresses the high costs associated with creating labeled datasets for language tasks.
 
 \begin{figure}[h]
     \centering
@@ -320,48 +347,44 @@ This is subsequently followed by a supervised fine-tuning phase, where a labeled
     \mathcal{L}_2(\mathcal{C}) = \sum_{(x,y)} \log P(y | x^1, \ldots, x^m)
 \end{equation}
 
-The incorporation of the pre-training objective as an auxiliary objective during fine-tuning has been demonstrated to enhance generalization and accelerate convergence, as evidenced by research findings. Consequently, the pre-training loss \( \mathcal{L}_1 \) is integrated into the final objective with a weighting factor \( \lambda \):
+The incorporation of the pre-training objective as an auxiliary objective during fine-tuning has been demonstrated to enhance generalization and accelerate convergence, as evidenced by research findings \cite{radford2018improving}. Consequently, the pre-training loss \( \mathcal{L}_1 \) is integrated into the final objective with a weighting factor \( \lambda \):
 
 \begin{equation}
     \mathcal{L}_3(\mathcal{C}) = \mathcal{L}_2(\mathcal{C}) + \lambda \ast \mathcal{L}_1(\mathcal{C})
 \end{equation}
  
-\subsubsection{Masked Language Modeling (MLM)}
+\subsection{Masked Language Modeling (MLM)}
 
-Masked Language Modeling, on the other hand, is a denoising goal used primarily by models such as BERT (Bidirectional Encoder Representations from Transformers) \cite{devlin2018bert}. In MLM, certain tokens in the input sequence are randomly masked, and the model is tasked with predicting these masked tokens based on their surrounding context. This bidirectional approach allows the model to understand context from both the left and the right of the masked token, providing a more holistic understanding of the text.
+In contrast, Masked Language Modeling (MLM) represents a denoising goal that is predominantly employed by models such as BERT (Bidirectional Encoder Representations from Transformers) \cite{devlin2018bert}. In MLM, specific tokens within the input sequence are masked randomly and the model is tasked with predicting these masked tokens based on the surrounding context. The bidirectional approach allows the model to understand the context to both the left and right of the masked token, thus facilitating a more complete understanding of the text.
 
-The MLM approach has several advantages. By leveraging bidirectional context, MLM models can develop a comprehensive understanding of language patterns and dependencies. This capability is particularly beneficial for tasks that require nuanced understanding, such as question answering and natural language inference. In addition, the MLM pre-training goal has been shown to enhance the model's generalization capabilities, leading to improved performance in various downstream tasks \cite{yang2019xlnet}.
+The MLM approach offers a number of advantages. By taking advantage of bidirectional context, MLM models are able to develop a complete understanding of language patterns and dependencies. This capability is particularly beneficial for tasks that require deeper understanding, such as question answering and natural language inference. In addition, the goal of pre-training MLM models has been shown to increase the ability to generalize the model, resulting in improved performance in a range of downstream tasks \cite{yang2019xlnet}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/llms/Model-structure-of-the-label-masked-language-model-N-MASK-is-a-mask-token-containing.png}
+    \includegraphics[width=0.9\textwidth]{images/llms/Model-structure-of-the-label-masked-language-model-N-MASK-is-a-mask-token-containing.png}
     \caption{An illustration of Masked Language Modeling (MLM) in a transformer architecture. The input sequence contains masked tokens that the model attempts to predict based on the context provided by the surrounding tokens. Token embeddings are combined with positional embeddings before being fed into the transformer encoder. The final output is a prediction of the masked token using the bidirectional context. \textit{Source:} \cite{park2019}}
     \label{fig:mlm_architecture}
 \end{figure}
 
-The introduction of MLM has significantly advanced the field of natural language processing. Models pre-trained with MLM have achieved state-of-the-art results on numerous benchmark datasets, demonstrating their effectiveness in capturing complex linguistic patterns. For example, BERT has set new performance standards on the General Language Understanding Evaluation (GLUE) benchmark \cite{wang2018glue}.
+The introduction of MLM has significantly advanced the field of NLP. Models pre-trained with MLM have achieved state-of-the-art results on numerous benchmark datasets, demonstrating their effectiveness in capturing complex linguistic patterns. For example, BERT has set new performance standards on the General Language Understanding Evaluation (GLUE) benchmark \cite{wang2018glue}.
 
-In addition, subsequent variations and extensions of the MLM approach, such as RoBERTa \cite{liu2019roberta} and XLNet \cite{yang2019xlnet}, have further pushed the boundaries of what is possible with pre-trained language models. These models have refined the MLM methodology, incorporating larger training corpora and more sophisticated training strategies to achieve even better results.
-
-\subsubsection{Comparative Analysis}
-
-Compared to Autoregressive Language Modeling (ALM), MLM offers distinct advantages for tasks that require a holistic understanding of context. While ALM generates text sequentially, limiting its context to preceding tokens, MLM's bidirectional nature allows it to consider both preceding and succeeding tokens, providing a richer context for language understanding. However, MLM is not inherently suited to text generation tasks without additional modifications, whereas ALM excels at such generative tasks.
-
-Both ALM and MLM have their strengths and trade-offs. ALM is inherently sequential and excels at text generation tasks where text flow is critical. However, its unidirectional nature can limit its performance in understanding context that spans both directions. On the other hand, MLM's bidirectional context understanding makes it powerful for tasks such as question answering and natural language inference, although it is not directly suited for text generation tasks without additional fine-tuning.
+In addition, subsequent variations and extensions of the MLM approach, such as RoBERTa and XLNet, have further pushed the boundaries of what is possible with pre-trained language models \cite{liu2019roberta, yang2019xlnet}. These models have refined the MLM methodology, incorporating larger training corpora and more sophisticated training strategies to achieve even better results.
 
 The choice between ALM and MLM during pre-training depends on the intended use of the LLM. In practice, combining these approaches can yield models that leverage the strengths of both, as seen in some recent advances in the field \cite{lewis2019bart}.
 
 Understanding autoregressive and masked language modeling is fundamental to appreciating the design and capabilities of modern LLMs. These methods underpin the pre-training phase and set the stage for the remarkable performance of models in various NLP tasks.
 
-\subsubsection{Next-Token Prediction and Multi-Token Prediction}
+Building on the foundational techniques of ALM and MLM, the next crucial aspect of pre-training large language models involves next-token and multi-token prediction, which play a pivotal role in enhancing the models’ predictive accuracy and contextual understanding.
 
-Next-token prediction is a fundamental task in training large language models (LLMs), where the model is trained to predict the next word in a sequence given the previous words. Formally, given a sequence of tokens \( \{x_1, x_2, \ldots, x_T\} \), the model learns to estimate the probability distribution \( P(x_t | x_1, x_2, \ldots, x_{t-1}) \). The learning objective is to minimize the cross-entropy loss:
+\subsection{Next-Token Prediction and Multi-Token Prediction}
+
+Next-token prediction is a fundamental task in training LLMs, where the model is trained to predict the next word in a sequence given the previous words. Formally, given a sequence of tokens \( \{x_1, x_2, \ldots, x_T\} \), the model learns to estimate the probability distribution \( P(x_t | x_1, x_2, \ldots, x_{t-1}) \). The learning objective is to minimize the cross-entropy loss:
 
 \begin{equation}
     \mathcal{L}_1 = - \sum_{t} \log P_\theta (x_{t+1} | x_1, \ldots, x_t),
 \end{equation}
 
-where \( P_\theta \) is our large language model under training, aiming to maximize the probability of \( {x_{t+1}} \) as the next future token, given the history of past tokens \( {x_1, \ldots, x_t} \).
+where \( P_\theta \) is our LLM under training, aiming to maximize the probability of \( {x_{t+1}} \) as the next future token, given the history of past tokens \( {x_1, \ldots, x_t} \).
 
 Recently, a novel methodology known as multi-token prediction has been proposed to improve the training efficiency and performance of LLMs. In this approach, the model predicts multiple future tokens simultaneously, rather than one token at a time. This method leverages a shared model trunk and multiple independent output heads to predict the next \( n \) tokens in parallel. This leads to the following factorization of the multi-token prediction cross-entropy
 loss:
@@ -370,7 +393,7 @@ loss:
     \mathcal{L}_n = - \sum_{t} \sum_{i=1}^{n} \log P_\theta (x_{t+i} | z_{t:1}) \cdot P_\theta(z_{t:1} | x_{t:1}).
 \end{equation}
 
-In practice, as illustrated in Figure \ref{fig:multi-token-prediction}, the model architecture consists of a shared transformer backbone \( f_s \) that produces the hidden representation \( z_{t:1} \) from the observed context \( x_{t:1} \). Additionally, there are \( n \) independent output heads implemented as transformer layers \( f_{h_i} \), along with a shared unembedding matrix \( f_u \). Therefore, to predict \( n \) future tokens, we compute:
+In practice, as illustrated in Figure \ref{fig:multi-token-prediction}, the model architecture consists of a shared transformer backbone \( f_s \) that produces the hidden representation \( z_{t:1} \) from the observed context \( x_{t:1} \). Additionally, there are \( n \) independent output heads implemented as transformer layers \( f_{h_i} \), along with a shared unembedding matrix \( f_u \). Therefore, to predict \( n \) future tokens, the following it's computed:
 
 \begin{equation}
     P_\theta(x_{t+i} | x_{t:1}) = \text{softmax}(f_u(f_{h_i}(f_s(x_{t:1})))),
@@ -382,44 +405,39 @@ This multi-token prediction approach has demonstrated significant improvements i
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/llms/multi-token-pred-architecture.png}
+    \includegraphics[width=0.9\textwidth]{images/llms/multi-token-pred-architecture.png}
     \caption{Overview of the Multi-Token Prediction Architecture. The model predicts four future tokens simultaneously using a common trunk and four independent output heads. This setup improves sampling efficiency and inference speed. The performance gains are particularly noticeable for larger models and for generative tasks. \textit{Source:} \cite{gloeckle2024better}}
     \label{fig:multi-token-prediction}
 \end{figure}
 
-In conclusion, multi-token prediction offers a promising improvement over next-token prediction by allowing models to learn more efficiently and effectively. This methodology not only speeds up the training process, but also improves the overall performance of LLMs in various generative and reasoning tasks.
+Multi-token prediction offers a promising improvement over next-token prediction by allowing models to learn more efficiently and effectively. This methodology not only speeds up the training process, but also improves the overall performance of LLMs in various generative and reasoning tasks.
 
-\subsection{Fine-tuning}
-% Introduction of fine-tuning + Differences from Pretraining
-% TODO
+\section{Fine-tuning}
 
-Following the completion of the pre-training phase, the models are prepared for adaptation to a multitude of downstream tasks. This versatility and broad applicability serve to underscore the foundational yet incomplete nature of these models. For these and other reasons, these models are designated as "foundational".
+After the pre-training phase, the models are ready to be adapted to a variety of downstream tasks. This versatility and broad applicability underscore the foundational but incomplete nature of these models. For these and other reasons, these models are referred to as "foundation".
 
-First, they are pivotal to the advancement of AI, providing the foundation upon which more sophisticated models can be constructed and refined. Their capacity to process a multitude of tasks across diverse domains, including language, vision, robotics, reasoning, and human interaction, illustrates their foundational role in AI research and application.
+First, foundation models are critical to the advancement of AI by serving as the foundation on which more advanced models are built and refined. Their ability to address a wide variety of tasks in different domains, such as language, vision, robotics, reasoning, and human interaction, demonstrates their essential role in AI research and applications.
 
-Secondly, the term "foundation" underscores the pivotal yet nascent status of these models. Despite their impressive capabilities, these models possess emergent properties that are not yet fully understood, and their large scale introduces new, unforeseen abilities. These models are constructed on the tenets of deep learning and transfer learning, yet their efficacy across a multitude of tasks gives rise to a tendency towards homogeneity. While this homogenization offers significant advantages, it also means that any defects or biases present in the foundation models are propagated to all downstream models adapted from them \cite{bommasani2021opportunities}.
+Second, the term "foundation" reflects the pivotal but evolving status of these models. Despite their impressive capabilities, they exhibit emergent properties that are not yet fully understood, and their large scale brings with it new, unanticipated capabilities. These models are based on deep learning and transfer principles, but their effectiveness across a wide range of tasks often leads to a degree of homogenization. While this uniformity offers significant advantages, it also means that any flaws or biases present in the underlying models are likely to be inherited by any downstream models adapted from them. \cite{bommasani2021opportunities}.
 
 This adaptation phase is called fine-tuning and it constitutes a further training of the foundation model on narrower, domain-specific datasets. For instance, models can be fine-tuned on medical transcripts for healthcare applications or on legal briefs for legal assistant bots \cite{radford2019language}. Fine-tuning involves modifying the model’s weights to optimize its performance for the particular nuances and vocabulary of the task-specific data. This process entails adjusting the model's parameters (weights) according to the task-specific data, which often includes labeled examples for supervised tasks.
 
-Fine-tuning can be enhanced through approaches such as Constitutional AI, which embeds predefined rules into the model's architecture, and reward training, where humans evaluate the quality of multiple model outputs \cite{bai2022constitutional}. Furthermore, reinforcement learning from human feedback (RLHF) is employed, which uses a comparison-based system to optimize model responses. While fine-tuning is less computationally intensive, it necessitates substantial human input to adapt the model for particular tasks with predefined outputs. The model that has undergone fine-tuning is then deployed in a variety of applications, including chatbots \cite{ouyang2022training}.
+Fine-tuning can be improved with approaches such as Constitutional AI, which incorporates predefined rules into the model architecture, and reward training, in which humans evaluate the quality of multiple model outputs \cite{bai2022constitutional}. In addition, human feedback reinforced learning (RLHF), which uses a comparison-based system to optimize model responses, is employed. Although fine tuning is less computationally intensive, it requires significant human input to tune the model for specific tasks with predefined outputs. The optimized model is then used in a variety of applications, including chatbots \cite{ouyang2022training}.
 
-\section{Methods of Fine-Tuning}
+\subsection{Methods of Fine-Tuning}
 
-	•	Parameter Efficient Fine-Tuning (PEFT)
-	•	LoRA (Low-Rank Adaptation)
-	•	Adapters
-	•	Prefix Tuning
+To tailor models for specific applications and optimize their performance, several fine-tuning techniques are employed, each with distinct advantages and suitable use cases. These methods allow for the adaptation of pre-trained models to meet the particular demands of new tasks.
 
 \subsubsection{Full Model Fine-Tuning}
 
-Full model fine-tuning represents the most straightforward approach, whereby all parameters of the pre-trained model are updated during the fine-tuning process. This approach is particularly effective when the target task bears a strong resemblance to the tasks on which the model was originally pre-trained. The advantage of full model fine-tuning is its capacity to adapt the model to the specific nuances of the new task, which may result in enhanced performance \cite{howard2018universal}.
+Full model fine-tuning represents the most straightforward approach, in which all parameters of the pre-trained model are updated during the fine-tuning process. This approach is particularly effective when the target task is very similar to the one on which the model was originally pre-tuned. The advantage of full model fine-tuning is its ability to adapt the model to the specific nuances of the new task, which can lead to improved performance \cite{howard2018universal}.
 
 Nevertheless, the increasing size of LLMs over the years has rendered the fine-tuning process extremely computationally demanding and time-consuming. These challenges have significantly increased operational costs, and the financial burden of maintaining and deploying multiple instances of these fine-tuned models becomes especially pronounced when managing numerous downstream tasks.
 
-In light of these challenges, alternative fine-tuning approaches, such as Parameter Efficient Fine-Tuning (PEFT) methods, have been developed with the objective of optimizing the process, thereby reducing the computational and financial burdens associated with full model fine-tuning.
+In light of these challenges, alternative fine-tuning approaches, such as Parameter Efficient Fine-Tuning (PEFT) methods, have been developed with the objective of optimizing the process, thereby reducing the computational and financial burdens associated with full model fine-tuning. In particular, PEFT methods, in particular LoRA, will be discussed in detail in later sections.
 
 \subsubsection{Layer-wise Fine-Tuning}
-
+%%%
 Layer-wise fine-tuning represents a more refined approach to model fine-tuning, whereby the model is fine-tuned in stages, starting with the top layers (closer to the output) and gradually incorporating lower layers (closer to the input). This method allows for more precise adaptation, which can be particularly advantageous when the target task necessitates only minor modifications to the pre-trained model. The application of layer-wise fine-tuning can serve to mitigate the issue of overfitting by limiting the extent of alterations made to the model's parameters. This approach is often utilized in scenarios where computational resources are constrained or when dealing with smaller datasets \cite{ro2021autolr}.
 
 \subsubsection{Adapter Layers}
@@ -430,7 +448,7 @@ Adapter layers provide a flexible and efficient alternative to full model fine-t
 
 In order to address the considerable computational and financial costs associated with the vast scale of LLM systems, the parameter-efficient fine-tuning (PEFT) approach was developed as a viable solution to this challenge. This approach facilitates the efficient adaptation of large models to a range of downstream tasks, thereby reducing the burden of significant costs. PEFT entails the process of fine-tuning a pre-trained large model to a specific task or domain while minimizing the number of additional parameters introduced and the computational resources required \cite{han2024parameter}.
 
-Among the various PEFT techniques, Low-Rank Adaptation (LoRA) is distinguished by its efficacy in reducing the computational demands associated with fine-tuning large-scale models. For this reason, LoRA will be introduced in the following section.
+Among the various PEFT techniques, Low-Rank Adaptation (LoRA) is distinguished by its efficacy in reducing the computational demands associated with fine-tuning LLMs. For this reason, LoRA will be introduced in the following section.
 
 \subsection{LoRA: Low-Rank Adaptation}
 
@@ -456,7 +474,7 @@ In this equation, the variable \( W \) is held constant, indicating that it is n
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/llms/lora.png}
+    \includegraphics[width=0.9\textwidth]{images/llms/lora.png}
     \caption{Decomposition of \( \Delta W \) into two matrices \( A \) and \( B \), both of lower dimensionality than \( d \times d \). \textit{Source:} \cite{towardsdatascience2024lora}}
     \label{fig:lora_decomposition}
 \end{figure}
@@ -481,7 +499,7 @@ The primary distinction between prompt-based learning and traditional fine-tunin
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/llms/fine-tuning-vs-prompt-learning.png}
+    \includegraphics[width=0.9\textwidth]{images/llms/fine-tuning-vs-prompt-learning.png}
     \caption{Comparison of traditional fine-tuning (left) and prompt-based learning (right). In traditional fine-tuning, the model's weights are updated based on a training set, while in prompt-based learning, the model uses pre-defined prompts without altering its weights. \textit{Source:} \cite{madotto2021few}}
     \label{fig:fine_tuning_vs_prompt_learning}
 \end{figure}
@@ -498,7 +516,7 @@ Few-Shot learning extends this approach by supplying the model with a small numb
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/llms/zero-one-few-shots.png}
+    \includegraphics[width=0.9\textwidth]{images/llms/zero-one-few-shots.png}
     \caption{Illustration of Zero-Shot, One-Shot, and Few-Shot learning in dialogue systems. Zero-Shot learning involves no additional examples, One-Shot learning provides a single example, and Few-Shot learning includes a small number of examples to guide the model's response generation. \textit{Source:} \cite{madotto2021few}}
     \label{fig:zero_one_few_shot}
 \end{figure}
@@ -517,7 +535,7 @@ As illustrated in Figure \ref{fig:cot_reasoning}, Chain of Thought reasoning all
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/llms/cot-resoning.png}
+    \includegraphics[width=0.9\textwidth]{images/llms/cot-resoning.png}
     \caption{Comparison of standard prompting and Chain-of-Thought (CoT) prompting. The CoT approach allows the model to break down problems into intermediate steps, leading to more accurate and interpretable outcomes.}
     \label{fig:cot_reasoning}
 \end{figure}
@@ -550,8 +568,6 @@ In summary, prompt tuning is a highly effective method for improving the perform
 
 \section{Limitations of Large Language Models in Practical Applications}
 
-Review of recent literature on incorporating external knowledge into task-oriented dialogue systems.
-
 After examining LLMs, their architecture, and the impact of model size on AI performance, as well as exploring various training and fine-tuning methods, including prompt-based learning techniques, it is essential to address the limitations of these models in practical applications.
 
 One of the most significant limitations of LLMs is their lack of transparency in predictions. The models operate as black boxes, making it difficult to interpret the reasoning behind their outputs. This opacity is problematic, especially when LLMs are used in decision-making processes that require accountability and traceability \cite{rudin2019stop}.
@@ -578,7 +594,7 @@ A typical application of RAG is illustrated in Figure \ref{fig:rag_example}. In 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/llms/rag-strategies.png}
+    \includegraphics[width=0.9\textwidth]{images/llms/rag-strategies.png}
     \caption{A representative instance of the RAG process applied to question answering. It consists of three main steps: 1) Indexing, where documents are split into chunks, encoded into vectors, and stored in a vector database. 2) Retrieval, where the top-K chunks most relevant to the question are retrieved based on semantic similarity. 3) Generation, where the original question and the retrieved chunks are input together into the LLM to generate the final answer. \textit{Source:} \cite{gao2023retrieval}}
     \label{fig:rag_example}
 \end{figure}
@@ -619,18 +635,16 @@ Modular RAG’s dynamic architecture not only simplifies the retrieval process b
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/llms/naive-adv-modular-rag.png}
+    \includegraphics[width=0.9\textwidth]{images/llms/naive-adv-modular-rag.png}
     \caption{Comparison between the three paradigms of RAG. Naive RAG (left) consists of three parts: indexing, retrieval, and generation. Advanced RAG (middle) introduces multiple optimization strategies around pre-retrieval and post-retrieval, while Modular RAG (right) develops from the previous paradigms, showcasing greater flexibility with the introduction of multiple specific functional modules. \textit{Source:} \cite{gao2023retrieval}}
     \label{fig:rag_paradigms}
 \end{figure}
 
 In summary, Modular RAG represents a significant advancement in the development of RAG systems, offering a highly adaptable and modular architecture that addresses the limitations of earlier models while providing the flexibility needed to tackle a wide range of complex tasks.
 
-\subsection{Key Considerations for Effective Retrieval in RAG Systems}
+\subsection{Retrieval Source}
 
 In RAG systems, the efficient retrieval of relevant documents from external data sources is critical to ensuring the accuracy and relevance of generated outputs. Several important aspects influence the effectiveness of retrieval, including the source of the retrieval data, the granularity of the data retrieved, indexing optimization, query optimization, and embedding techniques.
-
-\subsection{Retrieval Source}
 
 RAG systems leverage external knowledge sources to enhance LLMs. The type of retrieval source and the granularity of retrieval units significantly impact the quality of the final output.
 
@@ -644,7 +658,7 @@ Structured data, such as knowledge graphs (KGs), typically undergoes verificatio
 
 The granularity of the retrieved data - whether it is at the token, sentence, or document level - plays a crucial role in the retrieval process. Coarse-grained units might provide more context but can introduce irrelevant information, while fine-grained units increase retrieval precision but might lack necessary context. The choice of retrieval granularity should be tailored to the specific downstream tasks to ensure both relevance and coherence in the generated outputs \cite{gao2023retrieval}.
 
-\subsection{Indexing Optimization}
+\subsubsection{Indexing Optimization}
 
 Indexing is a crucial phase in the Retrieval-Augmented Generation (RAG) system, where documents are processed, segmented, and transformed into embeddings that are stored in a vector database. The quality and structure of the indexing process directly impact the effectiveness of subsequent retrieval operations, as they determine whether the correct and most relevant context can be retrieved when needed.
 
@@ -668,7 +682,7 @@ In addition, Knowledge Graphs (KGs) can be integrated into the indexing structur
 
 Overall, optimizing the indexing phase in RAG systems is vital for ensuring that the retrieval process is efficient, accurate, and capable of delivering the most relevant information to support the generation tasks of large language models.
 
-\subsection{Query Optimization}
+\subsubsection{Query Optimization}
 
 One of the primary challenges in RAG systems is effectively leveraging the user's query to retrieve the most relevant information. Naive RAG systems often rely directly on the user’s original query, which may not always be well-formed, precise, or optimized for retrieval purposes. Query optimization involves enhancing the query to improve retrieval effectiveness, ensuring that the system retrieves the most relevant context for generating accurate and coherent responses. This optimization process can be broken down into several key strategies: query expansion, query transformation, and query routing.
 
@@ -686,7 +700,7 @@ Query routing directs queries through different retrieval pipelines based on the
 
 By optimizing queries through expansion, transformation, and routing, RAG systems can retrieve more accurate and contextually relevant information, resulting in higher quality outputs \cite{gao2023retrieval}.
 
-\subsection{Embedding Techniques}
+\subsubsection{Embedding Techniques}
 
 Embeddings play a central role in the retrieval process of RAG systems, as they represent the semantic content of queries and document chunks in a mathematical form that can be compared for similarity. The choice and optimization of embedding models are crucial for ensuring the accuracy and efficiency of the retrieval process. The two primary approaches to embeddings in RAG systems are sparse and dense embeddings, with recent advances introducing hybrid models and fine-tuning techniques to enhance performance.
 
@@ -726,7 +740,7 @@ While context curation is crucial for optimizing the input provided to the LLM, 
 
 Moreover, aligning LLM outputs with human preferences or retriever preferences through reinforcement learning offers another layer of optimization. By manually annotating generated answers and using these annotations as feedback during reinforcement learning, the model can be further refined to better meet the needs of specific tasks. Additionally, when access to powerful proprietary models is limited, distillation methods can be employed to transfer knowledge from more advanced models (e.g., GPT-4) to less powerful ones, ensuring that even smaller models can benefit from the strengths of larger counterparts \cite{shi2023dual}.
 
-\subsection{Augmentation Process in RAG}
+\subsection{Augmentation Process}
 
 The standard practice in Retrieval-Augmented Generation (RAG) often involves a single retrieval step followed by text generation. While this approach is straightforward, it can be insufficient for complex tasks that require multi-step reasoning, as it provides a limited scope of information \cite{yoran2023making}. To address this limitation, several augmentation strategies have been developed to enhance the retrieval process, offering more robust and contextually relevant outputs.
 
@@ -746,7 +760,7 @@ Further refining the RAG framework, Adaptive retrieval methods enable language m
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/llms/augmentation-process.png}
+    \includegraphics[width=0.9\textwidth]{images/llms/augmentation-process.png}
     \caption{In addition to the most common once retrieval, RAG also includes three types of retrieval augmentation processes. (Left) Iterative retrieval involves alternating between retrieval and generation, allowing for richer and more targeted context from the knowledge base at each step. (Middle) Recursive retrieval involves gradually refining the user query and breaking down the problem into sub-problems, then continuously solving complex problems through retrieval and generation. (Right) Adaptive retrieval focuses on enabling the RAG system to autonomously determine whether external knowledge retrieval is necessary and when to stop retrieval and generation, often utilizing LLM-generated special tokens for control. \textit{Source:} \cite{gao2023retrieval}}
     \label{fig:rag_augmentation}
 \end{figure}
@@ -781,88 +795,17 @@ RAG technology is rapidly evolving beyond text-based applications to incorporate
 
 The future prospects of RAG technology are both promising and complex. As RAG continues to evolve, it will be essential to address the challenges of robustness, scaling, and production readiness while exploring new frontiers in multi-modal applications. The ongoing development of hybrid approaches and the potential for breakthroughs in scaling laws offer exciting opportunities for advancing RAG systems. With continued research and innovation, RAG technology is poised to become an even more integral part of the AI landscape, enabling more efficient, accurate, and versatile applications across a wide range of domains.
 
-\section{Evaluation of LLMs}
+\section{Future Prospects of LLMs: Beyond the Transformer Architecture}
 
-% inserire introduzione all'argomento, perché è importante e cosa centra con il resto
+As the field of AI continues to advance, particularly in the areas of Natural Language Generation (NLG) and Retrieval-Augmented Generation (RAG), the underlying architectures powering these models are increasingly coming under scrutiny. As discussed in the previous sections, the Transformer architecture has been the cornerstone of many state-of-the-art AI models, including LLMs, celebrated for its scalability and ability to handle a wide range of tasks with high efficiency. However, its quadratic inference cost and limitations in handling long-range dependencies have prompted researchers to explore new architectures that might eventually surpass the Transformer.
 
-This section delves into the evaluation of Large Language Models (LLMs) in the context of the two key areas addressed in this thesis: Natural Language Generation (NLG) and Retrieval-Augmented Generation (RAG). While NLG and RAG share certain evaluation methodologies, the unique objectives and demands of each task require tailored approaches and metrics. This section examines the evaluation techniques for both NLG and RAG, emphasizing their distinct challenges and the innovations that have been developed to address them.
+Despite its dominance, the Transformer architecture is not without its weaknesses. Chief among these is its quadratic scaling with respect to sequence length, which significantly increases computational costs as the input size grows. This limitation becomes particularly pronounced in tasks that require processing long documents or entire books, where maintaining long-range dependencies is crucial for accurate text embeddings and summaries. The challenge, therefore, lies in developing architectures that can achieve sub-quadratic inference times while maintaining the ability to scale to the massive parameter sizes required for state-of-the-art LLMs \cite{paull2023transformer}.
 
-Evaluating NLG has traditionally relied on surface-level metrics such as BLEU \cite{papineni2002bleu} and ROUGE \cite{lin2004rouge}, which assess the n-gram overlap between the model-generated text and reference texts. These metrics have long been used due to their simplicity and ease of application. BLEU, for instance, measures the precision of n-grams in the generated text against a set of reference texts, while ROUGE focuses on recall, particularly in the context of summarization tasks. Despite their widespread use, these metrics have faced criticism for their inability to capture the deeper semantic quality of text, often leading to low correlation with human judgments \cite{sulem2018bleu}.
+Two emerging architectures, Mamba and BASED, have shown potential in addressing some of these challenges. The Mamba architecture, building on advances in State Space Models (SSM), excels in maintaining and memorizing long-range dependencies—an area where Transformers fall short outside their context window. However, Mamba faces challenges in training efficiency, particularly due to its reliance on operations not optimized for modern GPU hardware, and the complexity of its backpropagation process. These hurdles suggest that while Mamba has significant promise, further research is needed to optimize its performance for large-scale LLM applications \cite{gu2023mamba}.
 
-\subsection{Model-Based Evaluation Metrics}
+The BASED architecture, in contrast, combines short-range convolution with long-range Taylor-series attention, offering strong Associative Recall (AR) capabilities—something that has been a weakness for many Transformer challengers. BASED is also designed to run efficiently on existing GPU hardware and can be parallelized for training, making it a more practical contender for large-scale implementation. Its potential for sub-quadratic inference and compatibility with traditional Transformer computation methods positions BASED as a particularly attractive alternative, though it too has yet to be tested at the scale of LLMs like ChatGPT or Gemini \cite{arora2023based}.
 
-With the advent of deep learning, more sophisticated evaluation metrics were introduced, such as BERTScore and BARTScore \cite{zhang2019bertscore, yuan2021bartscore}. These metrics leverage pre-trained language models to evaluate generated text by considering various aspects like fluency, coherence, and faithfulness. BERTScore, for example, computes the similarity between the embeddings of the generated and reference texts, offering a more nuanced assessment than n-gram overlap. BARTScore goes a step further by considering the conditional probability of the generated text given the source text, thus evaluating how likely the generated content would be produced by a high-quality language model.
+While both Mamba and BASED present exciting possibilities, it is unlikely that the Transformer will be dethroned in the immediate future. The current infrastructure, research momentum, and the immense costs associated with training new LLMs around these architectures suggest that the Transformer will remain the dominant architecture for some time. However, the exploration of Mamba and BASED points to a future where AI architectures are more versatile, efficient, and capable of handling increasingly complex tasks.
 
-While these model-based metrics offer significant improvements over traditional methods, they are not without their limitations. Their reliance on reference texts limits their applicability in scenarios where references are unavailable. Additionally, these methods, though more aligned with human judgments, still struggle with certain aspects of text quality, such as robustness across different contexts and efficiency in computational resource usage \cite{he2022blind}.
-
-\subsection{LLM-Derived Metrics for NLG}
-
-The emergence of LLMs like InstructGPT \cite{ouyang2022training} has transformed the landscape of NLG evaluation. Researchers have begun to explore LLM-derived metrics, which leverage the inherent linguistic capabilities of these models for more effective evaluation. These metrics utilize the embeddings generated by LLMs to evaluate the semantic similarity between the target and reference texts. For example, the text-embedding-ada-002 model from OpenAI computes the similarity scores between texts, with higher scores indicating better alignment with the desired quality \cite{es2023ragas}.
-
-Another approach involves probability-based metrics, where the quality of generated text is assessed based on the conditional probabilities assigned by LLMs. GPTScore \cite{fu2023gptscore} uses tailored evaluation templates to guide multiple LLMs in evaluating various aspects of NLG, such as fluency and coherence. By calculating the likelihood of the generated text, these metrics offer a more dynamic and context-aware evaluation.
-
-Despite their advantages, LLM-derived metrics are not without challenges. Issues related to robustness, efficiency, and fairness have been identified. For instance, these metrics can lack robustness in attack scenarios, where adversarial inputs may expose blind spots that traditional metrics might overlook \cite{he2022blind}. Moreover, LLM-derived methods are computationally intensive, requiring significant resources, which can limit their applicability in large-scale evaluations. Fairness is another concern, as these metrics have been found to exhibit social biases, particularly across sensitive attributes like race, gender, and age, potentially leading to skewed evaluation outcomes \cite{sun2022bertscore}.
-
-\subsection{Prompting LLMs for NLG Evaluation}
-
-Building on the capabilities of LLMs, researchers have also explored the direct use of prompts to evaluate NLG outputs. This method involves crafting specific prompts that include task instructions, evaluation criteria, and the text to be evaluated, allowing LLMs to autonomously generate evaluation results. This approach has shown promise in replicating human-like evaluation processes \cite{gao2024llm}.
-
-Scoring and comparison are common methods in this approach. In scoring, LLMs rate the quality of the text on a scale, which has been shown to strongly correlate with human judgments across various NLG tasks, such as summarization and dialogue generation \cite{chiang2023can}. Comparison methods ask LLMs to choose between two generated texts, often proving more reliable than absolute scoring \cite{luo2023chatgpt}. Ranking extends this by having LLMs order multiple texts, providing a broader evaluation perspective \cite{ji2023exploring}.
-
-However, despite their potential, prompting LLMs for evaluation also faces several significant limitations. Studies have shown that these models are susceptible to position bias, where the order of the texts being compared can influence the evaluation outcome \cite{wang2023large}. Additionally, LLM evaluators tend to prefer longer, more verbose responses, and they often favor their own generated outputs \cite{zheng2024judging, liu2023g}. Moreover, LLMs have been found to rate responses with factual errors more favorably than shorter, grammatically correct ones \cite{wu2023style}. Furthermore, these models exhibit biases, particularly in scoring high-quality summaries and in non-Latin languages like Chinese and Japanese \cite{hada2023large}.
-
-\subsection{Human-LLM Collaborative Evaluation}
-
-Given the strengths and limitations of both LLMs and human evaluators, a collaborative approach has been proposed to leverage the best of both worlds. In this approach, LLMs generate initial evaluations, which are then reviewed and refined by human evaluators. This method has shown promise in reducing the workload of human evaluators while maintaining high accuracy \cite{li2023collaborative}.
-
-Techniques such as the COEVAL pipeline combine LLM-generated ideation with human scrutiny, resulting in more reliable and nuanced evaluations, particularly for complex or open-ended tasks \cite{zhang2021human}.
-
-However, this collaborative approach still requires human involvement, which limits its scalability and cost-effectiveness compared to fully automated methods.
-
-The evaluation of NLG using LLMs is rapidly evolving, with new methods continuously being developed to address the limitations of traditional metrics. While LLM-derived metrics and prompting methods have introduced significant improvements, challenges such as bias, efficiency, and robustness remain. Fine-tuning LLMs and human-LLM collaboration offer promising solutions, though each comes with its own set of trade-offs. As research progresses, it will be crucial to develop unified benchmarks and explore new evaluation scenarios to fully realize the potential of LLMs in NLG evaluation.
-
-\subsection{RAG-Specific Evaluation Metrics}
-
-In the context of RAG systems, evaluation extends beyond text generation to include the retrieval of relevant information from external sources. RAG systems are primarily evaluated on two fronts: retrieval quality and generation quality.
-
-Retrieval quality is assessed by evaluating the effectiveness of the context sourced by the retriever component of the RAG model. Standard metrics from the domains of search engines, recommendation systems, and information retrieval systems are employed to measure the performance of the RAG retrieval module \cite{gao2023retrieval}.
-
-Generation quality in Retrieval-Augmented Generation (RAG) systems is assessed based on the model’s ability to produce coherent and relevant answers derived from the retrieved context. This evaluation focuses on how well the generated content aligns with the retrieved data and addresses the user’s query. The critical aspects of this evaluation—context relevance, answer faithfulness, and answer relevance—are elaborated further in Section 4.2.1. These metrics ensure that the model prioritizes pertinent information, remains true to the provided context, and delivers responses that directly and accurately address the questions posed by the user.
-
-\subsection{Challenges in RAG Evaluation}
-
-Evaluating RAG systems presents unique challenges that are not typically encountered in traditional NLG evaluation. For instance, RAG systems must effectively handle noise in the retrieved documents, ensuring that irrelevant or misleading information does not compromise the quality of the generated responses. This requires robust noise management and the ability to reject negative or irrelevant information when the retrieved documents do not provide sufficient knowledge to answer a question \cite{gao2023retrieval}.
-
-Another critical aspect is information integration, where the RAG system must synthesize data from multiple documents to address complex questions effectively. This is particularly challenging in multi-hop question-answering scenarios, where the model must navigate and integrate information from various sources to construct a coherent and accurate response \cite{luo2023divide}. Additionally, counterfactual robustness is essential, as the model must recognize and disregard known inaccuracies within documents, even when these inaccuracies are presented as potential answers \cite{lewis2020retrieval}.
-
-\subsection{Conclusion and Future Directions}
-
-The evaluation of LLMs in both NLG and RAG systems is a rapidly evolving field, with significant advancements in methodologies and metrics. While traditional evaluation metrics have provided a foundation, the advent of LLM-derived metrics and prompting methods has introduced new possibilities for more accurate and human-aligned assessments. However, challenges remain, particularly in the areas of robustness, efficiency, and fairness, which are critical for both NLG and RAG evaluations.
-
-In the context of RAG, additional complexities such as noise management, information integration, and counterfactual robustness highlight the need for specialized evaluation metrics and tools. As research progresses, it will be essential to develop unified benchmarks that can accommodate the unique requirements of both NLG and RAG systems. Moreover, exploring new evaluation scenarios, particularly in low-resource languages and complex, multi-hop tasks, will be crucial in fully realizing the potential of LLMs in these domains.
-
-Future research should also focus on enhancing the collaborative evaluation frameworks that combine human judgment with LLM capabilities, ensuring that these systems can deliver accurate, fair, and contextually relevant evaluations across a broad range of applications.
-
-\subsection{Illustrations and Approaches}
-
-From the innovative OpenAI Evals platform to pioneering concepts like LLM-as-a-Judge, the spectrum of evaluation techniques continues to evolve. Additionally, emerging methodologies such as adversarial testing and bias analysis contribute to a comprehensive understanding of LLM capabilities and limitations.
-
-% Possibilità di inserire MLtraq
-
-\newpage
-
-\section{State-of-the-art Models}
-% Per semplicità e ordine, scarterei questa sezione, ho già fatto vari riferimenti a questi modelli nelle altre sezioni
-Selection of state-of-the-art LLMs (GPT-4o, Claude 3.5, Gemini Pro, Mistral, Meta Llama 3,...) to compare their differences in performance, architecture, accessibility and cost for developing question-answering chatbot systems.
-
-\subsection{Challenges and Best Practices}
-% ci sta, ma ne parlo nella sezione prima della RAG, potrei fare un'unica sezione per parlare delle limitazioni
-Overfitting
-Catastrophic Forgetting
-Mitigation Strategies
-Discussion on cost, carbon footprint and energy consumption and privacy concerns.
-
-\subsection{Beyond Transformers: the Mamba LLM Architecture}
-% interessante e lo includerei, ma prima farei una sezione "future improvements" nella quale si introduce l'argomento dei progressi post transformer architecture
-Discover the power of Mamba LLM, a transformative architecture from leading universities, redefining sequence processing in AI.
+In conclusion, as the development of LLMs and RAG systems progresses, the potential for new architectures like Mamba and BASED to overcome the limitations of the Transformer offers a glimpse into the future of AI. While these architectures may not yet be ready to replace the Transformer at the core of LLMs, they represent critical steps toward more efficient and powerful AI models. The ongoing research in this area will be essential in shaping the next generation of AI technologies, paving the way for models that can more effectively meet the demands of both current and future applications.
 
