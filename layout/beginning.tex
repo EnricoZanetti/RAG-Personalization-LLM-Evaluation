@@ -35,27 +35,22 @@
 \chapter*{Acknowledgments}
 
 \section*{Motivation}
+% DA RISCRIVERE ALLA FINE
+My interest in this research stems from a deep passion for natural human languages and the transformative potential of artificial intelligence (AI) applications. Additionally, my motivation is deeply rooted in my fascination with the complexities of human societies and global phenomena, a passion that also stems from my background in International Studies. Over the past few years, during my master's studies in Data Science, I developed a profound interest in the technical aspects of AI, particularly the intricacies of machine learning and deep learning. I am particularly captivated by how AI can radically improve and simplify people's lives in essential tasks such as information retrieval. The rapid advancements in AI, especially in the development of AI chatbots and large language models (LLMs), have heightened my interest due to their profound implications for how people interact with technology and access information. The potential of AI to enhance human life, making tasks more efficient and interactions more meaningful, continues to inspire my research and drive my curiosity.
 
-My interest in this research stems from a deep passion for natural human languages and the transformative potential of artificial intelligence (AI) applications. In particular, I am fascinated by how AI can radically improve and simplify people's lives in essential tasks such as information retrieval. As AI technologies have advanced, the capabilities of chatbots and language models have grown dramatically, offering unprecedented opportunities to improve user interactions and access to information.
+However, alongside these technical fascinations lie concerns for the ethical and societal risks associated with AI. The challenges that AI systems face, such as bias, misinformation, and ethical dilemmas, highlight the need for a responsible approach to AI development. Moreover, the technical limitations of AI, including issues related to model size, the intricacies of training processes, and the evaluation of AI performance, further underscore the complexity of ensuring these systems are both effective and ethically sound. My curiosity extends beyond the technical aspects of AI to the geopolitical, ethical, and regulatory dimensions that influence how these technologies are governed and integrated into society.
 
-However, despite these advances, AI chatbots still face significant challenges. Problems such as hallucination, in which models generate plausible but incorrect information, and bias embedded in training data that can lead to biased or incorrect results, are major concerns. In addition, the static nature of many models means that they are not updated with the latest information, limiting their effectiveness over time.
+In particular, I am drawn to the complexities of evaluating and improving AI systems, especially in terms of personalization and reliability. The innovative techniques like Retrieval-Augmented Generation (RAG) present a promising avenue to address some of these challenges, offering a way to enhance the accuracy and relevance of AI-generated content. My research is motivated by a desire to contribute to this evolving field, exploring solutions that can mitigate the risks of AI while maximizing its benefits for users worldwide. 
 
-To address these challenges, my thesis explores innovative solutions such as Retrieval Augmented Generation (RAG) and advanced evaluation techniques. RAG combines the strengths of large language models with retrieval mechanisms to ensure that responses are based on up-to-date and accurate information. This approach reduces hallucination and increases the reliability of the results generated.
-
-In addition, evaluation and monitoring of performance of AI chatbots are critical to understanding and mitigating bias. By systematically analyzing model performance and incorporating continuous feedback loops, we can develop more robust and fair artificial intelligence systems. This thesis delves into these methodologies, providing a comprehensive analysis of the state of the art of current techniques and their practical applications.
+Through this work, I aim to bridge the gap between technological innovation and ethical responsibility, ensuring that AI not only advances in capability but also aligns with the values and needs of society.
 
 \begin{abstract}
-This thesis analyzes the evolving landscape of chatbot personalization and evaluation, focusing on the core technology: Large Language Models (LLMs). The paper is divided into several key sections, beginning with an introduction and a comprehensive literature review examining related work and chatbot personalization. 
 
-The development and techniques section delves into the architecture and training processes of LLMs, including model size, pre-training, next-token and multi-token prediction, and refinement methods such as Low-Rank Adaptation (LoRA) and prompt-based learning. This section also covers augmented LLMs, focusing on augmented retrieval generation frameworks, and evaluation and tracking of LLMs, highlighting the importance of tracking ML experiments and tools such as MLtraq.
+This thesis explores AI chatbot development landscape with the integration of Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG), emphasizing the dual objectives of enhancing user interaction and evaluating model performance. It begins by tracing the evolution of AI chatbots, from early rule-based systems to advanced LLM-driven interfaces, highlighting their applications across various domains such as education, healthcare, and finance. The study delves into the foundational aspects of LLMs, including their architecture, training methodologies, and limitations, with a particular focus on the Transformer architecture and the RAG paradigm. RAG, which combines retrieval mechanisms with generative models, is analyzed for its potential to improve the relevance and accuracy of chatbot responses, thereby enabling greater personalization.
 
-State-of-the-art models are discussed, addressing their challenges, limitations and advances over traditional transformers, particularly the LLM Mamba architecture.
+The thesis delves into the complexities and methodologies involved in evaluating LLMs and RAG systems, proposing new metrics and benchmarks specifically designed for these advanced models. It features an in-depth case study on WISE, an AI chatbot developed by HPA, illustrating the real-world impact of integrating the RAG framework into AI-driven applications. Additionally, the thesis introduces the LLM Evaluator, detailing its methodology, implementation, testing and visualization. The analysis of both applications includes also a discussion of their respective limitations. Furthermore, the thesis addresses ethical considerations and regulatory frameworks, emphasizing the critical importance of responsible AI development in the evolving global landscape.
 
-A significant portion of the thesis is devoted to a case study analysis of WISE and the LLM evaluator. This includes an in-depth analysis of WISE's High Performance Analytics (HPA), its role in document management transformation, its capabilities, benefits, industry applications and future enhancements. The HPA LLM evaluator is also examined, covering methodology, implementation, testing, visualization, creation of a Python package and its limitations.
-
-The final sections of the thesis address ethical and regulatory considerations related to the deployment and use of LLMs.
-
-Overall, this thesis aims to provide a detailed understanding of LLMs, their development, evaluation, and practical applications, while also considering the ethical and regulatory landscape.
+Overall, this research analyzes the advancements of personalized AI chatbots by integrating LLMs and RAG technology, providing novel insights into model evaluation, and proposing future directions for both technological innovation and ethical governance in AI.
 
 \end{abstract}
 
@@ -68,3 +63,23 @@ Overall, this thesis aims to provide a detailed understanding of LLMs, their dev
 \addcontentsline{toc}{chapter}{Nomenclature list}
 
 \mainmatter
+
+% --- NOTE: REMEMBER TO SORT IT IN ALPHABETICAL ORDER ---
+
+\section*{Glossary}
+\begin{description}
+    \item[AI] Artificial Intelligence, the simulation of human intelligence in machines.
+    \item[API] Application Programming Interface, a set of tools and protocols for building software and applications.
+    \item[CNN] Convolutional Neural Network, a type of deep learning algorithm primarily used for processing structured grid data like images.
+    \item[FFNN] Feed-Forward Neural Network, a type of neural network where connections between the nodes do not form cycles.
+    \item[FLOP] Floating Point Operations, a measure of computational performance, often used to quantify the operations in machine learning models.
+    \item[KG] Knowledge Graph, a network of entities and their relationships, used to represent and store complex structured and unstructured data.
+    \item[LLM] Large Language Model, a type of AI model designed to understand and generate human-like text.
+    \item[ML] Machine Learning, a subset of AI that focuses on building systems that learn from data.
+    \item[NLP] Natural Language Processing, a field of AI that focuses on the interaction between computers and humans through natural language.
+    \item[PEFT] Parameter-Efficient Fine-Tuning, a method that fine-tunes models using fewer parameters, making the process more efficient and less resource-intensive.
+    \item[R\&D] Research \& Development, activities that companies undertake to innovate and introduce new products and services.
+    \item[RAG] Retrieval-Augmented Generation, a framework that combines retrieval mechanisms with generative models to improve the accuracy and relevance of AI-generated responses.
+    \item[RLHF] Reinforcement Learning from Human Feedback, a training methodology that improves models based on feedback from human evaluators.
+    \item[SSO] Single sign-on, an authentication method enabling a user to log in with a single ID across multiple related, independent software systems.
+\end{description}
