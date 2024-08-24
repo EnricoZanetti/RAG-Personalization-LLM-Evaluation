@@ -1,4 +1,4 @@
-Rapid advances in artificial intelligence, particularly in the field of large language models (LLMs), have had a significant impact on the development of AI chatbots. These models, powered by complex architectures and vast datasets, have demonstrated remarkable natural language processing capabilities, enabling more sophisticated, human-like interactions. However, the evolution of these models is not without challenges, particularly with regard to scalability, training, and application in different contexts.
+The rapid advances in artificial intelligence (AI), particularly in the field of large language models (LLMs), have had a transformative impact on the development of AI chatbots. These models, powered by complex architectures and vast datasets, have demonstrated remarkable natural language processing capabilities, enabling more sophisticated, human-like interactions. However, the evolution of these models is not without challenges, particularly with regard to scalability, training, and application in different contexts.
 
 This chapter reviews the technical foundations and advances that have shaped the current state of LLMs, with a specific emphasis on the Transformer architecture, which has been instrumental in the success of these models. The chapter examines the evolution of LLMs, their architectural components, and the impact of model size on performance. In addition, the chapter examines the training processes underlying these models, including the pre-training and tuning techniques that have become essential to optimizing their performance in specific tasks.
 
@@ -8,7 +8,7 @@ The final section of the chapter will examine the limitations of contemporary LL
 
 \section{Large Language Models}
 
-In the context of LLMs, the term refers to sophisticated software designed to emulate human communication in a way that is perceived as natural and conversational. These models demonstrate an exceptional ability to understand intricate contextual nuances and generate content that is coherent and reminiscent of human expression. It is possible that anyone who has previously interacted with a chatbot or AI virtual assistant has used an LLM without being aware of it. LLMs are used in a multitude of applications, including text generation, machine translation, sentiment analysis, document summarization, and many others. They have become a key part of the AI ecosystem. This section presents a comprehensive analysis of the historical development and architectural evolution of transformers.
+The term large language models (LLMs) refers to sophisticated software designed to emulate human communication in a way that is perceived as natural and conversational. These models demonstrate an exceptional ability to understand intricate contextual nuances and generate content that is coherent and reminiscent of human expression. It is possible that anyone who has previously interacted with an AI chatbot or AI virtual assistant has used an LLM without being aware of it. LLMs are used in a multitude of applications, including text generation, machine translation, sentiment analysis, document summarization, and many others, becoming a key part of the AI ecosystem.
 
 LLMs are defined as large, general-purpose language processing models that undergo pre-training on large datasets with the goal of learning the fundamental structures and semantics of human language. The term "large" indicates both the considerable amount of data required for training and the billions or even trillions of parameters that these models possess. Pre-training enables LLMs to perform a number of common linguistic tasks, including text classification, question answering and document summarization. After the pre-training phase, models are typically tuned on smaller, domain-specific datasets, thereby improving their accuracy and efficiency \cite{researchgraph2024}.
 
@@ -16,9 +16,9 @@ To fully understand the progress of LLMs and their current capabilities, it is e
 
 \subsection{Evolution of Large Language Models}
 
-\subsubsection{Early Days: Chatbots and Rule-Based Systems (1960s)}
+\subsubsection{1960s-1970s: Early Days of Chatbots and Rule-Based Systems}
 
-The journey of LLMs in the 1960s with the advent of ELIZA, an early natural language processing computer program created by Joseph Weizenbaum \cite{weizenbaum1966eliza}. ELIZA was designed to simulate a conversation through keyword search and the use of programmed responses. Subsequent to ELIZA, SHRDLU, developed by Terry Winograd in the early 1970s \cite{winograd1972understanding}, was an advanced program capable of understanding and manipulating a virtual block world through natural language commands. This marked a significant step in the ability of machines to understand context and intentions.
+As introduced in chapter 2 with the overview of the rise of chatbots, also the journey towards LLMs began in the 1960s with the advent of ELIZA. ELIZA was an early natural language processing computer program created by Joseph Weizenbaum, designed to simulate a conversation through keyword search and the use of programmed responses \cite{weizenbaum1966eliza}. Subsequent to ELIZA, SHRDLU, developed by Terry Winograd in the early 1970s, was an advanced program capable of understanding and manipulating a virtual block world through natural language commands \cite{winograd1972understanding}. This marked a significant step in the ability of machines to understand context and intentions.
 
 \begin{figure}[h!]
     \centering
@@ -27,39 +27,39 @@ The journey of LLMs in the 1960s with the advent of ELIZA, an early natural lang
     \label{fig:llms-history}
 \end{figure}
 
-\subsubsection{Rise of Recurrent Neural Networks (1980s)}
+\subsubsection{1980s: Rise of Recurrent Neural Networks}
 
 Recurrent neural networks (RNNs), inspired by the interconnected neurons of the human brain, were developed in the late 20th century. Introduced in 1986, RNNs gained popularity due to their ability to retain previous inputs and process sequential data, making them suitable for NLP tasks. However, RNNs have shown limitations in processing long sentences, often encountering the vanishing gradient problem \cite{elman1990finding}.
 
-\subsubsection{Rise of Long Short-Term Memory (1990s)}
+\subsubsection{1990s: Rise of Long Short-Term Memory}
 
 In 1997, long short-term memory (LSTM), a specialized type of RNN, was introduced to address the limitations of RNNs. LSTMs are able to retain information for prolonged sequences, thus overcoming the short-term memory limitations of RNNs. The unique architectural configuration of LSTMs, which includes input, forgetting and output gates, enables them to retain relevant information within the memory system, thus improving the efficiency of capturing long-term dependencies in sentences \cite{hochreiter1997long}.
 
-\subsubsection{Gated Recurrent Units (2010s)}
+\subsubsection{2010s: Gated Recurrent Units}
 
 In 2014, Gated Recurrent Units (GRUs) were introduced, a means of addressing similar problems to those encountered with LSTM units, but with a simpler architectural configuration. GRUs use a simpler approach, comprising only two ports: an update gate and a reset gate. This architectural simplicity allows for greater computational efficiency while preserving the long-term dependencies inherent in the sentences \cite{cho2014learning}.
 
-\subsubsection{Rise of Attention Mechanism (2014)}
+\subsubsection{2014: Rise of Attention Mechanism}
 
 The introduction of the attention mechanism in neural machine translation in 2014 marked a paradigm shift in sequence modeling. Unlike RNNs, which process sentences with a context vector of fixed size, attention mechanisms allowed models to dynamically select relevant parts of the source sequence, thus avoiding the loss of crucial information, especially in longer sequences \cite{bahdanau2014neural}.
 
-\subsubsection{The Invention of Transformers Architecture (2017)}
+\subsubsection{2017: The Invention of Transformers Architecture}
 
-In their 2017 paper, "Attention is All You Need", Vaswani et al. \cite{vaswani2017attention} revolutionized sequence modeling by introducing the Transformers architecture, which fundamentally shifted the field by leveraging an attention mechanism to process sequences with unprecedented efficiency and flexibility. The processors were built with an encoder-decoder architecture that includes multiple levels of self-attention and feed-forward neural networks. The multilevel attention mechanism allowed the processors to simultaneously focus on different elements of the input sentence, thus capturing a multitude of contextual subtleties. In addition, processors were able to process sequences in parallel, rather than sequentially. This paved the way for the development of sophisticated LLMs, such as BERT and GPT. Given the central role and pervasive impact of transformer architecture in the field of artificial intelligence, a fuller examination of this topic will be undertaken in subsequent sections.
+In their 2017 paper, "Attention is All You Need", Vaswani et al. \cite{vaswani2017attention} revolutionized sequence modeling by introducing the Transformers architecture, shifting the field by leveraging an attention mechanism to process sequences with unprecedented efficiency and flexibility. The processors were built with an encoder-decoder architecture that includes multiple levels of self-attention and feed-forward neural networks. The multilevel attention mechanism allowed the processors to simultaneously focus on different elements of the input sentence, thus capturing a multitude of contextual subtleties. In addition, processors were able to process sequences in parallel, rather than sequentially. This paved the way for the development of sophisticated LLMs, such as BERT and GPT. Given the central role and pervasive impact of transformer architecture in the field of AI, a fuller examination of this topic will be undertaken in subsequent sections.
 
-\subsubsection{Emergence of Large Language Models (2018-Onwards)}
+\subsubsection{2018-Present: Emergence of Large Language Models}
 
 In light of the remarkable success of Transformers, it became evident that scaling these models was a logical next step. Google's BERT model, released in 2018, processed text bidirectionally, thereby setting new performance standards in a number of benchmarks \cite{devlin2018bert}. The release of OpenAI's GPT-2 in 2019 and GPT-3 in 2020 demonstrated the capabilities of generative models in performing a wide range of tasks \cite{radford2019language}. OpenAI continued to further develop the GPT series with the introduction of GPT-3.5 in 2022, GPT-4 in 2023, and GPT-4o in 2024. After its release in November 2022, ChatGPT, which is based on GPT-3.5, became the fastest growing consumer application in history.
 
 In addition, other prominent entities in the technology industry and academia have contributed significantly to the progress of LLMs. In March 2023, Google released PaLM (Pathways Language Model), followed by the release of PaLM 2 in May 2023 \cite{chowdhery2023palm}. In December 2023, Google revealed Gemini, a multimodal model capable of processing different forms of information \cite{team2023gemini}. In 2023, Meta AI released the LLaMA (Large Language Model Meta AI) series, which offers open-source models for research and commercial use \cite{touvron2023llama}. In the same year, Anthropic introduced the Claude series, focusing on the universal benefits and security of AI \cite{anthropic2024claude}.
 
-The advancement of language models from initial rule-based structures to current sophisticated forms represents a substantial step forward in the field of artificial intelligence. Currently, LLMs are not only tools for improving text-based applications, but are progressively demonstrating the ability to understand and interact with humans. Moreover, multimodal LLMs are able to handle not only text, but also images, sounds and videos, integrating different forms of data to comprehensively understand and analyze different contexts. These models are transforming the way humans interact with technology, making it more accessible and responsive to human needs. In essence, LLMs are becoming valuable partners for humans, assisting us in completing numerous tasks and simplifying our daily lives in many ways \cite{researchgraph2024}.
+The advancement of language models from initial rule-based structures to current sophisticated forms represents a substantial step forward in the field of AI. Currently, LLMs are not only tools for improving text-based applications, but are progressively demonstrating the ability to understand and interact with humans. Moreover, multimodal LLMs are able to handle not only text, but also images, sounds and videos, integrating different forms of data to comprehensively understand and analyze different contexts. These models are transforming the way humans interact with technology, making it more accessible and responsive to human needs. In essence, LLMs are becoming valuable partners for humans, assisting us in completing numerous tasks and simplifying our daily lives in many ways \cite{researchgraph2024}.
 
 To fully understand the impact and capabilities of modern LLMs, it is essential to understand the underlying architecture that powers them. The advent of the Transformer architecture was a pivotal moment in the evolution of these models, providing the foundation for their remarkable advancement and wide applicability.
 
 \section{The Transformer Architecture}
 
-As mentioned in the previous section, pivotal breakthrough in the evolution of LLMs was the introduction of the Transformer architecture in 2017, as detailed in the seminal paper by Vaswani et al. \cite{vaswani2017attention}. This architecture, along with the self-attention mechanism, has since become central to all modern state-of-the-art LLMs, revolutionizing the field of natural language processing (NLP) by enabling models to capture long-range dependencies with far greater efficiency than previous architectures allowed.
+As introduced in the previous section, pivotal breakthrough in the evolution of LLMs was the introduction of the Transformer architecture in 2017, as detailed in the seminal paper by Vaswani et al. \cite{vaswani2017attention}. This architecture, along with the self-attention mechanism, has since become central to all modern state-of-the-art LLMs, revolutionizing the field of natural language processing (NLP) by enabling models to capture long-range dependencies with far greater efficiency than previous architectures allowed.
 
 \begin{figure}[h!]
     \centering
@@ -104,11 +104,9 @@ PE(p, 2i + 1) = \cos\left(\frac{p}{10000^{2i/d}}\right)
 
 where \( d \) is the dimensionality of the embeddings. These sinusoidal functions provide unique positional encodings that can be used by the attention mechanism to understand token order. Each dimension of the positional encoding corresponds to a sine or cosine function with a different wavelength, creating a range of frequencies from \( 2\pi \) to \( 10000 \times 2\pi \). This allows the model to capture relative positions between tokens in a sequence effectively \cite{vaswani2017attention}.
 
-
-Kazemnejad \cite{kazemnejad2019:pencoding} emphasizes the ability of this encoding scheme to capture positional information in a way that satisfies several important criteria: it must produce a unique encoding for each time step, maintain consistent distances between time steps in sentences of different lengths, generalize to longer sentences, and remain deterministic.
+Kazemnejad emphasizes the ability of this encoding scheme to capture positional information in a way that satisfies several important criteria: it must produce a unique encoding for each time step, maintain consistent distances between time steps in sentences of different lengths, generalize to longer sentences, and remain deterministic \cite{kazemnejad2019:pencoding}.
 
 In more recent LLMs, positional encoding often uses learned encodings rather than sinusoidal encodings. In this approach, positional encodings are randomly initialized model parameters learned during training, similar to token encodings. The size of the learned positional encoding vector is related to the maximum sequence length that the model can handle. Although the fixed maximum input length is a disadvantage of learned positional encodings, they can adapt during training, allowing the model to learn positional representations better suited to the training data, unlike static sinusoidal encodings. These advancements in positional encoding are foundational to the ability of transformers to understand the order of tokens in a sequence, but they work hand-in-hand with another crucial element: the self-attention mechanism.
-
 
 \subsection{Self-attention mechanism}
 
