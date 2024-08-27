@@ -1,85 +1,78 @@
-% TODO: DA SOSTITUIRE CON IL FRONTESPIZIO UFFICIALE
-\Universita{University of Trento}
-\CorsoDiLaurea{Master's Degree in Data Science}
-\AnnoAccademico{Academic Year 2023--2024 [FIRST PAGE TO BE SUBSTITUTED WITH THE OFFICIAL FIRST PAGE AFTER EXPORTING THE DOCUMENT]}
-\Titolo{RAG-based Personalization and LLMs Evaluation for AI Chatbots}
-\Relatore{Prof. Jacopo Staiano}
-\RelatoreLabel{Supervisor}
-\CandidatoLabel{Graduate Student}
+\begin{center}
+    \normalsize\textbf{Acknowledgments}
+\end{center}
 
-\Candidato{Enrico Zanetti} 
-\Matricola{238680}
-\DataEsame{September 17, 2024}
-\Logo{layout/unitn-logo.jpg}
-\LogoWidth{7cm} %optional, default: 3cm
-\LogoPosition{top}
-\opacitaSfondo{0.05}
+This thesis represents a significant milestone in my journey in the fields of Data Science and Artificial Intelligence, particularly within the domain of Natural Language Processing (NLP). This personal path is enriched by the support and guidance of several individuals, to whom I would like to express my gratitude.
 
-\begin{titlepage}
-    \newgeometry{left=3cm, right=3cm, bottom=2cm, top =3cm} 
-    \pagestyle{empty}
-    \makefrontpage
-    \restoregeometry
-\end{titlepage}
+To \textbf{my family and friends}, who have shown support throughout my career decisions. Your encouragement and belief in my potential have been a constant source of strength, and I am truly grateful for your love and guidance. A special thanks to my parents for their belief in me and their support, without which this journey would not have been possible.
 
-\frontmatter
-% dedica
-~ \newpage
-\null\vspace{\stretch{1}}
-\begin{flushright}
-    \textit{Inserire dedica/citazione qui.}
-\end{flushright}
-\vspace{\stretch{2}}\null
+To my \textbf{all fellows of the master in Data Science}, I am deeply thankful for the shared experiences, both in and out of the classrooms. Together, we faced the challenges of projects and exams, and engaged in discussions about the uncertainties of our future careers. I also extend my gratitude to \textbf{all the university professors and tutors} who provided the academic foundation and support for this journey. In particular, I am profoundly grateful to \textbf{Professor Jacopo Staiano}, who agreed to be my supervisor and offered guidance throughout the development of this thesis.
 
-%ringraziamenti
-\chapter*{Acknowledgments}
+I am deeply grateful also to the \textbf{University of Trento} for the opportunity to transition from a humanistic background to a scientific field, allowing me to follow my passions and desires, and to do it in my hometown. This journey of transition was further enriched by the chance to spend a semester at the \textbf{University of Utrecht} in the Netherlands during the winter of 2023-24. This experience not only expanded my academic and professional horizons but also offered me a new perspective on Data Science and AI from an international context, and for being a personal experience that I will remember.
 
-\section*{Motivation}
-% DA RISCRIVERE ALLA FINE
-My interest in this research stems from a deep passion for natural human languages and the transformative potential of artificial intelligence (AI) applications. Additionally, my motivation is deeply rooted in my fascination with the complexities of human societies and global phenomena, a passion that also stems from my background in International Studies. Over the past few years, during my master's studies in Data Science, I developed a profound interest in the technical aspects of AI, particularly the intricacies of machine learning and deep learning. I am particularly captivated by how AI can radically improve and simplify people's lives in essential tasks such as information retrieval. The rapid advancements in AI, especially in the development of AI chatbots and large language models (LLMs), have heightened my interest due to their profound implications for how people interact with technology and access information. The potential of AI to enhance human life, making tasks more efficient and interactions more meaningful, continues to inspire my research and drive my curiosity.
+A special thanks to \textbf{Michele Dallachiesa}, a valuable mentor over the past two years. Your guidance and insights have been pivotal in shaping my journey, and I am deeply grateful for the wisdom and experience you’ve shared, which have been invaluable in navigating and discovering my career path.
 
-However, alongside these technical fascinations lie concerns for the ethical and societal risks associated with AI. The challenges that AI systems face, such as bias, misinformation, and ethical dilemmas, highlight the need for a responsible approach to AI development. Moreover, the technical limitations of AI, including issues related to model size, the intricacies of training processes, and the evaluation of AI performance, further underscore the complexity of ensuring these systems are both effective and ethically sound. My curiosity extends beyond the technical aspects of AI to the geopolitical, ethical, and regulatory dimensions that influence how these technologies are governed and integrated into society.
+I wish to express my sincere appreciation to the \textbf{HPA team} for welcoming me to the company, particularly to the COO, \textbf{Daniele Passabì}, who not only served as a mentor, guide, and exemplary colleague but also co-supervised this thesis. Your leadership and support have been essential to my professional growth and will continue to be in the future. I am equally grateful to the CEO of HPA, \textbf{Stefano Di Persio}, for the opportunities you have provided me, from my initial internship to the position I now hold at HPA. Your trust and belief in my abilities have been a driving force in my career. Additionally, I would like to thank the entire company for allowing me to use WISE as a use case in this thesis, which has been an invaluable contribution to my research.
 
-In particular, I am drawn to the complexities of evaluating and improving AI systems, especially in terms of personalization and reliability. The innovative techniques like Retrieval-Augmented Generation (RAG) present a promising avenue to address some of these challenges, offering a way to enhance the accuracy and relevance of AI-generated content. My research is motivated by a desire to contribute to this evolving field, exploring solutions that can mitigate the risks of AI while maximizing its benefits for users worldwide. 
+\newpage
 
-Through this work, I aim to bridge the gap between technological innovation and ethical responsibility, ensuring that AI not only advances in capability but also aligns with the values and needs of society.
+\begin{center}
+    \normalsize\textbf{Motivation}
+\end{center}
 
-\begin{abstract}
+My interest in this research stems from a deep passion for natural languages and the transformative potential of artificial intelligence (AI) applications, which converge in the field of AI chatbots. This enthusiasm is deeply rooted in my fascination with the complexities of human societies and global phenomena, an interest nurtured by my background in International Studies. Throughout my master’s studies in Data Science, I became increasingly captivated by the technical aspects of AI, particularly the complexities of machine learning and deep learning. I was intrigued by how these fields draw inspiration from the neural connections of the human brain, truly embodying the concept of “artificial intelligence.”
+
+Moreover, I am especially intrigued by AI’s potential to significantly enhance and simplify essential tasks such as information retrieval, a crucial capability in the Information Age \cite{wikipedia_information_age}. The rapid advancements in AI, particularly in the development of chatbots and large language models (LLMs), have only deepened my interest due to their profound implications for human-technology interaction and information accessibility. The release of ChatGPT in late November 2022 was a pivotal moment for me, reshaping my conception of work and transforming how I perceive the accessibility of information. This breakthrough has ignited a sense of revolution in my approach to AI, unveiling new possibilities for how we interact with and harness the vast expanse of human knowledge in our daily lives.
+
+However, alongside these technical fascinations lie concerns for the ethical, technical, and societal issues associated with AI. The challenges that AI systems face, such as bias, misinformation, and hallucinations, highlight the need for a responsible approach to AI development. Moreover, the technical limitations of AI, including issues related to model size, the intricacies of training processes, and the evaluation of AI performance, further underscore the complexity of ensuring these systems are both effective and ethically sound. My curiosity encompasses both the technical aspects of AI and the geopolitical, ethical, and regulatory dimensions that influence how these technologies are governed and integrated into society.
+
+In particular, I am drawn to the complexities of evaluating and improving AI systems, especially in terms of personalization and reliability. Innovative techniques like Retrieval-Augmented Generation (RAG) and fast, reliable evaluation methods for LLM outputs present promising avenues to address some of these challenges, offering a way to enhance the accuracy and relevance of AI-generated content. My research is motivated by a desire to contribute to this evolving field, exploring solutions that can mitigate the risks of AI while maximizing its benefits for users worldwide.
+
+In addition to these motivations, I aspire to pursue a career in Data Science and AI, with a specific focus on Natural Language Processing (NLP). My goal is to contribute to the advancement of NLP technologies that can bridge the gap between human communication and machine understanding, ensuring that AI-driven solutions are both innovative and aligned with ethical standards. Through this work, I aim to create a unique discourse between technological innovation and ethical responsibility, ensuring that AI not only advances in capability but also aligns with the values and needs of society.
+
+\newpage
+
+\begin{center}
+    \normalsize\textbf{Abstract}
+\end{center}
 
 This thesis explores AI chatbot development landscape with the integration of Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG), emphasizing the dual objectives of enhancing user interaction and evaluating model performance. It begins by tracing the evolution of AI chatbots, from early rule-based systems to advanced LLM-driven interfaces, highlighting their applications across various domains such as education, healthcare, and finance. The study delves into the foundational aspects of LLMs, including their architecture, training methodologies, and limitations, with a particular focus on the Transformer architecture and the RAG paradigm. RAG, which combines retrieval mechanisms with generative models, is analyzed for its potential to improve the relevance and accuracy of chatbot responses, thereby enabling greater personalization.
 
-The thesis delves into the complexities and methodologies involved in evaluating LLMs and RAG systems, proposing new metrics and benchmarks specifically designed for these advanced models. It features an in-depth case study on WISE, an AI chatbot developed by HPA, illustrating the real-world impact of integrating the RAG framework into AI-driven applications. Additionally, the thesis introduces the LLM Evaluator, detailing its methodology, implementation, testing and visualization. The analysis of both applications includes also a discussion of their respective limitations. Furthermore, the thesis addresses ethical considerations and regulatory frameworks, emphasizing the critical importance of responsible AI development in the evolving global landscape.
+The thesis delves into the complexities and methodologies involved in evaluating LLMs and RAG systems, proposing new metrics and benchmarks specifically designed for these advanced models. Moreover, it features an in-depth case study on WISE, an AI chatbot developed by HPA, illustrating the real-world impact of integrating the RAG framework into AI-driven applications. Additionally, the thesis introduces the LLM Evaluator, a python package built to evaluate the performance of LLMs in the context of AI chatbots. In this study it is detailed its methodology, implementation, testing and visualization. The analysis of both applications includes also a discussion of their respective limitations and future improvements. Furthermore, the thesis addresses ethical considerations and regulatory frameworks, emphasizing the critical importance of responsible AI development in the evolving global landscape.
 
-Overall, this research analyzes the advancements of personalized AI chatbots by integrating LLMs and RAG technology, providing novel insights into model evaluation, and proposing future directions for both technological innovation and ethical governance in AI.
-
-\end{abstract}
+This research analyzes the advancements of personalized AI chatbots by integrating LLMs and RAG technology, showcasing both the theoretical and practical aspects of AI chatbots, with the aim of providing novel insights into model evaluation, and proposing future directions for both technological innovation and ethical governance in AI.
 
 \tableofcontents
 
-\printglossaries
-\addcontentsline{toc}{chapter}{Glossary}
-
-\printnomenclature
-\addcontentsline{toc}{chapter}{Nomenclature list}
-
 \mainmatter
-
-% --- NOTE: REMEMBER TO SORT IT IN ALPHABETICAL ORDER ---
 
 \section*{Glossary}
 \begin{description}
-    \item[AI] Artificial Intelligence, the simulation of human intelligence in machines.
-    \item[API] Application Programming Interface, a set of tools and protocols for building software and applications.
-    \item[CNN] Convolutional Neural Network, a type of deep learning algorithm primarily used for processing structured grid data like images.
-    \item[FFNN] Feed-Forward Neural Network, a type of neural network where connections between the nodes do not form cycles.
-    \item[FLOP] Floating Point Operations, a measure of computational performance, often used to quantify the operations in machine learning models.
-    \item[KG] Knowledge Graph, a network of entities and their relationships, used to represent and store complex structured and unstructured data.
-    \item[LLM] Large Language Model, a type of AI model designed to understand and generate human-like text.
-    \item[ML] Machine Learning, a subset of AI that focuses on building systems that learn from data.
-    \item[NLP] Natural Language Processing, a field of AI that focuses on the interaction between computers and humans through natural language.
-    \item[PEFT] Parameter-Efficient Fine-Tuning, a method that fine-tunes models using fewer parameters, making the process more efficient and less resource-intensive.
-    \item[R\&D] Research \& Development, activities that companies undertake to innovate and introduce new products and services.
+    \item[AI] Artificial Intelligence, the simulation of human intelligence in machines, enabling them to perform tasks that typically require human intelligence.
+    \item[ALM] Autoregressive Language Modeling, a technique in natural language processing where the model predicts the next word in a sequence based on previous words.
+    \item[API] Application Programming Interface, a set of tools and protocols for building software and applications, allowing different systems to communicate with each other.
+    \item[AR] Associative Recall, a process in cognitive science and AI where memories or data points are retrieved based on associations with other memories or data.
+    \item[BERT] Bidirectional Encoder Representations from Transformers, a pre-trained transformer model designed to understand the context of a word in search queries by looking at both preceding and following words.
+    \item[CNN] Convolutional Neural Network, a type of deep learning algorithm primarily used for processing structured grid data like images, leveraging convolutional layers to detect features in the input data.
+    \item[CoT] Chain of Thoughts, a reasoning process in AI where the system generates a sequence of intermediate steps or thoughts to arrive at a conclusion or solve a problem.
+    \item[FFNN] Feed-Forward Neural Network, a type of neural network where connections between the nodes do not form cycles, typically used for tasks like classification and regression.
+    \item[FLOP] Floating Point Operations, a measure of computational performance, often used to quantify the operations in machine learning models, particularly in evaluating their efficiency and speed.
+    \item[GPT] Generative Pre-trained Transformer, a type of AI model that generates human-like text by predicting the next word in a sentence based on the context provided by the preceding words.
+    \item[GNN] Graph Neural Network, a neural network that operates on graph structures, capturing relationships between nodes to perform tasks such as node classification and link prediction.
+    \item[HPA] High Performance Analytics, a company that specializes in designing and developing AI solutions tailored for industries such as energy, logistics, and manufacturing, leveraging deep mathematical expertise and innovative approaches.
+    \item[ICL] In Context Learning, a method in AI where the model learns to perform a task by being provided with examples of the task in the context, improving its ability to generalize from limited data.
+    \item[KG] Knowledge Graph, a network of entities and their relationships, used to represent and store complex structured and unstructured data, enabling enhanced search and reasoning capabilities.
+    \item[LLM] Large Language Model, a type of AI model designed to understand and generate human-like text, trained on vast amounts of data to handle various natural language processing tasks.
+    \item[ML] Machine Learning, a subset of AI that focuses on building systems that learn from data to make predictions or decisions without being explicitly programmed.
+    \item[MLM] Masked Language Modeling, a technique used in training language models where some words in a sentence are masked and the model learns to predict the missing words based on the context.
+    \item[NLG] Natural Language Generation, the process in AI of generating human-like text from a model, often used in applications such as chatbots and content creation.
+    \item[NLP] Natural Language Processing, a field of AI that focuses on the interaction between computers and humans through natural language, encompassing tasks like translation, sentiment analysis, and text generation.
+    \item[PEFT] Parameter-Efficient Fine-Tuning, a method that fine-tunes models using fewer parameters, making the process more efficient and less resource-intensive, particularly for large models.
+    \item[R\&D] Research \& Development, activities that companies undertake to innovate and introduce new products and services, often driving advancements in technology and industry.
     \item[RAG] Retrieval-Augmented Generation, a framework that combines retrieval mechanisms with generative models to improve the accuracy and relevance of AI-generated responses.
-    \item[RLHF] Reinforcement Learning from Human Feedback, a training methodology that improves models based on feedback from human evaluators.
-    \item[SSO] Single sign-on, an authentication method enabling a user to log in with a single ID across multiple related, independent software systems.
+    \item[RLHF] Reinforcement Learning from Human Feedback, a training methodology that improves models based on feedback from human evaluators, aligning the model's outputs with human preferences.
+    \item[RNN] Recurrent Neural Network, a type of neural network designed to recognize patterns in sequences of data, such as time series or natural language, where the output from previous steps is fed back into the network.
+    \item[SSM] State Space Models, mathematical models that represent physical systems using state variables, often used in control theory and signal processing to model dynamic systems.
+    \item[SSO] Single Sign-On, an authentication method that enables a user to log in with a single ID across multiple related, independent software systems, improving user convenience and security.
+    \item[TF-IDF] Term Frequency-Inverse Document Frequency, a statistical measure used in information retrieval and text mining to evaluate the importance of a word in a document relative to a collection of documents.
 \end{description}
