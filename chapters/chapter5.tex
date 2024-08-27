@@ -1,24 +1,24 @@
 \section{WISE: a Case Study}
 
-In this chapter, a case study is presented and discussed  focusing on WISE, a proprietary chatbot developed by HPA: High Performance Analytics. WISE leverages the Retrieval-Augmented Generation (RAG) framework to enhance its information retrieval capabilities, offering a sophisticated and efficient solution for a wide range of applications. In addition, this chapter will introduce my internship project developed at HPA during spring 2024, the LLM Evaluator, illustrating its implementation, methodologies, and potential work improvements. This overview will provide insights into the development and evaluation of advanced AI systems in practical settings.
+In this chapter, a case study is presented and discussed  focusing on WISE, a proprietary chatbot developed by HPA: High Performance Analytics. WISE utilizes the Retrieval-Augmented Generation (RAG) framework to enhance its information retrieval capabilities, offering a comprehensive and efficient solution for a wide range of applications. In addition, this chapter will introduce my internship project developed at HPA during spring 2024, the LLM Evaluator, illustrating its implementation, methodologies, and potential work improvements. This overview will provide insights into the development and evaluation of advanced AI systems in practical settings.
 
 \subsection{HPA: High Performance Analytics}
 
-HPA is a spin-off of the University of Verona and AI Competence Center (AICC) of Terranova Software \cite{terranova2024}. Since its inception in 2017, HPA has been dedicated to designing and developing AI solutions tailored for small and medium-sized enterprises and large corporations. The company is proud of the motto “Math to Innovate,” which emphasizes the deep mathematical expertise accumulated over two decades of academic research.
+HPA is a spin-off of the University of Verona and AI Competence Center (AICC) of Terranova Software \cite{terranova2024}. Since its inception in 2017, HPA has been dedicated to designing and developing AI solutions tailored for small and medium-sized enterprises and large corporations. The company adopts of the motto “Math to Innovate,” which emphasizes the deep mathematical expertise accumulated over two decades of academic research.
 
-With six years of experience in the field, HPA boasts a highly qualified team of experts and has developed proprietary techniques that set it apart in the field of AI. Over the years, the company has successfully completed more than 30 projects, demonstrating its capability and commitment to providing high-quality AI solutions.
+With six years of experience in the field, HPA has a qualified team of experts and has developed proprietary techniques that set it apart in the field of AI. Over the years, the company has completed more than 30 projects, showcasing its ability to provide high-quality AI solutions.
 
-HPA specializes in various application fields, including predictive analytics, anomaly detection, image recognition, combinatorial optimization, generative AI, and NLP. The company's solutions are implemented in diverse industries, such as energy and utilities, transportation and logistics, manufacturing, security, and payments. This breadth of applications demonstrates HPA's versatility and its ability to adapt AI technologies to effectively meet the needs of specific industries.
+HPA specializes in various application fields, including predictive analytics, anomaly detection, image recognition, combinatorial optimization, generative AI, and NLP. The company's solutions are implemented in diverse industries, such as energy and utilities, transportation and logistics, manufacturing, security, and payments. This breadth of applications demonstrates HPA's capability to adapt AI technologies to effectively meet the needs of specific industries.
 
-Leveraging its extensive experience and innovative approaches, HPA continues to lead AI advances, providing impactful solutions that address a wide range of business challenges.
+Leveraging its extensive experience and innovative approaches, HPA continues to contribute to AI developments, providing effective solutions that address a wide range of business challenges.
 
-\subsection{Introducing WISE: Transforming Document Management}
+\subsection{Introducing WISE}
 
 For decades, the process of searching and consulting documents and manuals in companies has followed the same paradigm. This traditional method involves identifying keywords, clicking on each link, opening the documents, and finally selecting and collecting the information of interest. This workflow is not only time-consuming and repetitive, but also highly inefficient, consuming valuable time and resources.
 
-WISE revolutionizes document management by leveraging generative artificial intelligence. Using LLMs embedded in a proprietary workflow, WISE enables users to perform complex natural language searches across multiple sources and entire databases. 
+WISE improves document management by leveraging generative AI. Using LLMs embedded in a proprietary workflow, WISE enables users to perform complex natural language searches across multiple sources and entire databases.
 
-When a question is asked, WISE efficiently queries relevant documents and data, extracts relevant information, and provides an answer within seconds. Answers are provided in a textual, conversational format, mimicking the interaction one would have with an experienced colleague. WISE stands out as an always-available, secure, reliable and knowledgeable virtual assistant, significantly simplifying and accelerating the document management process. \cite{hpa2024}
+When a question is asked, WISE queries relevant documents and data, extracts relevant information, and provides an answer within seconds. Answers are provided in a textual, conversational format, mimicking the interaction one would have with an experienced colleague. WISE serves as an always-available, secure, reliable, and knowledgeable virtual assistant, streamlining the document management process. \cite{hpa2024}
 
 \begin{figure}[h!]
     \centering
@@ -53,22 +53,23 @@ Today, only 35\% of a company's data is available to management. Dashboards and 
     \item \textbf{Automatic Summaries, Comparisons, and Inconsistency Checks:} WISE can generate concise summaries, compare documents, and identify inconsistencies. This feature saves users time by automatically creating summaries of long documents, highlighting key points and identifying discrepancies between different documents. In this way, the user is able to quickly understand and use the information.
     
     \item \textbf{Automatic Text Generation:} WISE can create various text documents based on the data it accesses. This includes the generation of user manuals, contracts, articles and other documentation, ensuring that all generated content is consistent with the latest data and company standards. The system simplifies the documentation process, reducing the workload of employees.
-    
+
     \item \textbf{Integration with Enterprise Systems (CRM, ERP):} WISE integrates seamlessly with other enterprise systems, increasing their usefulness and reach. By connecting to Customer Relationship Management (CRM) and Enterprise Resource Planning (ERP) systems, WISE can access and leverage data from different business functions. This integration provides users with a comprehensive view of the organization's data and processes, facilitating decision making.
-    
+
     \item \textbf{Multilingual by Design:} WISE supports multiple languages to ensure that users with different language backgrounds can easily interact with the system. By transparently managing foreign language conversations, WISE facilitates seamless communication and data retrieval in multinational companies.
-    
+
     \item \textbf{Multimodality:} Supports images and videos, enabling users to query multimedia content and improving the scope of information retrieval. This feature enables WISE to process and understand visual data, making it possible to search and retrieve information from images, diagrams, and video content. It is particularly useful in areas such as manufacturing and security, where visual data is critical.
-    
+
     \item \textbf{Response Evaluation and RLHF:} Users can evaluate the responses provided by WISE, facilitating continuous improvement through Reinforcement Learning from Human Feedback (RLHF). This feedback mechanism helps refine artificial intelligence models and improve the accuracy and relevance of the information provided. It ensures that WISE evolves based on user interactions and feedback, leading to improved performance over time.
-    
+
     \item \textbf{Spreadsheet Support (XLS):} WISE can interpret and retrieve information from spreadsheet files. This functionality is critical for organizations that rely on spreadsheets for data management and reporting. WISE can read, process, and extract relevant information from complex Excel files, providing users with fast and accurate access to data.
-    
+
     \item \textbf{Supports Structured and Unstructured Databases:} WISE can handle different types of data formats, providing flexibility and comprehensive search capabilities. Whether data is organized in structured formats such as SQL databases or unstructured forms such as text documents and e-mail, WISE can efficiently process and retrieve relevant information. This versatility makes it an indispensable tool for organizations with diverse data storage systems.
-    
+
     \item \textbf{Two-Factor Authentication (2FA) or Enterprise Single Sign-On (SSO):} These methods provide secure access to the system. Two-factor authentication adds an additional layer of security by requiring users to provide two forms of identification before accessing the system. Enterprise single sign-on allows employees to log in with their corporate credentials, simplifying the authentication process while maintaining high security standards.
-    
+
     \item \textbf{Uses Triggers and Actions for Process Automation:} This feature enhances workflow automation by responding to specific triggers with predefined actions. For example, WISE can automatically send notifications, update records, or initiate workflows based on user requests or data changes. This automation capability improves operational efficiency and reduces the potential for human error.
+
 \end{itemize}
 
 \subsubsection{Interaction Modes}
@@ -82,7 +83,7 @@ To provide access to these features, WISE offers multiple interaction modes to c
 
 \subsection{WISE Technology Stack}
 
-The WISE technology stack integrates several components to provide a robust and efficient system for document management and information retrieval. WISE is built using the LangChain \cite{langchain2024} framework, which provides a powerful and flexible platform for developing applications involving complex language understanding and generation tasks.
+The WISE technology stack integrates several components to provide a robust and efficient system for document management and information retrieval. WISE is built using the LangChain \cite{langchain2024} framework, which serves as a flexible platform for developing applications involving complex language understanding and generation tasks.
 
 \begin{figure}[h!]
     \centering
@@ -91,12 +92,12 @@ The WISE technology stack integrates several components to provide a robust and 
     \label{fig:wise-stack}
 \end{figure}
 
-Designed to be flexible, scalable and efficient, the WISE technology stack shown in the figure \ref{fig:wise-stack}, leverages the power of LLMs and robust backend infrastructure. Key components include:
+As shown in figure \ref{fig:wise-stack}, the WISE technology stack is designed to be flexible, scalable, and efficient, utilizing LLMs and a robust backend infrastructure. Key components include:
 
 \begin{itemize}
-    \item \textbf{Integration of large language models}. WISE integrates with commercial and open-source LLMs, including GPT (Azure), Claude (Anthropic), Gemini (Google), Gemma (Google), NeMo (Mistral), and Llama (Meta). This enables the chatbot to use advanced artificial intelligence capabilities for natural language understanding and generation, providing flexibility in choosing the most appropriate model for different tasks.
+    \item \textbf{Integration of large language models}. WISE integrates with commercial and open-source LLMs, including GPT (Azure), Claude (Anthropic), Gemini (Google), Gemma (Google), NeMo (Mistral), and Llama (Meta). This enables the chatbot to employ advanced artificial intelligence capabilities for natural language understanding and generation, providing flexibility in choosing the most appropriate model for different tasks.
 
-    \item \textbf{API Interface:} The API interface facilitates communication between the user and the WISE backend. Users interact with WISE through this API, which processes requests and retrieves relevant information from the backend.
+    \item \textbf{API Interface:} The API interface **enables** communication between the user and the WISE backend. Users interact with WISE through this API, which processes requests and retrieves relevant information from the backend.
 
     \item \textbf{WISE Backend:} The backend consists of the WISE engine, which is responsible for processing user requests, retrieving information, and generating responses. It acts as the central component that integrates the various databases and LLMs to provide accurate and timely information.
 \end{itemize}
@@ -109,33 +110,33 @@ Designed to be flexible, scalable and efficient, the WISE technology stack shown
     \item \textbf{Postgres SQL Database:} Used to manage user data, permissions, and chat history. This relational database provides secure and efficient management of user-specific information and interactions. \cite{hpa2024}
 \end{itemize}
 
-This comprehensive technology stack enables WISE to provide high-performance document management and information retrieval services, ensuring scalability, security and flexibility to meet the diverse needs of different industries.
+This comprehensive technology stack enables WISE to provide effective document management and information retrieval services, ensuring scalability, security, and flexibility to meet the diverse needs of different industries.
 
 \subsection{Advantages of WISE}
 
-WISE offers several key advantages that make it a valuable tool for companies. These advantages mean that WISE not only meets an organization's immediate needs, but also provides long-term value through continuous improvement and adaptability:
+WISE provides several benefits that can be useful for companies. These benefits allow WISE to address an organization’s current needs while also offering ongoing value through continuous improvement and adaptability:
 
-\begin{itemize}    
-    \item \textbf{No hallucination}. WISE provides only deterministic, accurate and consistent answers. It bases its knowledge solely on official documents provided by the company, eliminating the risk of generating incorrect or misleading information. This reliability is critical to maintaining trust and ensuring that users can rely on WISE to always provide accurate information.
+\begin{itemize}
+    \item \textbf{No hallucination}. WISE provides deterministic, accurate, and consistent answers based solely on official company documents, eliminating the risk of incorrect or misleading information. This reliability is critical to maintaining trust and ensuring that users can rely on WISE to always provide accurate information.
     
-    \item \textbf{Always updated}. Thanks to automatic document updating and formatting procedures, WISE always accesses the latest version of documents. This feature is especially important in areas where information changes frequently, such as legal, medical, or regulatory. By ensuring access to the most up-to-date data, WISE helps organizations remain compliant and make informed decisions based on the latest information.
-    
-    \item \textbf{Security of data and access:} Data security is a top priority for WISE. All data is encrypted and access to documents is managed through strict security policies at both group and user levels. In addition, WISE can be integrated with corporate single sign-on (SSO) systems, ensuring secure and seamless access for employees. These security measures protect sensitive information from unauthorized access and ensure compliance with data protection regulations.
-    
-    \item \textbf{Efficiency and scalability 24/7:} WISE is designed to handle thousands of requests in seconds, making it highly efficient and scalable. It runs 24/7, ensuring that users have access to information whenever they need it. The pay-per-use model offers maximum flexibility and scalability, allowing companies to increase or decrease usage based on demand without incurring unnecessary costs.
-    
-    \item \textbf{Fast deployment:} WISE's API-based cloud architecture, which is API agnostic to the specific LLM used, ensures reduced implementation time. This means that companies can quickly deploy WISE and start taking advantage of its benefits without lengthy configuration processes. The flexibility of the cloud-based system also makes it easy to upgrade and integrate with existing IT infrastructure, further simplifying the implementation process. \cite{hpa2024}
+    \item \textbf{Always updated}. WISE automatically updates and formats documents, ensuring access to the most current information, which is particularly important in fields like legal, medical, or regulatory. By ensuring access to the most up-to-date data, WISE helps organizations remain compliant and make informed decisions based on the latest information.
+
+    \item \textbf{Security of data and access}. WISE prioritizes data security with encryption and strict access controls, including integration with corporate single sign-on (SSO) systems to manage secure access. These security measures protect sensitive information from unauthorized access and ensure compliance with data protection regulations.
+
+    \item \textbf{Efficiency and scalability 24/7}. WISE can process thousands of requests in seconds, operates 24/7, and offers scalability through a pay-per-use model, allowing adjustments in usage based on demand.
+
+    \item \textbf{Fast deployment}. WISE's API-based cloud architecture allows for quick implementation and easy integration with existing IT infrastructure, reducing deployment time. This means that companies can quickly deploy WISE and start utilizing its benefits without lengthy configuration processes \cite{hpa2024}.
 \end{itemize}
 
 
 \subsection{Industry Applications}
 
-WISE and its underlying technologies, including NLP and generative AI, have a wide range of applications in various fields. The following sections highlight some of the key areas where WISE offers significant benefits:
+WISE and its underlying technologies, including NLP and generative AI, have a wide range of applications in various fields. This section highlights some of the key areas where WISE offers significant benefits:
 
 \begin{itemize}
     \item \textbf{Insurance:} In the insurance industry, WISE supports telephone operators in customer service, helping them provide accurate and timely information to customers. Using NLP and generative AI, WISE can automatically analyze insurance claims, generate summaries of complex regulations, and assist operators in consulting policy texts and circulars. This improves operational efficiency and customer satisfaction, simplifying and speeding up the consulting work of insurance consultants.
     \item \textbf{Banks:} WISE assists financial advisors in proposing potential investment plans and supports branch operators in assisting customers. In banking, NLP and generative AI are used to improve customer service through intelligent software agents. These agents help with procedures, automated claims analysis, and synthesis of complex account and policy regulations. This technology optimizes the advisory work of bankers, improving operational efficiency and customer satisfaction.
-    Generative artificial intelligence can also be used for consulting regulations, rules, and circulars through a conversational interface, making it easier for bank employees to access and understand relevant information.
+    Generative AI can also be used for consulting regulations, rules, and circulars through a conversational interface, making it easier for bank employees to access and understand relevant information.
     \item \textbf{Energy:} In the energy sector, WISE supports customers in inquiring about consumption data reported on bills and assists energy managers in consulting consumption data. NLP and generative AI improve customer interaction through intelligent chatbots that answer frequently asked questions, automate service requests, and provide service updates. In addition, these technologies can analyze customer feedback from social media and other platforms to optimize services.
     Generative AI in energy management applications allows users to access documents and data through a conversational interface, providing personalized recommendations for energy savings based on consumption patterns.
     \item \textbf{Manufacturing:} In the manufacturing industry, WISE supports maintenance operators in accessing product technical manuals. NLP and generative AI automate technical documentation and maintenance reports by creating texts based on specific input data. This automation improves the efficiency of customer feedback analysis, identifying areas for product improvement.  \cite{hpa2024}
@@ -143,23 +144,21 @@ WISE and its underlying technologies, including NLP and generative AI, have a wi
 
 In summary, WISE offers versatile solutions in different areas, improving operational efficiency, customer satisfaction, and regulatory compliance.
 
-
-
 \subsection{Future Works and Improvements}
 
 Although WISE provides a robust and efficient solution for document management and information retrieval, several areas of work and improvement have been identified to further enhance its capabilities:
 
 \begin{itemize}
-    \item \textbf{Integration of AI agents:} Future developments could include the integration of AI agents to automate more complex tasks and workflows. Multi-agent systems (MAS) have been widely recognized for their ability to solve complex problems by breaking them down into smaller tasks assigned to autonomous agents. Each agent can decide on the correct actions based on multiple inputs, such as historical actions, interactions with neighboring agents, and its own goals. Despite their wide applicability in areas such as complex systems modeling, intelligent networks, and computer networks, MAS face challenges such as coordination among agents, security, and task assignment. By addressing these challenges, integrating artificial intelligence agents into WISE could significantly improve its functionality, providing users with a more interactive and automated experience. This approach would enable WISE to handle more complex workflows and improve overall efficiency. \cite{dorri2018multi}
+    \item \textbf{Integration of AI agents:} Future developments could include the integration of AI agents to automate more complex tasks and workflows. Multi-agent systems (MAS) have been widely recognized for their ability to solve complex problems by breaking them down into smaller tasks assigned to autonomous agents. Each agent can decide on the correct actions based on multiple inputs, such as historical actions, interactions with neighboring agents, and its own goals. Despite their wide applicability in areas such as complex systems modeling, intelligent networks, and computer networks, MAS face challenges such as coordination among agents, security, and task assignment. By addressing these challenges, integrating artificial intelligence agents into WISE could significantly improve its functionality, enabling WISE to handle more complex workflows and improve overall efficiency \cite{dorri2018multi}.
 
-    \item \textbf{Bias Mitigation:} Developing techniques to detect and mitigate biases in the LLMs used by WISE will improve the fairness and accuracy of its responses. Addressing these biases requires a holistic approach involving diverse and representative datasets, increased transparency and accountability in AI systems, and the exploration of alternative AI paradigms that prioritize equity and ethical considerations. \cite{ferrara2023fairness}
+    \item \textbf{Bias Mitigation:} Developing techniques to detect and mitigate biases in the LLMs used by WISE will improve the fairness and accuracy of its responses. Addressing these biases requires a holistic approach involving diverse and representative datasets, increased transparency and accountability in AI systems, and the exploration of alternative AI paradigms that prioritize equity and ethical considerations \cite{ferrara2023fairness}.
 
-    \item \textbf{Efficient use of resources:} Optimizing the computational efficiency of WISE by exploiting smaller models, such as DistilBERT, can significantly reduce processing cost and time. Transfer learning from large-scale pre-trained models is increasingly popular in NLP, but running these large models at the edge or under limited computational budgets remains a challenge. DistilBERT is a small, general-purpose language representation model that can be tuned to perform well across a wide range of tasks, similar to its larger counterparts. Using knowledge distillation during the pre-training phase, DistilBERT achieves a 40\% reduction in model size while maintaining 97\% of BERT's language comprehension capabilities and being 60\% faster. This approach not only makes the model cheaper to pre-train, but it is also suitable for on-device calculations, improving the accessibility and affordability of WISE for a wider range of organizations. \cite{sanh2019distilbert}
+    \item \textbf{Efficient use of resources:} Optimizing the computational efficiency of WISE by exploiting smaller models, such as DistilBERT, can significantly reduce processing cost and time. Transfer learning from large-scale pre-trained models is increasingly popular in NLP, but running these large models at the edge or under limited computational budgets remains a challenge. DistilBERT is a small, general-purpose language representation model that can be tuned to perform well across a wide range of tasks, similar to its larger counterparts. Using knowledge distillation during the pre-training phase, DistilBERT achieves a 40\% reduction in model size while maintaining 97\% of BERT's language comprehension capabilities and being 60\% faster. This approach not only makes the model cheaper to pre-train, but it is also suitable for on-device calculations, improving the accessibility and affordability of WISE for a wider range of organizations \cite{sanh2019distilbert}.
 \end{itemize}
 
-WISE represents a cutting-edge approach to document management and information retrieval, leveraging advanced artificial intelligence technologies to deliver efficient, accurate and context-aware solutions. WISE stands out for its ability to solve the inefficiencies of traditional document retrieval methods. The integration of LLM and the RAG framework allows users to interact with a sophisticated virtual assistant that can understand natural language queries and provide accurate and relevant answers from extensive knowledge bases. Moreover, WISE's extensive capabilities, including multilingual support, multimodal capabilities, and secure access features, make it a versatile and indispensable tool for modern businesses.
+WISE exemplifies a modern approach to document management and information retrieval, leveraging advanced artificial intelligence technologies to deliver efficient, accurate, and context-aware solutions. WISE addresses the inefficiencies of traditional document retrieval methods. The integration of LLM and the RAG framework allows users to interact with a capable virtual assistant that can understand natural language queries and provide accurate and relevant answers from extensive knowledge bases. Moreover, WISE's broad capabilities, including multilingual support, multimodal capabilities, and secure access features, make it a versatile and valuable tool for modern businesses.
 
-Looking ahead, the areas identified for future work, such as AI agent integration, bias mitigation, and resource efficiency, highlight the ongoing efforts to improve WISE's capabilities. These enhancements will further strengthen WISE's position as a leader in AI-driven document management, ensuring that it continues to meet the evolving needs of its users and maintain its competitive edge in the marketplace.
+Looking ahead, the areas identified for future work, such as AI agent integration, bias mitigation, and resource efficiency, highlight the ongoing efforts to improve WISE's capabilities. These enhancements will further strengthen WISE's position as a notable AI-driven document management solution, ensuring that it continues to meet the evolving needs of its users and maintain its relevance in the marketplace.
 
 \newpage
 
@@ -231,7 +230,7 @@ Each module of the evaluation system was tested to ensure its robustness and acc
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/llme/llm-performance-average-metrics.png}
+    \includegraphics[width=0.9\textwidth]{images/llme/llm-performance-average-metrics.png}
     \caption{Evaluation Report: This chart displays the average scores for numeric metrics. The visualization provides an overview of the model's performance across different dimensions, highlighting areas where the AI chatbots excels and areas that may require improvement.}
     \label{fig:llm-performance-average-metrics}
 \end{figure}
@@ -240,14 +239,14 @@ The visualizations presented in figures \ref{fig:llm-performance-average-metrics
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/llme/metrics-comparison.png}
+    \includegraphics[width=0.9\textwidth]{images/llme/metrics-comparison.png}
     \caption{Metrics Comparison: This graph compares various performance metrics for each instance. The comparison helps in understanding the consistency of the model's performance across different instances and provides insights into specific cases where the chatbot's performance may vary significantly.}
     \label{fig:metrics-comparison}
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/llme/assistant-performance-table-2.png}
+    \includegraphics[width=0.9\textwidth]{images/llme/assistant-performance-table-2.png}
     \caption{Assistant Performance Table: This table provides a detailed breakdown of the performance metrics for each instance. Subjectivity, polarity and sentiment analysis display null results due to the entries in Italian language. The table helps in identifying strengths and weaknesses in the assistant responses, facilitating a comprehensive evaluation of the model's performance.}
     \label{fig:assistant-performance-table}
 \end{figure}
@@ -280,7 +279,7 @@ To address these limitations and improve the capabilities of the LLM Evaluator, 
 \begin{itemize}
     \item \textbf{Multilingual Support:} Expanding sentiment analysis capabilities to support multiple languages using advanced NLP libraries or multilingual LLMs will enhance the evaluator's applicability across different language environments, aligning with WISE's multilingual capabilities. \cite{abdullah2021multilingual}
     \item \textbf{Bias Mitigation:} As mentioned in the WISE section, developing techniques to detect and mitigate biases in the LLMs will improve the fairness and accuracy of assessments. This includes incorporating bias detection tools or using unbiased models. \cite{ferrara2023fairness}
-    \item \textbf{Efficient Use of Resources:} Similar to the improvements suggested for WISE, optimizing the evaluator's computational efficiency by leveraging lighter models for preliminary evaluations can reduce processing costs and time. Examples of lighter models include DistilBERT, ALBERT, and TinyBERT, which offer significant reductions in size and computational requirements while maintaining strong performance. \cite{sanh2019distilbert} \cite{lan2019albert} \cite{jiao2019tinybert}
+    \item \textbf{Efficient Use of Resources:} Similar to the improvements suggested for WISE, optimizing the evaluator's computational efficiency by leveraging lighter models for preliminary evaluations can reduce processing costs and time. Examples of lighter models include DistilBERT, ALBERT, and TinyBERT, which offer significant reductions in size and computational requirements while maintaining strong performance. \cite{sanh2019distilbert, lan2019albert, jiao2019tinybert}
     \item \textbf{Dynamic Updating of References:} Implementing mechanisms to dynamically update reference responses based on the latest information and changing contexts will enhance the relevance and accuracy of assessments. To address the challenge of integrating dynamically created reference responses by humans, an automated system could be developed. This system would leverage AI to monitor and gather the latest relevant data from trusted sources and then generate updated reference responses. Additionally, incorporating a human-in-the-loop approach ensures that these AI-generated updates are verified for accuracy and relevance before being used in evaluations. \cite{wu2022survey}
 \end{itemize}
 
