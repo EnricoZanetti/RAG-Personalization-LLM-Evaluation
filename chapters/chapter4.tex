@@ -70,7 +70,7 @@ Based on the literature that adopted automatic evaluation, common metrics in aut
 \hline
 \textbf{General metrics} & \textbf{Metrics} \\ \hline
 Accuracy & Exact match, Quasi-exact match, F1 score, ROUGE score \\ \hline
-Calibrations & Expected calibration error, Area under the curve \\ \hline
+Calibration & Expected calibration error, Area under the curve \\ \hline
 Fairness & Demographic parity difference, Equalized odds difference \\ \hline
 Robustness & Attack success rate, Performance drop rate \\ \hline
 \end{tabular}
@@ -107,7 +107,7 @@ However, also the collaborative approach is not without its drawbacks. It still 
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/eval/coeval.png}
+    \includegraphics[width=0.6\textwidth]{images/eval/coeval.png}
     \caption{The COEVAL pipeline demonstrates a collaborative evaluation approach, combining LLM-generated ideation with human scrutiny to refine and validate the evaluation process. This method, illustrated in the lower part of the figure, contrasts with conventional evaluation methods (upper part) by integrating both machine-driven and human-refined assessments. \textit{Source:} \cite{li2023collaborative}}
     \label{fig:coeval_pipeline}
 \end{figure}
