@@ -47,26 +47,6 @@ This thesis aims to bridge technological advancements with ethical consideration
 
 ---
 
-## 📂 Repository Structure
-
-```plaintext
-├── chapters
-│   ├── chapter1.tex
-│   ├── chapter2.tex
-│   ├── chapter3.tex
-│   ├── chapter4.tex
-│   ├── chapter5.tex
-│   ├── chapter6.tex
-│   └── conclusion.tex
-├── images
-├── layout
-├── LICENSE
-├── README.md
-├── Zanetti-thesis-RAG-based-Personalization-LLMs.pdf
-├── bibliography.bib
-├── frontespizio.sty
-└── main.tex
-```
 ### Folder and File Descriptions
 
 - **chapters/**: Contains LaTeX files for each chapter and the conclusion of the thesis.
@@ -76,7 +56,7 @@ This thesis aims to bridge technological advancements with ethical consideration
 - **layout/**: Folder containing layout or style files for formatting the thesis.
 - **LICENSE**: License file for the repository.
 - **README.md**: Documentation and overview of the repository.
-- **Zanetti-thesis-RAG-based-Personalization-LLMs.pdf**: The final compiled PDF of the thesis.
+- **Zanetti-thesis-RAG-based-Personalization-LLMs-Evaluation-AI-Chatbots.pdf**: The final compiled PDF of the thesis.
 - **bibliography.bib**: BibTeX file containing references used in the thesis.
 - **frontespizio.sty**: Style file for the thesis cover page.
 - **main.tex**: Main LaTeX file that compiles the thesis by including all chapters, references, and formatting.
