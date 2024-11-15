@@ -67,7 +67,7 @@ This thesis aims to bridge technological advancements with ethical consideration
 
 This research was made possible through:
 - The guidance and support of my academic advisors and mentors.
-- Collaboration with HPA for the development and analysis of WISE.
+- Collaboration with [HPA](https://hpa.ai/) for the development and analysis of WISE.
 
 ---
 
