@@ -74,5 +74,5 @@ This research was made possible through:
 ## 📬 Contact
 
 For questions or collaboration opportunities, please reach out:
-	•	Email: enricozanetti1998@gmail.com
-	•	LinkedIn: [Enrico Zanetti](https://www.linkedin.com/in/enrico-zanetti/)
+- Email: enricozanetti1998@gmail.com
+- LinkedIn: [Enrico Zanetti](https://www.linkedin.com/in/enrico-zanetti/)
