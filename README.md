@@ -6,7 +6,7 @@ This repository contains the final thesis document and supporting materials for 
 
 ## 📄 Final Thesis
 
-The final thesis document is available as a `.pdf` file and can be found in this repository:  
+The final thesis document is available as a `.pdf` file and can be found here:
 **[Zanetti-thesis-RAG-based-Personalization-LLMs.pdf](./Zanetti-thesis-RAG-based-Personalization-LLMs-Evaluation-AI-Chatbots.pdf)**
 
 ---
