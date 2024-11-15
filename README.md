@@ -1,19 +1,101 @@
 # RAG-based Personalization and LLMs Evaluation for AI Chatbots
 
-This thesis explores AI chatbot development landscape with the integration of Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG), emphasizing the dual objectives of enhancing user interaction and evaluating model performance. It begins by tracing the evolution of AI chatbots, from early rule-based systems to advanced LLM-driven interfaces, highlighting their applications across various domains such as education, healthcare, and finance. The study delves into the foundational aspects of LLMs, including their architecture, training methodologies, and limitations, with a particular focus on the Transformer architecture and the RAG paradigm. RAG, which combines retrieval mechanisms with generative models, is analyzed for its potential to improve the relevance and accuracy of chatbot responses, thereby enabling greater personalization.
+**Author:** Enrico Zanetti  
+**Degree:** Master's Thesis in Data Science  
 
-The thesis delves into the complexities and methodologies involved in evaluating LLMs and RAG systems, proposing new metrics and benchmarks specifically designed for these advanced models. Moreover, it features an in-depth case study on WISE, an AI chatbot developed by HPA, illustrating the real-world impact of integrating the RAG framework into AI-driven applications. Additionally, the thesis introduces the LLM Evaluator, a python package built to evaluate the performance of LLMs in the context of AI chatbots. In this study it is detailed its methodology, implementation, testing and visualization. The analysis of both applications includes also a discussion of their respective limitations and future improvements. Furthermore, the thesis addresses ethical considerations and regulatory frameworks, emphasizing the critical importance of responsible AI development in the evolving global landscape.
+This repository contains the final thesis document and supporting materials for my research on AI chatbot development, focusing on integrating Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) to enhance user interaction and improve model evaluation methodologies.
 
-This research analyzes the advancements of personalized AI chatbots by integrating LLMs and RAG technology, showcasing both the theoretical and practical aspects of AI chatbots, with the aim of providing novel insights into model evaluation, and proposing future directions for both technological innovation and ethical governance in AI.
+---
 
-## Motivation
+## 📄 Final Thesis
 
-My interest in this research stems from a deep passion for natural languages and the transformative potential of artificial intelligence (AI) applications, that find their union in AI chatbots. This enthusiasm is deeply rooted in my fascination with the complexities of human societies and global phenomena, an interest that also comes from by my background in International Studies. Throughout my master’s studies in Data Science, I became increasingly captivated by the technical aspects of AI, especially the complexities of machine learning and deep learning. I was captivated by how these fields draw inspiration from the neural connections of the human brain, truly embodying the concept of “artificial intelligence”.
+The final thesis document is available as a `.pdf` file and can be found in this repository:  
+**[Zanetti-thesis-RAG-based-Personalization-LLMs.pdf](./Zanetti-thesis-RAG-based-Personalization-LLMs.pdf)**
 
-Moreover, I am especially intrigued by AI’s potential to significantly enhance and simplify essential tasks such as information retrieval, a crucial capability of the historical period we're living in: the Information Age \cite{wikipedia_information_age}. The rapid advancements in AI, particularly in the development of chatbots and large language models (LLMs), have only deepened my interest due to their profound implications for human-technology interaction and information accessibility. The release of ChatGPT in late November 2022 was a pivotal moment for me, reshaping my conception of work and transforming how I perceive the accessibility of information. This breakthrough has ignited a sense of revolution in my approach to AI, unveiling new possibilities for how we interact with and harness the vast expanse of human knowledge in our daily lives.
+---
 
-However, alongside these technical fascinations lie concerns for the ethical, technical and societal issues associated with AI. The challenges that AI systems face, such as bias, misinformation, and hallucinations, highlight the need for a responsible approach to AI development. Moreover, the technical limitations of AI, including issues related to model size, the intricacies of training processes, and the evaluation of AI performance, further underscore the complexity of ensuring these systems are both effective and ethically sound. My curiosity includes both the technical aspects of AI and the geopolitical, ethical, and regulatory dimensions that influence how these technologies are governed and integrated into society.
+## 📖 Abstract
 
-In particular, I am drawn to the complexities of evaluating and improving AI systems, especially in terms of personalization and reliability. The innovative techniques like Retrieval-Augmented Generation (RAG) and a fast, reliable and valuable evaluation of the output of LLMs present promising avenues to address some of these challenges, offering a way to enhance the accuracy and relevance of AI-generated content. My research is motivated by a desire to contribute to this evolving field, exploring solutions that can mitigate the risks of AI while maximizing its benefits for users worldwide. 
+This thesis explores the evolution of AI chatbots from early rule-based systems to advanced LLM-driven interfaces, highlighting their applications in education, healthcare, finance, and other domains. It examines the foundational aspects of LLMs, including their architecture, training methods, and limitations, with a focus on the Transformer architecture and the RAG paradigm. By combining retrieval mechanisms with generative models, RAG improves the relevance and personalization of chatbot responses.
 
-Through this work, I aim to create a unique discourse between technological innovation and ethical responsibility, ensuring that AI not only advances in capability but also aligns with the values and needs of society.
+The research proposes novel metrics and benchmarks for evaluating LLMs and RAG systems, supported by a case study on WISE, an AI chatbot developed by HPA. Additionally, it introduces the **LLM Evaluator**, a Python package for assessing LLM performance in chatbots, covering its methodology, implementation, and testing. Ethical considerations and regulatory frameworks are also discussed, emphasizing the importance of responsible AI development.
+
+This work provides theoretical and practical insights into using LLMs and RAG for personalized AI chatbots, contributing to model evaluation techniques and responsible AI innovation.
+
+---
+
+## ✨ Motivation
+
+My passion for AI chatbots comes from an interest in natural languages, artificial intelligence, and their transformative potential for human-technology interaction. This fascination is deeply rooted in my academic background in International Studies and my master’s studies in Data Science, where I developed a strong interest in machine learning and deep learning.
+
+Key motivations:
+- **Revolution in Information Access**: The release of ChatGPT in November 2022 was a pivotal moment, reshaping my view of knowledge accessibility.
+- **Ethical and Technical Challenges**: Addressing concerns around bias, misinformation, hallucinations, and AI evaluation complexity.
+- **Personalization and Reliability**: Investigating techniques like RAG and reliable LLM evaluation to improve AI accuracy and relevance.
+
+This thesis aims to bridge technological advancements with ethical considerations, ensuring that AI aligns with societal values.
+
+---
+
+## 🛠️ Key Contributions
+
+1. **Exploration of RAG for AI Chatbots**:
+   - Integrating retrieval mechanisms with generative models to enhance response relevance and personalization.
+2. **LLM Evaluator**:
+   - Development of a Python package for evaluating LLM performance, covering methodology, implementation, testing, and visualization.
+3. **Case Study on WISE**:
+   - Analysis of RAG’s real-world applications in AI-driven chatbots, showcasing practical impacts and limitations.
+4. **Ethical Frameworks**:
+   - Discussion of ethical and regulatory considerations in AI development.
+
+---
+
+## 📂 Repository Structure
+
+```plaintext
+├── chapters
+│   ├── chapter1.tex
+│   ├── chapter2.tex
+│   ├── chapter3.tex
+│   ├── chapter4.tex
+│   ├── chapter5.tex
+│   ├── chapter6.tex
+│   └── conclusion.tex
+├── images
+├── layout
+├── LICENSE
+├── README.md
+├── Zanetti-thesis-RAG-based-Personalization-LLMs.pdf
+├── bibliography.bib
+├── frontespizio.sty
+└── main.tex
+```
+### Folder and File Descriptions
+
+- **chapters/**: Contains LaTeX files for each chapter and the conclusion of the thesis.
+  - `chapter1.tex` to `chapter6.tex`: Individual files for each thesis chapter.
+  - `conclusion.tex`: File for the conclusion section of the thesis.
+- **images/**: Folder for images used throughout the thesis.
+- **layout/**: Folder containing layout or style files for formatting the thesis.
+- **LICENSE**: License file for the repository.
+- **README.md**: Documentation and overview of the repository.
+- **Zanetti-thesis-RAG-based-Personalization-LLMs.pdf**: The final compiled PDF of the thesis.
+- **bibliography.bib**: BibTeX file containing references used in the thesis.
+- **frontespizio.sty**: Style file for the thesis cover page.
+- **main.tex**: Main LaTeX file that compiles the thesis by including all chapters, references, and formatting.
+
+---
+
+## 🤝 Acknowledgments
+
+This research was made possible through:
+- The guidance and support of my academic advisors and mentors.
+- Collaboration with HPA for the development and analysis of WISE.
+
+---
+
+## 📬 Contact
+
+For questions or collaboration opportunities, please reach out:
+	•	Email: enricozanetti1998@gmail.com
+	•	LinkedIn: [Enrico Zanetti](https://www.linkedin.com/in/enrico-zanetti/)
