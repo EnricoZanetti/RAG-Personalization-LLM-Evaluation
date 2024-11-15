@@ -1,8 +1,5 @@
 # RAG-based Personalization and LLMs Evaluation for AI Chatbots
 
-**Author:** Enrico Zanetti  
-**Degree:** Master's Thesis in Data Science  
-
 This repository contains the final thesis document and supporting materials for my research on AI chatbot development, focusing on integrating Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) to enhance user interaction and improve model evaluation methodologies.
 
 ---
